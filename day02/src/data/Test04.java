@@ -5,6 +5,7 @@ import java.lang.*;
  * 성인 2명과 청소년 3명이 영화를 볼 때 이용요금을 출력*/
 public class Test04 {
 	public static void main(String[] args) {
+		//'=' 대입연산기호
 		int adult = 12000;
 		int teenager = 7500;
 		int adultPer = 2;
