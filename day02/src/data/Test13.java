@@ -10,6 +10,6 @@ public class Test13 {
 		
 		double total = (double)won/price;
 		
-		System.out.printf("%.1fL", total);
+		System.out.printf("%.3fL", total);
 	}
 }
