@@ -5,6 +5,6 @@ import java.lang.*;
 public class Test02 {
 	public static void main(String[] args) {
 		//System.out.println(28000);
-		System.out.println(5000*2 + 6000*3); //계산식 출력
+		System.out.println(5000*2 + 6000*3); //계산 출력
 	}
 }
