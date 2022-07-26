@@ -5,5 +5,6 @@ public class Hello {
 		//출력 코드 - 콘솔창에 글자 출력
 		System.out.println("Hello World!");
 		System.out.println("Hello World!");
+		//System.out.println("Hello World!");
 	}
 }
