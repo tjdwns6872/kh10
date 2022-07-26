@@ -2,7 +2,7 @@ package data;
 import java.lang.*;
 /*영화관 요금표
  * -성인 : 12000원, 청소년 : 7500원
- * 성인 2명과 처소년 3명이 영화를 볼 때 이용요금을 출력*/
+ * 성인 2명과 청소년 3명이 영화를 볼 때 이용요금을 출력*/
 public class Test04 {
 	public static void main(String[] args) {
 		int adult = 12000;
