@@ -1,5 +1,6 @@
 package data;
 import java.lang.*;
+import java.text.DecimalFormat;
 public class Test14 {
 	public static void main(String[] args) {
 		/*BMI 계산기
@@ -14,7 +15,10 @@ public class Test14 {
 		double bmicm = (double)cm / 100;
 		double bmi = kg / (bmicm * bmicm);
 		
-		System.out.printf("%.1f", bmi);
+		System.out.printf("%.2f \n", bmi);
+		
+		//DecimalFormat fm = new DecimalFormat("0.00");
+		//System.out.println(fm.format(bmi));
 		
 	}
 }
