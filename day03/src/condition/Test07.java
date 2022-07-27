@@ -22,10 +22,10 @@ public class Test07 {
 		int sale = 25;
 		
 		if(mon >= 6 && mon <= 8) {
-			all = (man * money)+(day*money);
+			all = (man * day) * money;
 			all = all*(100-sale)/100;
 		}else {
-			all = (man * money)+(day*money);
+			all = (man * day) * money;
 		}
 		System.out.println("총 금액은 : "+all);
 		
