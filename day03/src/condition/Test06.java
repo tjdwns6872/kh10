@@ -21,7 +21,7 @@ public class Test06 {
 			km -= speed;
 			fine = basic + ((km/10)*10000);
 			System.out.println("과속이 감지 되었습니다");
-			if(fine > 70000) {
+			if(fine >= 70000) {
 				fine = 70000;
 			}
 		}else {
