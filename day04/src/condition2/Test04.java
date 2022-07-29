@@ -13,7 +13,7 @@ public class Test04 {
 		 * 1. 연도가 4의 배수면 윤년이다.
 		 * 2. 4의 배수지만 100의 배수면 윤년이 아니다.
 		 * 3. 2번에 해당되더라도 400의 배수면 윤년이다.
-		 * */
+		 * *///
 		Scanner sc = new Scanner(System.in);
 		System.out.print("연도를 입력 하세요 : ");
 		int year = sc.nextInt();
