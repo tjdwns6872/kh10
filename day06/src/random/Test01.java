@@ -28,6 +28,7 @@ public class Test01 {
 		System.out.println("num1 : "+num);
 		
 		//(2) Random이라는 도구를 만들어서 값 생성
+		// -주의 : Random은 close()가 없다.
 		Random rand = new Random();
 		int num2 = rand.nextInt(10/*개*/)+1/*부터*/;
 		System.out.println("num2 : "+num2);
