@@ -14,9 +14,11 @@ public class Test07 {
 		Random rand = new Random(); //Random 객체 생성
 		Scanner sc = new Scanner(System.in); //Scanner 객체 생성
 		int number = rand.nextInt(1000)+1; //1~1000까지 랜덤 값 설정
+		int count = 0;
 		while(true) { //무한루프
 			System.out.print("숫자 입력 : ");
 			int num = sc.nextInt(); //사용자가 값 입력
+			count++;
 			if(num == number) { //사용자가 입력한 값이 랜덤 값과 같다면
 				break; //무한루프 탈출
 			}else if(num > number) { //사용자가 입력한 값이 랜덤 값보다 크다면
@@ -27,5 +29,6 @@ public class Test07 {
 		}
 		sc.close();
 		System.out.println("정답");
+		System.out.println("총 " + count + "번 만에 맞추셨습니다.");
 	}
 }
