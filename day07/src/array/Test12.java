@@ -14,7 +14,7 @@ public class Test12 {
 		//최소값 찾기
 		for(int i = 0; i < num.length; i++) { //0~num배열의 크기만큼 반복
 			for(int j=i+1; j < num.length; j++) { //i+1~배열의 크기만큼 반복
-				/*j=i+1를 하는 이유 가장 낮은 수부터 찾아서 배열에 차례대로 정렬하기 때문에*/
+				/*j=i+1를 하는 이유 가장 낮은 수부터 찾아서 배열에 차례대로 정렬했기 때문에*/
 				if(num[min] > num[j]) { //만약 num[min]값이 num[j]값보다 클 때(시작 지점부터 가장 낮은 값을 찾는 코드)
 					min = j; //min에 j를 대입
 				}
