@@ -29,6 +29,7 @@ public class Test06 {
 			if(map[x][y] == 0) {
 				map[x][y] = i;
 			}else {
+				//다시 뽑기
 				i--;
 			}
 		}
