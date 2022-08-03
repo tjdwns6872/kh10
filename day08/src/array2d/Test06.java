@@ -15,14 +15,13 @@ public class Test06 {
 		 * 22		10		16		3		7
 		 * 11		24		4		17		23*/
 		
-		//Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		Random rand = new Random();
-		//System.out.print("크기 : ");
-		//int size = sc.nextInt();
-		int size = 5;
+		System.out.print("크기 : ");
+		int size = sc.nextInt();
 		int[][] map = new int[size][size];
 		//map.length와 map.length가 모두 size와 같다
-		int num = 1;
+		
 		for(int i = 1; i<= size*size; i++) {
 			int x = rand.nextInt(5);
 			int y = rand.nextInt(5);
@@ -41,5 +40,6 @@ public class Test06 {
 			System.out.println();
 			System.out.println();
 		}
+		sc.close();
 	}
 }
