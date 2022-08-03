@@ -37,6 +37,6 @@ public class Test05 {
 			}
 			System.out.println();
 		}
-		//sc.close();
+		sc.close();
 	}
 }
