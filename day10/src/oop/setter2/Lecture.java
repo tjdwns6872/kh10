@@ -23,7 +23,7 @@ public class Lecture {
 		if(time % 30 == 0 && time > 0) {
 			this.time = time;
 		}
-	// [2]
+	// [2] 
 	/* if(time <= 0){
 	 * 		return;
 	 * }if(time % 30 == 0){
