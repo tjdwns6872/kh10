@@ -15,7 +15,7 @@ public class Test01 {
 		Character ch2 = new Character("루이지", "마법사");
 		Character ch3 = new Character("피오나", "마법사");
 		
-		//b의 레벨이 올랐다.
+		//b의 레벨이 올랐다./
 		//b.level++; //비추천
 		ch2.levelUp();
 		
