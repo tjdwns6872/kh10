@@ -16,7 +16,7 @@ public class Test01 {
 		String sql = "delete fifa where country = ?";
 		Object[] param = {country};
 		
-		int result = template.update(sql, country);
+		int result = template.update(sql, param);
 		if(result > 0) {
 			System.out.println("완료");
 		}else {
