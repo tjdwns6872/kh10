@@ -6,28 +6,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/quiz")//공용주소
 public class ControllerQuiz {
 	@RequestMapping("/bmi")
 	@ResponseBody
-	public double bmi(@RequestParam int cm, @RequestParam double kg) {
-		double bmi = kg/(2*(cm/100.0));
-		return bmi;
+	public String bmi(@RequestParam int cm, 
+			@RequestParam double kg) {
+		double m = cm / 100.0;
+		double bmi = kg/(m*m);
+		return "bmi : "+bmi;
 	}
 	
 	@RequestMapping("/subway")
 	@ResponseBody
-	public int subway(@RequestParam int year) {
+	public String subway(@RequestParam int year) {
 		int price = 0;
 		int age = 2022 - year + 1;
-		if(age >= 20 && age < 65) {
-			price = 1250;
-		}else if(age >= 7) {
-			price = 750;
-		}else {
+		if(age < 8 || age >= 65) {
 			price = 0;
+		}else if(age >= 20) {
+			price = 1250;
+		}else if(age >= 14) {
+			price = 720;
+		}else {
+			price = 450;
 		}
 		
-		return price;
+		return "가격 : "+price;
 	}
 	
 	@RequestMapping("/calendar")
