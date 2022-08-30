@@ -1,11 +1,15 @@
 package com.kh.spring06.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.kh.spring06.entity.PocketMonsterDto;
 //pocket_monster 테이블에 대한 CRUD 처리를 위한 컨트롤러
 @Controller
 @RequestMapping("/pocket-monster")
@@ -49,5 +53,32 @@ public class PocketMonsterController {
 			return "없는 번호";
 		}
 	}
+	@RequestMapping("delete")
+	@ResponseBody
+	public String delete(@RequestParam int no) {
+		String sql = "delete pocket_monster where no = ?";
+		Object[] param = {no};
+		int result = jdbcTemplate.update(sql, param);
+		if(result > 0) {
+			return "삭제완료";
+		}else {
+			return "존재하지 않는 번호";
+		}
+	}
 	
+	@RequestMapping("select")
+	@ResponseBody
+	public String select() {
+		String sql = "select * from pocket_monster order by no asc";
+		List<PocketMonsterDto> list = 
+				jdbcTemplate.query(sql, PocketMonsterDto.getMapper());
+		return list.toString();
+	}
 }
+
+
+
+
+
+
+
