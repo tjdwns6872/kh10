@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Test {
 	@RequestMapping("/test")
 	public String test() {
-		return "/WEB-INF/views/test.jsp";
+		return "tag/test.jsp";
 	}
 	
 	@RequestMapping("/test02")
 	public String test02() {
-		return "/WEB-INF/views/tag/test02";
+		return "tag/test02.jsp";
 	}
 }
