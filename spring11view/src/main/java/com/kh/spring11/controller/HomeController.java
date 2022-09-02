@@ -19,4 +19,9 @@ public class HomeController {
 	public String test06() {
 		return "/WEB-INF/views/tag/test06.jsp";
 	}
+	
+	@RequestMapping("/test07")
+	public String test07() {
+		return "/WEB-INF/views/tag/test07.jsp";
+	}
 }
