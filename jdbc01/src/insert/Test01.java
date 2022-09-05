@@ -23,7 +23,7 @@ public class Test01 {
 		dataSource.setUsername("c##khacademy");
 		dataSource.setPassword("c##khacademy");
 		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
+		dataSource.setDriverClassName("oracle.OracleDriver");
 		
 		// 2.구문 실행 도구 생성(Spring 제공)
 		JdbcTemplate template = new JdbcTemplate(dataSource);
