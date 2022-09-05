@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.spring11.entity.PocketMonsterDto;
 //pocket_monster 테이블에 대한 CRUD 처리를 위한 컨트롤러
 @Controller
-@RequestMapping("/pocket-monster")
+@RequestMapping("/pocketmon")
 public class PocketMonsterController {
 
 	// JDBC를 위해서 이미 설정으로 만들어둔 JdbcTempalte을 가져온다
@@ -22,7 +22,6 @@ public class PocketMonsterController {
 	private JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping("/insert")
-	@ResponseBody
 	public String insert(
 			@RequestParam int no,
 			@RequestParam String name, 
