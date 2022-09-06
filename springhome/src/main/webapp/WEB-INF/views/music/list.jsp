@@ -1,12 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>음원</title>
 </head>
 <body>
-
+	<div align="center">
+		<h1>
+			음원목록
+			<a href="insert">등록하기</a>
+		</h1>
+		<form action="list" method="get">
+			<select name="type">
+				<option>music_no</option>
+				<option>music_title</option>
+				<option>music_artist</option>
+				<option>music_album</option>
+			</select> <input name="keyword" required>
+			<button>검색</button>
+			<table border="1" width="500">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>타이틀</th>
+						<th>가수</th>
+						<th>앨범명</th>
+						<th>재생수</th>
+						<th>날짜</th>
+					</tr>
+				</thead>
+				<tbody align="center">
+					<c:forEach var="dto" items="${list}">
+						<tr>
+							<td>${dto.musicNo}</td>
+							<td>${dto.musicTitle}</td>
+							<td>${dto.musicArtist}</td>
+							<td>${dto.musicAlbum}</td>
+							<td>${dto.musicPlay}</td>
+							<td>${dto.releaseTime}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</form>
+	</div>
 </body>
 </html>
