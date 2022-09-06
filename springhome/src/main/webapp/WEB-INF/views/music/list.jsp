@@ -15,10 +15,10 @@
 		</h1>
 		<form action="list" method="get">
 			<select name="type">
-				<option>music_no</option>
-				<option>music_title</option>
-				<option>music_artist</option>
-				<option>music_album</option>
+				<option value = "music_no">번호</option>
+				<option value = "music_title">제목</option>
+				<option value = "music_artist">가수</option>
+				<option value = "music_album">앨범</option>
 			</select> <input name="keyword" required>
 			<button>검색</button>
 			<table border="1" width="500">
