@@ -18,4 +18,6 @@ public interface GuestBookDao {
 	
 	GuestBookDto selectOne(int no);		//상세 기능
 	
+	List<GuestBookDto> tableList();
+	
 }

@@ -17,5 +17,7 @@
 	<h2><a href="member/insert">회원 가입</a></h2>
 	<hr>
 	<h2><a href="pocketmon/list">포켓몬 목록</a></h2>
+	<hr>
+	<h2><a href="guestbook/list">방명록 목록</a></h2>
 </body>
 </html>
