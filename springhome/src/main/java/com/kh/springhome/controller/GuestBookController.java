@@ -38,7 +38,7 @@ public class GuestBookController {
 	
 	@GetMapping("/list")
 	public String list(Model model) {
-		List<GuestBookDto> list = guestBookDao.tableList();
+		List<GuestBookDto> list = guestBookDao.selectList();
 		model.addAttribute("list", list);
 		return "guestbook/list";
 	}

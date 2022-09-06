@@ -93,11 +93,5 @@ public class GuestBookDaoImpl implements GuestBookDao {
 		Object[] param = {no};
 		return jdbcTemplate.query(sql, extractor, param);
 	}
-
-	@Override
-	public List<GuestBookDto> tableList() {
-		String sql = "select * from Guest_book order by no asc";
-		return jdbcTemplate.query(sql, mapper);
-	}
 	
 }
