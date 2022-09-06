@@ -59,6 +59,16 @@ public class ViewController {
 		return "tag/test09";
 	}
 	
+	@RequestMapping("/table01")
+	public String table01() {
+		return "tag/table01";
+	}
+	
+	@RequestMapping("/table02")
+	public String table02() {
+		return "tag/table02";
+	}
+	
 }
 
 
