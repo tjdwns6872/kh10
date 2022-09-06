@@ -57,7 +57,7 @@ public class GuestBookDaoImpl implements GuestBookDao {
 //		}
 	@Override	//목록 기능
 	public List<GuestBookDto> selectList() {
-		String sql = "select * from guest_book order by no asc";
+		String sql = "select * from guest_book order by no desc";
 		return jdbcTemplate.query(sql, mapper);
 	}
 	@Override	//검색 기능
