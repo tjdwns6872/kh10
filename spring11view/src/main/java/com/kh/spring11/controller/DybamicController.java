@@ -1,9 +1,13 @@
 package com.kh.spring11.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kh.spring11.entity.PocketMonsterDto;
 
 @Controller
 @RequestMapping("/dynamic")
@@ -33,6 +37,17 @@ public class DybamicController {
 	
 	@GetMapping("/test04")
 	public String test04(Model model) {
+		//임의의 PocketMosterDto를 3개 생성해서 View에 전달
+		PocketMonsterDto a = new PocketMonsterDto();
+		a.setNo(1); a.setName("피카츄"); a.setType("전기");
+		PocketMonsterDto b = new PocketMonsterDto();
+		b.setNo(2); b.setName("파이리"); b.setType("불꽃");
+		PocketMonsterDto c = new PocketMonsterDto();
+		c.setNo(3); c.setName("꼬부기"); c.setType("물");
+		
+		List<PocketMonsterDto> list = List.of(a,b,c);
+		model.addAttribute("list", list);
+		
 		return "dynamic/test04";
 	}
 	
