@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.springhome.entity.PocketMonsterDto;
 import com.kh.springhome.repository.PocketMonsterDao;
@@ -49,6 +50,13 @@ public class PocketMonsterController {
 		List<PocketMonsterDto> list = pocketMonsterDao.selectList();
 		model.addAttribute("list", list);
 		return "pocketmon/list";
+	}
+	
+	@GetMapping("/detil")
+	public String detil(Model model, @RequestParam int no) {
+		PocketMonsterDto dto = pocketMonsterDao.selectOnt(no);
+		model.addAttribute("dto", dto);
+		return "pocketmon/detil";
 	}
 	
 }
