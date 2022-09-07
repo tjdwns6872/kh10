@@ -27,8 +27,8 @@ public class GuestBookDaoImpl implements GuestBookDao {
 
 	@Override
 	public boolean update(GuestBookDto dto) {
-		String sql = "update guest_book set name=?, memo=? where no=?";
-		Object[]  param = {dto.getName(), dto.getMemo(), dto.getNo()};
+		String sql = "update guest_book set memo=? where no=? and name=?";
+		Object[]  param = {dto.getMemo(), dto.getNo(), dto.getName()};
 		int result = jdbcTemplate.update(sql, param);
 		return result > 0;	//retrun (result가 0보다 큰지 비교한 결과를 반환)
 									// 크다 → true 반환 // 아니다 → false 반환

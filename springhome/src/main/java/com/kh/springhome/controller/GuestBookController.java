@@ -62,6 +62,24 @@ public class GuestBookController {
 		model.addAttribute("dto", dto);
 		return "guestbook/detail";
 	}
+	
+	@GetMapping("/edit")
+	public String edit(Model model,
+			@RequestParam int no) {
+		GuestBookDto dto = guestBookDao.selectOne(no);
+		model.addAttribute("dto", dto);
+		return "/guestbook/edit";
+	}
+	
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute GuestBookDto dto) {
+		boolean result = guestBookDao.update(dto);
+		if(result) { 
+			return "redirect:detail?no="+dto.getNo();
+		}else {
+			return "/guestbook/editFail";
+		}
+	}
 }
 
 
