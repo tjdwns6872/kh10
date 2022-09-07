@@ -59,4 +59,29 @@ public class PocketMonsterController {
 		return "pocketmon/detil";
 	}
 	
+	@GetMapping("/edit")
+	public String edit(Model model,
+			@RequestParam int no) {
+		PocketMonsterDto dto = pocketMonsterDao.selectOnt(no);
+		model.addAttribute("dto", dto);
+		return "/pocketmon/edit";
+	}
+	
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute PocketMonsterDto dto) {
+		boolean result = pocketMonsterDao.update(dto);
+		if(result) {
+			return "redirect:detil?no="+dto.getNo();
+		}else {			
+			return "redirect:edit_fail";
+		}
+	}
+	
+	@GetMapping("/edit_fail")
+	public String editFail() {
+		return "pocketmon/editFail";
+	}
 }
+
+
+

@@ -16,6 +16,7 @@
 			<li>속성 : ${dto.type}</li>
 		</ul>
 		
+		<h2><a href="edit?no=${dto.no}">수정</a></h2>
 		<h2><a href="list">목록</a></h2>
 		<h2><a href="insert">등록</a></h2>
 		<h2><a href="/">메인</a></h2>
