@@ -1,26 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>음원 상세 보기</title>
+<title>음원 상세정보</title>
 </head>
 <body>
-	<div align="left">
-		<h1>음원 상세보기</h1>
-		<ul>
-			<li>번호 : ${dto.musicNo}</li>
-			<li>타이틀 : ${dto.musicTitle}</li>
-			<li>가수 : ${dto.musicArtist}</li>
-			<li>앨범명 : ${dto.musicAlbum}</li>
-			<li>재생수 : ${dto.musicPlay}</li>
-			<li>등록날짜 : ${dto.releaseTime}</li>
-		</ul>
+	<div align="center">
+		<h1>음원 상세정보</h1>
+		<table border="1" width="400">
+			<tbody>
+				<tr>
+					<th width="25%">번호</th>
+					<td>${dto.musicNo}</td>
+				</tr>
+				<tr>
+					<th width="25%">제목</th>
+					<td>${dto.musicTitle}</td>
+				</tr>
+				<tr>
+					<th width="25%">가수</th>
+					<td>${dto.musicArtist}</td>
+				</tr>
+				<tr>
+					<th width="25%">앨범</th>
+					<td>${dto.musicAlbum}</td>
+				</tr>
+				<tr>
+					<th width="25%">재생수</th>
+					<td>${dto.musicPlay}</td>
+				</tr>
+				<tr>
+					<th width="25%">발매일</th>
+<%-- 			<td>${musicDto.releaseTime}</td> --%>
+					<td>
+						<fmt:formatDate value="${dto.releaseTime}" pattern="y년 M월 d일 E요일"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		
-		<h2><a href="insert">정보입력</a></h2>
-		<h2><a href="list">목록</a></h2>
-		<h2><a href="/">메인</a></h2>
+		<h2><a href="list">목록보기</a></h2>
 	</div>
 </body>
 </html>
