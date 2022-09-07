@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,21 @@ public class MusicDaoImpl implements MusicDao{
 		dto.setMusicPlay(rs.getInt("music_play"));
 		dto.setReleaseTime(rs.getDate("release_time"));
 		return dto;
+	};
+	
+	private ResultSetExtractor<MusicDto> extractor = (rs) -> {
+		if(rs.next()) {
+			MusicDto dto = new MusicDto();
+			dto.setMusicNo(rs.getInt("music_no"));
+			dto.setMusicTitle(rs.getString("music_title"));
+			dto.setMusicArtist(rs.getString("music_artist"));
+			dto.setMusicAlbum(rs.getString("music_album"));
+			dto.setMusicPlay(rs.getInt("music_play"));
+			dto.setReleaseTime(rs.getDate("release_time"));
+			return dto;
+		}else {
+			return null;
+		}
 	};
 	
 	@Override
@@ -53,5 +69,12 @@ public class MusicDaoImpl implements MusicDao{
 		sql = sql.replace("#1", type);
 		Object[] param = {keyword};
 		return jdbcTemplate.query(sql, mapper, param);
+	}
+
+	@Override
+	public MusicDto selectOne(int no) {
+		String sql = "select * from music where music_no = ?";
+		Object[] param = {no};
+		return jdbcTemplate.query(sql, extractor, param);
 	}
 }

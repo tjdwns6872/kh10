@@ -36,7 +36,9 @@
 					<c:forEach var="dto" items="${list}">
 						<tr>
 							<td>${dto.musicNo}</td>
-							<td>${dto.musicTitle}</td>
+							<td>
+								<a href="detail?no=${dto.musicNo}">${dto.musicTitle}</a>
+							</td>
 							<td>${dto.musicArtist}</td>
 							<td>${dto.musicAlbum}</td>
 							<td>${dto.musicPlay}</td>

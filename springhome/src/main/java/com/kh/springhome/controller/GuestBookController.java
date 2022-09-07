@@ -54,4 +54,20 @@ public class GuestBookController {
 		}
 		return "guestbook/list";
 	}
+	
+	@GetMapping("/detail")
+	public String detail(Model model,
+			@RequestParam int no) {
+		GuestBookDto dto = guestBookDao.selectOne(no);
+		model.addAttribute("dto", dto);
+		return "guestbook/detail";
+	}
 }
+
+
+
+
+
+
+
+

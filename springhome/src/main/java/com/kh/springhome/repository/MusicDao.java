@@ -9,4 +9,6 @@ public interface MusicDao {
 	
 	List<MusicDto> selectList();
 	List<MusicDto> selectList(String type, String keyword);
+	
+	MusicDto selectOne(int no);
 }

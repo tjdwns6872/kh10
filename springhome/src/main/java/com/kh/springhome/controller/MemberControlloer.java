@@ -37,16 +37,16 @@ public class MemberControlloer {
 	
 	@GetMapping("/list")
 	public String list(Model model,
-			@RequestParam(required = false) String type,
-			@RequestParam(required = false) String keyword) {
+				@RequestParam(required = false) String type,
+				@RequestParam(required = false) String keyword) {
 		boolean isSearch = type != null && keyword != null;
 		if(isSearch) {
 			model.addAttribute("list", memberDao.selectList(type, keyword));
-		}else {
+		}
+		else {
 			model.addAttribute("list", memberDao.selectList());
 		}
 		return "member/list";
 	}
-	
 	
 }

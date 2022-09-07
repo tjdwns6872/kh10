@@ -31,7 +31,9 @@
 				<c:forEach var="dto" items="${list}">
 					<tr>
 						<th>${dto.no}</th>
-						<th>${dto.name}</th>
+						<th>
+							<a href="detail?no=${dto.no}">${dto.name}</a>
+						</th>
 					</tr>
 					<tr height="80" valign="top">
 						<td colspan="2">${dto.memo}</td>
