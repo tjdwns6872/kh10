@@ -15,5 +15,7 @@
 	<h2><a href="guestbook/list">방명록보기</a></h2>
 	<hr>
 	<h2><a href="music/list">음원보기</a></h2>
+	<hr>
+	<h2><a href="member/list">회원정보</a></h2>
 </body>
 </html>
