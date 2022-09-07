@@ -49,4 +49,12 @@ public class MemberControlloer {
 		return "member/list";
 	}
 	
+	@GetMapping("/detail")
+	public String detail(Model model,
+			@RequestParam String id) {
+		MemberDto dto = memberDao.selectOne(id);
+		model.addAttribute("dto", dto);
+		return "member/detail";
+	}
+	
 }

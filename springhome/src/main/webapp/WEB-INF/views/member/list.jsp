@@ -97,7 +97,9 @@
 				<c:forEach var="memberDto" items="${list}">
 				<tr>
 					<td>${memberDto.memberId}</td>
-					<td>${memberDto.memberNick}</td>
+					<td>
+						<a href="detail?id=${memberDto.memberId}">${memberDto.memberNick}</a>
+					</td>
 					<td>${memberDto.memberBirth}</td>
 					<td>${memberDto.memberTel}</td>
 					<td>${memberDto.memberEmail}</td>
