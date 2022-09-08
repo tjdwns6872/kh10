@@ -81,6 +81,16 @@ public class PocketMonsterController {
 	public String editFail() {
 		return "pocketmon/editFail";
 	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam int no) {
+		boolean result = pocketMonsterDao.delete(no);
+		if(result) {
+			return "redirect:list";
+		}else {
+			return "pocketmon/editFail";
+		}
+	}
 }
 
 
