@@ -14,4 +14,6 @@ public interface MemberDao {
 	MemberDto selectOne(String id);
 	
 	boolean update(MemberDto dto);
+	
+	boolean delete(String id);
 }

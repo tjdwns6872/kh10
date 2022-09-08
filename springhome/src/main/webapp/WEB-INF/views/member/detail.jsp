@@ -74,6 +74,7 @@
 		
 		<h2><a href="list">목록 보기</a></h2>
 		<h2><a href="edit?id=${dto.memberId}">수정하기</a></h2>
+		<h2><a href="delete?id=${dto.memberId}">삭제하기</a></h2>
 	</div>
 </body>
 </html>

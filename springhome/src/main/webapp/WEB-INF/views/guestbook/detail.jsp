@@ -16,6 +16,7 @@
 		</ul>
 		
 		<h2><a href="edit?no=${dto.no}">수정</a></h2>
+		<h2><a href="delete?no=${dto.no}">삭제</a></h2>
 		<h2><a href="insert">정보입력</a></h2>
 		<h2><a href="list">목록</a></h2>
 		<h2><a href="/">메인</a></h2>

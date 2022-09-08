@@ -80,6 +80,15 @@ public class MemberControlloer {
 	public String editFail() {
 		return "guestbook/editFail";
 	}
+	@GetMapping("/delete")
+	public String delete(String id) {
+		boolean result = memberDao.delete(id);
+		if(result) {
+			return "redirect:list";
+		}else {
+			return "guestbook/editFail";
+		}
+	}
 	
 	
 }
