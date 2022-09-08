@@ -37,7 +37,7 @@
 						<tr>
 							<td>${dto.musicNo}</td>
 							<td>
-								<a href="detail?no=${dto.musicNo}">${dto.musicTitle}</a>
+								<a href="detail?musicNo=${dto.musicNo}">${dto.musicTitle}</a>
 							</td>
 							<td>${dto.musicArtist}</td>
 							<td>${dto.musicAlbum}</td>

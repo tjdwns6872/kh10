@@ -3,20 +3,18 @@ package com.kh.springhome.entity;
 import java.sql.Date;
 
 public class MusicDto {
-	//field
 	private int musicNo;
-	private String musicTitle;
-	private String musicArtist;
-	private String musicAlbum;
+	private String musicTitle, musicAlbum, musicArtist;
 	private int musicPlay;
 	private Date releaseTime;
-	
-	//기본생성자
+	@Override
+	public String toString() {
+		return "MusicDto [musicNo=" + musicNo + ", musicTitle=" + musicTitle + ", musicAlbum=" + musicAlbum
+				+ ", musicArtist=" + musicArtist + ", musicPlay=" + musicPlay + ", releaseTime=" + releaseTime + "]";
+	}
 	public MusicDto() {
 		super();
 	}
-	
-	//getter, setter
 	public int getMusicNo() {
 		return musicNo;
 	}
@@ -29,17 +27,17 @@ public class MusicDto {
 	public void setMusicTitle(String musicTitle) {
 		this.musicTitle = musicTitle;
 	}
-	public String getMusicArtist() {
-		return musicArtist;
-	}
-	public void setMusicArtist(String musicArtist) {
-		this.musicArtist = musicArtist;
-	}
 	public String getMusicAlbum() {
 		return musicAlbum;
 	}
 	public void setMusicAlbum(String musicAlbum) {
 		this.musicAlbum = musicAlbum;
+	}
+	public String getMusicArtist() {
+		return musicArtist;
+	}
+	public void setMusicArtist(String musicArtist) {
+		this.musicArtist = musicArtist;
 	}
 	public int getMusicPlay() {
 		return musicPlay;
@@ -53,12 +51,4 @@ public class MusicDto {
 	public void setReleaseTime(Date releaseTime) {
 		this.releaseTime = releaseTime;
 	}
-	
-	//toString
-	@Override
-	public String toString() {
-		return "MusicDto [musicNo=" + musicNo + ", musicTitle=" + musicTitle + ", musicArtist=" + musicArtist
-				+ ", musicAlbum=" + musicAlbum + ", musicPlay=" + musicPlay + ", releaseTime=" + releaseTime + "]";
-	}
-	
 }

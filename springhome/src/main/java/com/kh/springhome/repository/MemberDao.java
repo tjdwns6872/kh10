@@ -12,4 +12,6 @@ public interface MemberDao {
 	List<MemberDto> selectList(String type, String keyword);
 	
 	MemberDto selectOne(String id);
+	
+	boolean update(MemberDto dto);
 }

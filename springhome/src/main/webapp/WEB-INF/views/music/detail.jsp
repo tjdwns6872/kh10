@@ -16,35 +16,37 @@
 			<tbody>
 				<tr>
 					<th width="25%">번호</th>
-					<td>${dto.musicNo}</td>
+					<td>${musicDto.musicNo}</td>
 				</tr>
 				<tr>
 					<th width="25%">제목</th>
-					<td>${dto.musicTitle}</td>
+					<td>${musicDto.musicTitle}</td>
 				</tr>
 				<tr>
 					<th width="25%">가수</th>
-					<td>${dto.musicArtist}</td>
+					<td>${musicDto.musicArtist}</td>
 				</tr>
 				<tr>
 					<th width="25%">앨범</th>
-					<td>${dto.musicAlbum}</td>
+					<td>${musicDto.musicAlbum}</td>
 				</tr>
 				<tr>
 					<th width="25%">재생수</th>
-					<td>${dto.musicPlay}</td>
+					<td>${musicDto.musicPlay}</td>
 				</tr>
 				<tr>
 					<th width="25%">발매일</th>
 <%-- 			<td>${musicDto.releaseTime}</td> --%>
 					<td>
-						<fmt:formatDate value="${dto.releaseTime}" pattern="y년 M월 d일 E요일"/>
+						<fmt:formatDate value="${musicDto.releaseTime}" pattern="y년 M월 d일 E요일"/>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		
 		<h2><a href="list">목록보기</a></h2>
+		<h2><a href="edit?musicNo=${musicDto.musicNo}">수정하기</a></h2>
+		
 	</div>
 </body>
 </html>
