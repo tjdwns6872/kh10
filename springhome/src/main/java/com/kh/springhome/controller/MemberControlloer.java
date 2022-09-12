@@ -1,7 +1,5 @@
 package com.kh.springhome.controller;
 
-import java.lang.ProcessBuilder.Redirect;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,6 +127,12 @@ public class MemberControlloer {
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginId");
 		return "redirect:/";
+	}
+	@GetMapping("/mypage")
+	public String mypage(Model model,
+				@RequestParam String id) {
+		model.addAttribute("dto", memberDao.selectOne(id));
+		return "member/mypage";
 	}
 }
 

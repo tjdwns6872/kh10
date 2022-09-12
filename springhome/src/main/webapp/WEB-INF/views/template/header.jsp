@@ -22,10 +22,17 @@
 			<a href="guestbook/list">방명록</a>
 			<a href="music/list">음원관리</a>
 			
-			<a href="member/insert">회원가입</a>
-			<a href="member/login">로그인</a>
-			<a href="member/logout">로그아웃</a>
-			<a href="member/list">회원목록</a>
+			<c:choose>
+				<c:when test="${loginId !=null }">
+					<a href="member/logout">로그아웃</a>
+					<a href="member/list">회원목록</a>
+					<a href="member/mypage?id=${loginId}">마이페이지</a>
+				</c:when>
+				<c:otherwise>
+					<a href="member/insert">회원가입</a>
+					<a href="member/login">로그인</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<hr>
 		<div align="center" style="min-height: 400px">
