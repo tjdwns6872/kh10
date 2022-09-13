@@ -4,13 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>${dto.memberId} 회원 정보</title>
-</head>
-<body>
+<jsp:include page="/WEB-INF/views/template/header.jsp">
+	<jsp:param value="마이페이지" name="title"/>
+</jsp:include>
+
 	<div align="center">
 		<h1>${dto.memberId} 회원 정보</h1>
 		<table border="1" width="400">
@@ -71,10 +68,17 @@
 				</tr>
 			</tbody>
 		</table>
-		
-		<h2><a href="list">목록 보기</a></h2>
-		<h2><a href="edit?id=${dto.memberId}">수정하기</a></h2>
-		<h2><a href="delete?id=${dto.memberId}">삭제하기</a></h2>
+		<!-- 회원용 메뉴 -->
+			<c:choose>
+				<c:when test="${mg=='관리자'}">
+					<h2><a href="list">목록 보기</a></h2>
+					<h2><a href="edit?id=${dto.memberId}">수정하기</a></h2>
+					<h2><a href="delete?id=${dto.memberId}">삭제하기</a></h2>
+				</c:when>
+				<c:otherwise>
+					<h2><a href="edit?id=${dto.memberId}">수정하기</a></h2>
+					<h2><a href="delete?id=${dto.memberId}">삭제하기</a></h2>
+				</c:otherwise>
+			</c:choose>
 	</div>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

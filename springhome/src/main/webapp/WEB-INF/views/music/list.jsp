@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <jsp:include page="/WEB-INF/views/template/header.jsp">
 	<jsp:param value="메인페이지" name="title"/>
 </jsp:include>
 	<div align="center">
 		<h1>
 			음원목록
-			<a href="insert">등록하기</a>
+			<c:if test="${mg == '관리자' }">
+				<a href="insert">등록하기</a>
+			</c:if>
 		</h1>
 		<form action="list" method="get">
 			<select name="type">

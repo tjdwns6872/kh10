@@ -118,6 +118,7 @@ public class MemberControlloer {
 			// - session.getAttribute("이름");
 			// - session.removeAttribute("이름");
 			session.setAttribute("loginId", inputDto.getMemberId());
+			session.setAttribute("mg", findDto.getMemberGrade());
 			return "redirect:/";
 		}else {
 			return "redirect:login"; //redirect는 언제나 GET방식
@@ -126,13 +127,24 @@ public class MemberControlloer {
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginId");
+		session.removeAttribute("mg");
+//		session.invalidate(); //세션 파괴(비추천, 사용자 측정 시 문제)
 		return "redirect:/";
 	}
+	// 마이페이지 - 현재 로그인한 회원의 정보를 화면에 출력
+	// Httpsession, Model
 	@GetMapping("/mypage")
-	public String mypage(Model model,
-				@RequestParam String id) {
-		model.addAttribute("dto", memberDao.selectOne(id));
-		return "member/mypage";
+	public String mypage(HttpSession session, Model model) {
+		// 1. 세션에 들어있는 아이디를 꺼낸다.
+		// (참고) 세션에 데이터는 Object 형태로 저장되므로 꺼내려면 다운 캐스팅을 해야한다.
+		String loginId = (String)session.getAttribute("loginId");
+		// 2. 아이디를 이용하여 회원 정보를 불러온다.
+		MemberDto dto = memberDao.selectOne(loginId);
+		// 3. 불러온 회원 정보를 모델에 첨부한다.
+		model.addAttribute("dto", dto);
+		// 4. 화면(View)으로 전달(Forward)한다.
+		// (참고) 기존에 사용하던 회원상세(detail.jsp) 뷰와 같이 사용
+		return "member/detail";
 	}
 }
 
