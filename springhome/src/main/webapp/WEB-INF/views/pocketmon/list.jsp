@@ -5,7 +5,11 @@
 	<jsp:param value="메인페이지" name="title"/>
 </jsp:include>
 	<div	align="center">
-		<h1>포켓몬 목록</h1>
+		<h1>포켓몬 목록
+		<c:if test="${mg == '관리자' }">
+				<a href="insert">등록하기</a>
+		</c:if>
+		</h1>
 	
 		<table border="1" width="400">
 			<thead>
