@@ -18,7 +18,7 @@
 			 loginId : ${sessionScope.loginId} <br>
 			 로그인 : ${sessionScope.loginId != null} <br>
 			 mg : ${sessionScope.mg} <br>
-			 관리자 : ${sessionScope.mg == '관리자'} <br>
+			 관리자 : ${sessionScope.mg == '관리자'}
 		</div>
 	</body>
 </html>
