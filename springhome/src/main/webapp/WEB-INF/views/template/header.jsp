@@ -18,6 +18,7 @@
 	<body>
 		<!-- 메뉴 : 반드시 절대 경로로 작성-->
 		<div align="center">
+			<a href="/">홈</a>
 			<a href="/pocketmon/list">포켓몬스터</a>
 			<a href="/guestbook/list">방명록</a>
 			<a href="/music/list">음원관리</a>
