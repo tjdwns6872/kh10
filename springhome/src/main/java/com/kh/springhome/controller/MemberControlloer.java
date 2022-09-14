@@ -119,6 +119,8 @@ public class MemberControlloer {
 			// - session.removeAttribute("이름");
 			session.setAttribute("loginId", inputDto.getMemberId());
 			session.setAttribute("mg", findDto.getMemberGrade());
+//			System.out.println(">"+memberDao.selectOne((String)session.getAttribute("loginId")));
+			System.out.println("loginId: "+session.getAttribute("loginId"));
 			return "redirect:/";
 		}else {
 			return "redirect:login"; //redirect는 언제나 GET방식
@@ -146,8 +148,32 @@ public class MemberControlloer {
 		// (참고) 기존에 사용하던 회원상세(detail.jsp) 뷰와 같이 사용
 		return "member/detail";
 	}
+	@GetMapping("/password")
+	public String password() {
+		return "member/password";
+	}
+	@PostMapping("/password")
+	public String passwor(HttpSession session, 
+			@RequestParam String beforePw, 
+			@RequestParam String pw) {
+		String loginId = (String)session.getAttribute("loginId");
+		try{
+			MemberDto memberDto = memberDao.selectOne(loginId);
+			boolean passwordMatch = beforePw.equals(memberDto.getMemberPw());
+			if(!passwordMatch) {
+				throw new Exception(); 
+			}
+			memberDao.changePassword(loginId, pw);
+			return "redirect:password_result";
+		}catch (Exception e) {
+			return "redirect:password?error";			
+		}
+	}
+	@GetMapping("/password_result")
+	public String passwordResult() {
+		return "member/passwordResult";
+	}
 }
-
 
 
 

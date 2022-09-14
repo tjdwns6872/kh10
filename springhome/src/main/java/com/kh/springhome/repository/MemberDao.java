@@ -14,6 +14,6 @@ public interface MemberDao {
 	MemberDto selectOne(String id);
 	
 	boolean update(MemberDto dto);
-	
+	boolean changePassword(String memberId, String memberPw);
 	boolean delete(String id);
 }

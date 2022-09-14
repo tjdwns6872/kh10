@@ -71,6 +71,7 @@
     <td>${dto.memberPoint} </td>
   </tr>
 </table>
+<h2><a href="/member/password">비밀번호 수정</a></h2>
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

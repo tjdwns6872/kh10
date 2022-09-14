@@ -133,4 +133,11 @@ public class MemberDaoImpl implements MemberDao{
 		Object[] param = {id};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
+
+	@Override
+	public boolean changePassword(String memberId, String memberPw) {
+		String sql ="update member set member_pw=? where member_id=?";
+		Object[] param = {memberPw, memberId};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
 }
