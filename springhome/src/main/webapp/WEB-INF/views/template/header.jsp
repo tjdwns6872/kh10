@@ -30,6 +30,7 @@
 					<a href="/member/mypage">마이페이지</a>
 					<c:if test="${admin }">
 						<a href="/member/list">회원목록</a>
+						<a href="/admin/home">관리자페이지</a>
 					</c:if>
 				</c:when>
 				<c:otherwise>
