@@ -20,14 +20,14 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 	private MemberInterceptor memberInterceptor;
 	@Autowired
 	private AdminInterceptor adminInterceptor;
-	@Autowired
-	private TestInterceptor testInterceptor;
+//	@Autowired
+//	private TestInterceptor testInterceptor;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		//registry에 추가하여 인터셉터가 작동하도록 설정
-		registry.addInterceptor(testInterceptor).
-			addPathPatterns("/**");
+//		registry.addInterceptor(testInterceptor).
+//			addPathPatterns("/**");
 		
 		registry.addInterceptor(memberInterceptor).
 			addPathPatterns(//인터셉터가 감시할 주소
@@ -35,8 +35,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 				"/music/detail",
 				"/member/**").
 			excludePathPatterns(//제외할 주소
-				"/member/insert",
-				"/member/login");
+				"/member/insert*", //회원가입
+				"/member/login*", //로그인
+				"/member/goodbye_result"); //탈퇴완료
 		
 		registry.addInterceptor(adminInterceptor).
 			addPathPatterns(

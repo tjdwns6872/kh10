@@ -117,10 +117,10 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public boolean update(MemberDto dto) {
 		String sql = "update member set "
-				+ "member_pw=?, member_nick=?, member_tel=?, member_email=?, "
+				+ "member_nick=?, member_tel=?, member_email=?, "
 				+ "member_post=?, member_base_address=?, member_detail_address=?, "
 				+ "member_grade=? where member_id=?";
-		Object[] param = {dto.getMemberPw(), dto.getMemberNick(), dto.getMemberTel(),
+		Object[] param = {dto.getMemberNick(), dto.getMemberTel(),
 				dto.getMemberEmail(), dto.getMemberPost(), dto.getMemberBaseAddress(),
 				dto.getMemberDetailAddress(), dto.getMemberGrade(), dto.getMemberId()};
 		int result = jdbcTemplate.update(sql, param);
@@ -140,4 +140,18 @@ public class MemberDaoImpl implements MemberDao{
 		Object[] param = {memberPw, memberId};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
+
+	@Override
+	public boolean changeInformation(MemberDto memberDto) {
+		String sql = "update member set "
+				+ "member_Nick=?, member_Birth=?, member_Tel=?, "
+				+ "member_Email=?, member_Post, member_Base_Address=?, "
+				+ "member_Detail_Address=? where member_Id=?";
+		Object[] param = {memberDto.getMemberNick(), memberDto.getMemberBirth(), memberDto.getMemberTel(),
+				memberDto.getMemberEmail(), memberDto.getMemberPost(), memberDto.getMemberBaseAddress(),
+				memberDto.getMemberDetailAddress(), memberDto.getMemberId()};
+		return jdbcTemplate.update(sql, param)>0;
+	}
+
+	
 }

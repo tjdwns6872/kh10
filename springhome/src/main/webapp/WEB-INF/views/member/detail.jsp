@@ -77,7 +77,8 @@
 				</c:when>
 				<c:otherwise>
 					<h2><a href="password">비밀번호 수정</a></h2>
-					<h2><a href="delete?id=${dto.memberId}">삭제하기</a></h2>
+					<h2><a href="information">개인정보 수정</a></h2>
+					<h2><a href="goodbye">회원탈퇴</a></h2>
 					
 				</c:otherwise>
 			</c:choose>
