@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.springhome.constant.SessionConstant;
 import com.kh.springhome.entity.MemberDto;
 import com.kh.springhome.repository.MemberDao;
 
@@ -119,10 +120,9 @@ public class MemberControlloer {
 			// - session.setAttribute("이름", 값);
 			// - session.getAttribute("이름");
 			// - session.removeAttribute("이름");
-			session.setAttribute("loginId", inputDto.getMemberId());
+			session.setAttribute(SessionConstant.ID, inputDto.getMemberId());
 			session.setAttribute("mg", findDto.getMemberGrade());
-//			System.out.println(">"+memberDao.selectOne((String)session.getAttribute("loginId")));
-			System.out.println("loginId: "+session.getAttribute("loginId"));
+			memberDao.updateLoginTime(inputDto.getMemberId());
 			return "redirect:/";
 		}else {
 			return "redirect:login"; //redirect는 언제나 GET방식
@@ -130,7 +130,7 @@ public class MemberControlloer {
 	}
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
-		session.removeAttribute("loginId");
+		session.removeAttribute(SessionConstant.ID);
 		session.removeAttribute("mg");
 //		session.invalidate(); //세션 파괴(비추천, 사용자 측정 시 문제)
 		return "redirect:/";
@@ -141,7 +141,7 @@ public class MemberControlloer {
 	public String mypage(HttpSession session, Model model) {
 		// 1. 세션에 들어있는 아이디를 꺼낸다.
 		// (참고) 세션에 데이터는 Object 형태로 저장되므로 꺼내려면 다운 캐스팅을 해야한다.
-		String loginId = (String)session.getAttribute("loginId");
+		String loginId = (String)session.getAttribute(SessionConstant.ID);
 		// 2. 아이디를 이용하여 회원 정보를 불러온다.
 		MemberDto dto = memberDao.selectOne(loginId);
 		// 3. 불러온 회원 정보를 모델에 첨부한다.
@@ -158,7 +158,7 @@ public class MemberControlloer {
 	public String passwor(HttpSession session, 
 			@RequestParam String beforePw, 
 			@RequestParam String pw) {
-		String loginId = (String)session.getAttribute("loginId");
+		String loginId = (String)session.getAttribute(SessionConstant.ID);
 		try{
 			MemberDto memberDto = memberDao.selectOne(loginId);
 			boolean passwordMatch = beforePw.equals(memberDto.getMemberPw());
@@ -182,7 +182,7 @@ public class MemberControlloer {
 	@GetMapping("/information")
 	public String information(HttpSession session, Model model) {
 		//(1) 자신의 아이디를 획득(HttpSession)
-		String memberId = (String)session.getAttribute("loginId");
+		String memberId = (String)session.getAttribute(SessionConstant.ID);
 		
 		//(2) 아이디로 정보를 조회
 		MemberDto memberDto = memberDao.selectOne(memberId);
@@ -199,7 +199,7 @@ public class MemberControlloer {
 			HttpSession session, 
 			@ModelAttribute MemberDto inputDto) {
 		//memberDto에 memberId가 없으므로 세션에서 구해서 추가 설정해야함
-		String memberId = (String)session.getAttribute("loginId");
+		String memberId = (String)session.getAttribute(SessionConstant.ID);
 		inputDto.setMemberId(memberId);
 		
 		//(1) 비밀번호를 검사
@@ -223,14 +223,14 @@ public class MemberControlloer {
 	@PostMapping("/goodbye")
 	public String goodbye(HttpSession session,
 			@RequestParam String memberPw) {
-		String login = (String)session.getAttribute("loginId");
+		String login = (String)session.getAttribute(SessionConstant.ID);
 		MemberDto memberDto = memberDao.selectOne(login);
 		boolean passwordMatch = memberPw.equals(memberDto.getMemberPw());
 		if(passwordMatch) {
 			//회원탈퇴
 			memberDao.delete(login);
 			//로그아웃			
-			session.removeAttribute("loginId");
+			session.removeAttribute(SessionConstant.ID);
 			session.removeAttribute("mg");
 			return "redirect:goodbye_result";
 			}

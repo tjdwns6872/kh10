@@ -10,11 +10,11 @@ public interface MemberDao {
 	
 	List<MemberDto> selectList();
 	List<MemberDto> selectList(String type, String keyword);
-	
-	MemberDto selectOne(String id);
+	MemberDto selectOne(String id);	
 	
 	boolean update(MemberDto dto);
 	boolean changePassword(String memberId, String memberPw);
-	boolean delete(String id);
 	boolean changeInformation(MemberDto memberDto);
+	boolean updateLoginTime(String memberId);
+	boolean delete(String id);
 }
