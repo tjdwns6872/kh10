@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.springhome.repository.MusicDao;
 import com.kh.springhome.repository.PocketMonsterDao;
 
 @Controller
@@ -14,6 +15,8 @@ public class AdminController {
 	
 	@Autowired
 	private PocketMonsterDao pocketMonsterDao;
+	@Autowired
+	private MusicDao musicDao;
 	
 	@GetMapping("/home")
 	public String home() {
@@ -24,5 +27,17 @@ public class AdminController {
 	public String pocketmon(Model model) {
 		model.addAttribute("list", pocketMonsterDao.selectCountList());
 		return "admin/pocketmon";
+	}
+	
+	@GetMapping("/music/play")
+	public String musicPlay(Model model) {
+		model.addAttribute("musicDto", musicDao.selectPlay());
+		return "admin/music/play";
+		
+	}
+	@GetMapping("/music/release")
+	public String musicRelease(Model model) {
+		model.addAttribute("musicVo", musicDao.selectYearCount());
+		return "admin/music/release";
 	}
 }

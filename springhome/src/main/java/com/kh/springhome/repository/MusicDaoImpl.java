@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.springhome.entity.MusicDto;
+import com.kh.springhome.vo.MusicYearCountVo;
 
 @Repository
 public class MusicDaoImpl implements MusicDao{
@@ -110,5 +111,31 @@ public class MusicDaoImpl implements MusicDao{
 		String sql = "delete music where music_no=?";
 		Object[] param = {musicNo};
 		return jdbcTemplate.update(sql, param) > 0;
+	}
+
+	@Override
+	public List<MusicDto> selectPlay() {
+		String sql = "select * from(select TMP.*, "
+				+ "rownum rn from( "
+				+ "select * from music order by music_play desc) "
+				+ "TMP) "
+				+ "where rn between 1 and 10";
+		return jdbcTemplate.query(sql, mapper);
+	}
+	private RowMapper<MusicYearCountVo> mapperYear = new RowMapper<MusicYearCountVo>() {
+		
+		@Override
+		public MusicYearCountVo mapRow(ResultSet rs, int rowNum) throws SQLException {
+			MusicYearCountVo vo = new MusicYearCountVo();
+			vo.setYear(rs.getDate("year"));
+			vo.setCnt(rs.getInt("cnt"));
+			return vo;
+		}
+	};
+
+	@Override
+	public List<MusicYearCountVo> selectYearCount() {
+		String sql = "select to_char(release_time, 'yyyy') year, count(*) cnt from music group by to_char(release_time, 'yyyy') order by year desc";
+		return jdbcTemplate.query(sql, mapperYear);
 	}
 }

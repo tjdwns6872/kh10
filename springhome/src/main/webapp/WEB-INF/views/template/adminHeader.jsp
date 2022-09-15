@@ -6,10 +6,11 @@
 </jsp:include>
 
  
- <!-- 관리제 메뉴 추가 -->
+ <!-- 관리자 메뉴 추가 -->
  <div>
  	<a href="/member/list">회원목록</a>
  	<a href="/admin/pocketmon">포켓몬 현황</a>
- 
+ 	<a href="/admin/music/play">음원 재생순위</a>
+ 	<a href="/admin/music/release">월별 발매현황</a>
  </div>
  <hr>
