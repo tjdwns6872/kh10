@@ -122,20 +122,27 @@ public class MusicDaoImpl implements MusicDao{
 				+ "where rn between 1 and 10";
 		return jdbcTemplate.query(sql, mapper);
 	}
-	private RowMapper<MusicYearCountVo> mapperYear = new RowMapper<MusicYearCountVo>() {
+	private RowMapper<MusicYearCountVo> countMapper = new RowMapper<MusicYearCountVo>() {
 		
 		@Override
 		public MusicYearCountVo mapRow(ResultSet rs, int rowNum) throws SQLException {
 			MusicYearCountVo vo = new MusicYearCountVo();
-			vo.setYear(rs.getDate("year"));
+			vo.setYear(rs.getInt("year"));
 			vo.setCnt(rs.getInt("cnt"));
 			return vo;
 		}
 	};
 
 	@Override
-	public List<MusicYearCountVo> selectYearCount() {
-		String sql = "select to_char(release_time, 'yyyy') year, count(*) cnt from music group by to_char(release_time, 'yyyy') order by year desc";
-		return jdbcTemplate.query(sql, mapperYear);
+	public List<MusicYearCountVo> releaseByYear() {
+		String sql = "select "
+				+ "extract(year from release_time) year, "
+				+ "count(*) cnt "
+				+ "from music "
+				+ "group by extract(year from release_time) "
+				+ "order by year desc";
+		return jdbcTemplate.query(sql, countMapper);
 	}
+
+	
 }

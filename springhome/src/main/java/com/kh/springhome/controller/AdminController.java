@@ -37,7 +37,7 @@ public class AdminController {
 	}
 	@GetMapping("/music/release")
 	public String musicRelease(Model model) {
-		model.addAttribute("musicVo", musicDao.selectYearCount());
+		model.addAttribute("list", musicDao.releaseByYear());
 		return "admin/music/release";
 	}
 }

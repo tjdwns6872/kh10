@@ -14,5 +14,5 @@ public interface MusicDao {
 	boolean delete(int musicNo);
 	
 	List<MusicDto> selectPlay();
-	List<MusicYearCountVo> selectYearCount();
+	List<MusicYearCountVo> releaseByYear();
 }
