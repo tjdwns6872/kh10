@@ -21,6 +21,7 @@
 		<div align="center">
 			<a href="/">홈</a>
 			<a href="/guestbook/list">방명록</a>
+			<a href="/board/list">게시판</a>
 			
 			<c:choose>
 				<c:when test="${loginId !=null }">
