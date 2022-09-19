@@ -19,7 +19,9 @@
 					<option value="">선택</option>
 					<option>정보</option>
 					<option>유머</option>
+					<c:if test="${mg == '관리자' }">
 					<option>공지</option>
+					</c:if>
 				</select>
 			</td>
 		</tr>

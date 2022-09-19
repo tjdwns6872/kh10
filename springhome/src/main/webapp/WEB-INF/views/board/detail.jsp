@@ -59,8 +59,20 @@
 				<c:if test="${loginId != null }">
 					<a href="write">글쓰기</a>
 				</c:if>
+				
+				<%--
+					관리자는 삭제만, 회원은 자신의 글만 수정/삭제 가능하도록 처리
+				 --%>
+				<c:set var="owner" value="${loginId == boardDto.boardWriter }"></c:set>
+				<c:set var="admin" value="${mg == '관리자' }"></c:set>
+				
+				<c:if test="${owner }">
 				<a href="edit?boardNo=${boardDto.boardNo}">수정하기</a>
 				<a href="delete?boardNo=${boardDto.boardNo}">삭제하기</a>
+				</c:if>
+				<c:if test="${admin }">
+				<a href="delete?boardNo=${boardDto.boardNo}">삭제하기</a>
+				</c:if>
 				<a href="list">목록으로</a>
 			</td>
 		</tr>

@@ -95,7 +95,7 @@ public class MemberDaoImpl implements MemberDao{
 	
 	@Override
 	public List<MemberDto> selectList() {
-		String sql = "select * from member";
+		String sql = "select * from member order by member_id";
 		return jdbcTemplate.query(sql, mapper);
 	}
 	
