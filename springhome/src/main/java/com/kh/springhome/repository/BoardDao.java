@@ -3,13 +3,20 @@ package com.kh.springhome.repository;
 import java.util.List;
 
 import com.kh.springhome.entity.BoardDto;
+import com.kh.springhome.vo.BoardListSearchVO;
 
 public interface BoardDao {
-	List<BoardDto> selectList();
-	List<BoardDto> selectList(String type, String keyword);
-	BoardDto selectOne(int boardNo);
+	void insert(BoardDto boardDto);
+	int insert2(BoardDto boardDto);
 	
-	boolean delete(int boardNo);
+	List<BoardDto> selectList();
+	List<BoardDto> selectList(BoardListSearchVO vo);
+	BoardDto selectOne(int boardNo);
+	BoardDto read(int boardNo);//조회수 증가까지
+	
+	boolean updateReadcount(int boardNo);
 	boolean update(BoardDto boardDto);
-	void write(BoardDto boardDto);
+	
+	void clear();
+	boolean delete(int boardNo);
 }
