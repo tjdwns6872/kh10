@@ -11,11 +11,13 @@
 
 <table border="1" width="800">
 	<thead>
-		<tr>
-			<td align="right" colspan="5">
-				<a href="write">글쓰기</a>
-			</td>
-		</tr>
+		<c:if test="${loginId != null }">
+			<tr>
+				<td align="right" colspan="5">
+					<a href="write">글쓰기</a>
+				</td>
+			</tr>
+		</c:if>
 		<tr>
 			<th>번호</th>
 			<th width="45%">제목</th>
@@ -47,13 +49,15 @@
 		</tr>
 		</c:forEach>
 	</tbody>
-	<tfoot>
-		<tr>
-			<td align="right" colspan="5">
-				<a href="write">글쓰기</a>
-			</td>
-		</tr>
-	</tfoot>
+	<c:if test="${loginId != null }">
+		<tfoot>
+			<tr>
+				<td align="right" colspan="5">
+					<a href="write">글쓰기</a>
+				</td>
+			</tr>
+		</tfoot>
+	</c:if>
 </table>
 
 <!-- 페이지 네비게이터 -->

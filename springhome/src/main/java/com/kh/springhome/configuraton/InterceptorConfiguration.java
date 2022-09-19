@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.kh.springhome.interceptor.AdminInterceptor;
 import com.kh.springhome.interceptor.MemberInterceptor;
-import com.kh.springhome.interceptor.TestInterceptor;
 
 // 스프링 설정파일
 // - application.properties에서 설정하기 어려운 복잡한 설정을 구현
@@ -29,16 +28,21 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 //		registry.addInterceptor(testInterceptor).
 //			addPathPatterns("/**");
 		
+		//회원
 		registry.addInterceptor(memberInterceptor).
 			addPathPatterns(//인터셉터가 감시할 주소
-				"/pocketmon/**",
-				"/music/detail",
-				"/member/**").
+				"/pocketmon/**", //포켓몬 전체
+				"/music/detail", //음원 상세
+				"/member/**", //회원전체
+				"/board/**"). //게시판 전체
 			excludePathPatterns(//제외할 주소
 				"/member/insert*", //회원가입
 				"/member/login*", //로그인
-				"/member/goodbye_result"); //탈퇴완료
+				"/member/goodbye_result", 
+				"/board/list",
+				"/board/detail"); //탈퇴완료
 		
+		//관리자
 		registry.addInterceptor(adminInterceptor).
 			addPathPatterns(
 				"/guestbook/edit*", //방명록 수정페이지

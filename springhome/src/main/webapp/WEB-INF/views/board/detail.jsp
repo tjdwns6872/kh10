@@ -56,7 +56,9 @@
 	<tfoot>
 		<tr>
 			<td colspan="2" align="right">
-				<a href="write">글쓰기</a>
+				<c:if test="${loginId != null }">
+					<a href="write">글쓰기</a>
+				</c:if>
 				<a href="edit?boardNo=${boardDto.boardNo}">수정하기</a>
 				<a href="delete?boardNo=${boardDto.boardNo}">삭제하기</a>
 				<a href="list">목록으로</a>
