@@ -1,6 +1,10 @@
 package com.kh.springhome.controller;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,13 +45,35 @@ public class BoardController {
 	}
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam int boardNo, Model model) {
+	public String detail(@RequestParam int boardNo, Model model,
+			HttpSession session) {
 //		1. 조회수 증가시켜서 데이터를 불러온다
 //		boardDao.updateReadcount(boardNo);
 //		model.addAttribute("boardDto", boardDao.selectOne(boardNo));
 		
 //		2. 데이터를 읽도록 처리한다
-		model.addAttribute("boardDto", boardDao.read(boardNo));
+//		model.addAttribute("boardDto", boardDao.read(boardNo));
+		
+		//(+추가) 조회수 중복 방지 처리
+		//(1) 세션에 내가 읽은 게시글의 번호를 저장할 수 있는 저장소를 구현
+		// -> 후보 : int[], List<Integer>, Set<Integer>
+		// -> 현재 필요한 것은 게시글을 읽은 적이 있는가(중복확인)
+		// -> 세션에 저장할 이름은 history로 지정
+		//(2) 현재 history가 있을지 없을지 모르므로 꺼내서 없으면 생성
+		
+		Set<Integer> history = (Set<Integer>)session.getAttribute("history");
+		if(history == null) { //history가 없다면 신규생성
+			history = new HashSet<>();
+		}
+		
+		// (3) 현재 글 번호를 읽은 적이 있는지 검사
+		if(history.add(boardNo)) {// 추가된 경우 - 처음 읽는 번호
+			model.addAttribute("boardDto", boardDao.read(boardNo));
+		}else {
+			model.addAttribute("boardDto", boardDao.selectOne(boardNo));
+		}
+		//(4) 갱신된 저장소를 세션에 다시 저장
+		session.setAttribute("history", history);
 		return "board/detail";
 	}
 	
