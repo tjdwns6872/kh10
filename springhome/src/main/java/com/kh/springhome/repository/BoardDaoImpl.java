@@ -189,13 +189,15 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public int searchCount(BoardListSearchVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "select count(*) from board where instr(#1, ?) > 0";
+		sql = sql.replace("#1", vo.getType());
+		Object[] param = {vo.getKeyword()};
+		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
 
 	@Override
 	public int listCount(BoardListSearchVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "select count(*) from board";
+		return jdbcTemplate.queryForObject(sql, int.class);
 	}
 }
