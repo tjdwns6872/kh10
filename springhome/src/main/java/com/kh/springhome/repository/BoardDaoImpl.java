@@ -64,12 +64,11 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<BoardDto> selectList(BoardListSearchVO vo) {
-		String sql = "select * from board "
-						+ "where instr(#1, ?) > 0 "
-						+ "order by board_no desc";
-		sql = sql.replace("#1", vo.getType());
-		Object[] param = {vo.getKeyword()};
-		return jdbcTemplate.query(sql, mapper, param);
+		if(vo.isSearch()) {//검색이라면
+			return search(vo);
+		}else {//목록이라면
+			return list(vo);
+		}
 	}
 	
 	private ResultSetExtractor<BoardDto> extractor = new ResultSetExtractor<BoardDto>() {
@@ -152,5 +151,51 @@ public class BoardDaoImpl implements BoardDao {
 		Object[] param= {boardDto.getBoardTitle(), boardDto.getBoardContent(), 
 				boardDto.getBoardHead(), boardDto.getBoardNo()};
 		return jdbcTemplate.update(sql, param)>0;
+	}
+
+	@Override
+	public List<BoardDto> list(BoardListSearchVO vo) {
+		String sql = "select * from ("
+						+ "select rownum rn, TMP.* from ("
+							+ "select * from board order by board_no desc"
+						+ ")TMP"
+					+ ") where rn between ? and ?";
+		Object[] param = {vo.startRow(), vo.endRow()};
+		return jdbcTemplate.query(sql, mapper, param);
+	}
+
+	@Override
+	public List<BoardDto> search(BoardListSearchVO vo) {
+		String sql = "select * from ("
+				+ "select rownum rn, TMP.* from ("
+				+ "select * from board "
+				+ "where instr(#1, ?) > 0 "
+				+ "order by board_no desc"
+				+ ")TMP"
+				+ ") where rn between ? and ?";
+		sql = sql.replace("#1", vo.getType());
+		Object[] param = {vo.getKeyword(), vo.startRow(), vo.endRow()};
+		return jdbcTemplate.query(sql, mapper, param);
+	}
+
+	@Override
+	public int count(BoardListSearchVO vo) {
+		if(vo.isSearch()) {
+			return searchCount(vo);
+		}else {			
+			return listCount(vo);
+		}
+	}
+
+	@Override
+	public int searchCount(BoardListSearchVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int listCount(BoardListSearchVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

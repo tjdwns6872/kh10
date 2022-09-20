@@ -34,12 +34,7 @@ public class BoardController {
 	@GetMapping("/list")
 	public String list(Model model,
 			@ModelAttribute(name="vo") BoardListSearchVO vo) {
-		if(vo.isSearch()) {
-			model.addAttribute("list", boardDao.selectList(vo));
-		}
-		else{
-			model.addAttribute("list", boardDao.selectList());
-		}
+		model.addAttribute("list", boardDao.selectList(vo));
 //		return "/WEB-INF/views/board/list.jsp";
 		return "board/list";
 	}
