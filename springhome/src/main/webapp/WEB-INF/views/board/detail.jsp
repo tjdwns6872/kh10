@@ -58,6 +58,7 @@
 			<td colspan="2" align="right">
 				<c:if test="${loginId != null }">
 					<a href="write">글쓰기</a>
+					<a href="write?boardParent=${boardDto.boardNo }" >답글쓰기</a>
 				</c:if>
 				
 				<%--

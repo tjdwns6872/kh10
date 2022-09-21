@@ -78,14 +78,14 @@
 			<td>${boardDto.boardRead}</td>
 			<td>${boardDto.boardGroup }</td>
 			<td>${boardDto.boardParent }</td>
-			<td>${boardDto.board_depth}</td>
+			<td>${boardDto.boardDepth}</td>
 		</tr>
 		</c:forEach>
 	</tbody>
 	<c:if test="${loginId != null}">
 	<tfoot>
 		<tr>
-			<td align="right" colspan="5">
+			<td align="right" colspan="8">
 				<a href="write">글쓰기</a>
 			</td>
 		</tr>
