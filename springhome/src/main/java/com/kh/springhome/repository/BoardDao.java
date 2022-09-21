@@ -6,10 +6,11 @@ import com.kh.springhome.entity.BoardDto;
 import com.kh.springhome.vo.BoardListSearchVO;
 
 public interface BoardDao {
-	void insert(BoardDto boardDto);
-	int insert2(BoardDto boardDto);
+	void insert(BoardDto boardDto); //번호를 만들면서 등록하는 메소드
+	int sequence(); //시퀀스 발행 메소드
+	void insert2(BoardDto boardDto); //번호까지 합쳐서 등록하는 메소드
 	
-	List<BoardDto> selectList();
+	List<BoardDto> selectList();//더이상 사용 x
 	
 	//통합검색 메소드(목록+검색)
 	List<BoardDto> selectList(BoardListSearchVO vo);

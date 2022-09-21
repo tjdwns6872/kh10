@@ -92,9 +92,24 @@ public class BoardController {
 //		boardDao.insert(boardDto);
 //		return "redirect:list";
 		
+//		등록될 글의 번호를 미리생성
+		int boardNo = boardDao.sequence();
+		boardDto.setBoardNo(boardNo);
+		
+//		등록 전에 "새글"인지 "답글"인지 파악해서 그에 맞는 계산을 수행
+		if(boardDto.getBoardParent() == 0) { // 새글
+			boardDto.setBoardGroup(boardNo);
+			boardDto.setBoardParent(0);
+			boardDto.setBoardDepth(0);
+		}else { // 답글
+			BoardDto parentDto = boardDao.selectOne(boardDto.getBoardParent());
+			boardDto.setBoardGroup(parentDto.getBoardGroup());
+			boardDto.setBoardDepth(parentDto.getBoardDepth()+1);
+		}
+		
 //		문제점 : 등록은 되는데 몇 번인지 알 수 없다
 //		해결책 : 번호를 미리 생성하고 등록하도록 메소드 변경
-		int boardNo = boardDao.insert2(boardDto);
+		boardDao.insert2(boardDto);
 		attr.addAttribute("boardNo", boardNo);
 		return "redirect:detail";
 	}

@@ -119,23 +119,24 @@ public class BoardDaoImpl implements BoardDao {
 	}
 	
 	@Override
-	public int insert2(BoardDto boardDto) {
-		//번호를 미리 생성한 뒤 등록하는 기능
+	public int sequence() {
 		String sql = "select board_seq.nextval from dual";
 		int boardNo = jdbcTemplate.queryForObject(sql, int.class);
-		
-		sql = "insert into board("
+		return boardNo;
+	}
+	@Override
+	public void insert2(BoardDto boardDto) {
+		String sql = "insert into board("
 					+ "board_no, board_title, board_content,"
-					+ "board_writer, board_head"
-				+ ") values(?, ?, ?, ?, ?)";
+					+ "board_writer, board_head, board_group, board_parent, board_depth"
+				+ ") values(?, ?, ?, ?, ?, ?, ?, ?)";
 		Object[] param = {
-			boardNo, boardDto.getBoardTitle(),
+			boardDto.getBoardNo(), boardDto.getBoardTitle(),
 			boardDto.getBoardContent(), boardDto.getBoardWriter(),
-			boardDto.getBoardHead()
+			boardDto.getBoardHead(), boardDto.getBoardGroup(), 
+			boardDto.getBoardParentInteger(), boardDto.getBoardDepth()
 		};
 		jdbcTemplate.update(sql, param);
-		
-		return boardNo;
 	}
 	
 	@Override
@@ -203,4 +204,5 @@ public class BoardDaoImpl implements BoardDao {
 		String sql = "select count(*) from board";
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
+
 }
