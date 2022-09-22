@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.springhome.constant.SessionConstant;
 import com.kh.springhome.entity.BoardDto;
+import com.kh.springhome.entity.ReplyDto;
 import com.kh.springhome.error.TargetNotFoundException;
 import com.kh.springhome.repository.BoardDao;
+import com.kh.springhome.repository.ReplyDao;
 import com.kh.springhome.vo.BoardListSearchVO;
 
 @Controller
@@ -28,6 +29,8 @@ public class BoardController {
 
 	@Autowired
 	private BoardDao boardDao;
+	@Autowired
+	private ReplyDao replyDao;
 	
 //	참고 : ModelAttribute로 수신한 데이터는 자동으로 Model에 첨부된다
 //	- 옵션에 name을 작성하면 해당하는 이름으로 model에 첨부
@@ -70,8 +73,13 @@ public class BoardController {
 		}else {
 			model.addAttribute("boardDto", boardDao.selectOne(boardNo));
 		}
+		model.addAttribute("replyDto");
 		//(4) 갱신된 저장소를 세션에 다시 저장
 		session.setAttribute("history", history);
+		
+//		(+추가) 댓글 목록을 조회하여 첨부
+		model.addAttribute("replyList", replyDao.selectList(boardNo));
+		
 		return "board/detail";
 	}
 	
@@ -114,6 +122,17 @@ public class BoardController {
 		return "redirect:detail";
 	}
 	
+	@PostMapping("/reply/write")
+	public String replyWrite(@ModelAttribute ReplyDto replyDto,
+			@ModelAttribute BoardDto boardDto,
+			RedirectAttributes attr, HttpSession session) {
+		System.out.println(boardDto);
+		String loginId = (String)session.getAttribute(SessionConstant.ID);
+		replyDto.setReplyWriter(loginId);
+		replyDto.setReplyOrigin(boardDto.getBoardNo());
+		replyDao.insert(replyDto);
+		return "redirect:detail";
+	}
 	@GetMapping("/delete")
 	public String delete(@RequestParam int boardNo) {
 		boolean result = boardDao.delete(boardNo);
@@ -145,4 +164,5 @@ public class BoardController {
 			throw new TargetNotFoundException();
 		}
 	}
+	
 }

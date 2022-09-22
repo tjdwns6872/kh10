@@ -8,7 +8,6 @@
 </jsp:include>
 
 <h1>게시글 보기</h1>
-
 <table border="1" width="500">
 	<tbody>
 		<tr>
@@ -52,6 +51,7 @@
 			</td>
 		</tr>
 		</c:if>
+	
 	</tbody>
 	<tfoot>
 		<tr>
@@ -79,5 +79,31 @@
 		</tr>
 	</tfoot>
 </table>
+
+<br>
+
+<table border="1" width="500">
+	<!-- 댓글 목록 -->
+	<tbody>
+		<c:forEach var="replyDto" items="${replyList }">
+			<tr>
+				<td width="90%">
+					${replyDto.replyWriter} (등급) <br> 
+				<pre>${replyDto.replyContent}</pre>
+				 <br><br>
+				 <fmt:formatDate value="${replyDto.replyWritetime}" 
+				 						pattern="yyyy-MM-dd HH:mm"/> 
+				</td>
+				<th>
+					수정
+					<br>
+					삭제
+				</th>
+			</tr>
+		</c:forEach>
+	</tbody>	
+	<!-- 댓글 작성란 -->
+</table>
+
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
