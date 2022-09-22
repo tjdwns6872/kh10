@@ -112,8 +112,7 @@
 		<tr>
 			<th>
 				<textarea name="replyContent" rows="5" cols="55"
-					placeholder="댓글 작성.." required>
-				</textarea>
+					placeholder="댓글 작성.." required></textarea>
 			</th>
 			<th>
 				<button type="submit">전송</button>
