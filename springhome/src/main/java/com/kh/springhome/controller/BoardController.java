@@ -124,15 +124,15 @@ public class BoardController {
 	
 	@PostMapping("/reply/write")
 	public String replyWrite(@ModelAttribute ReplyDto replyDto,
-			@ModelAttribute BoardDto boardDto,
 			RedirectAttributes attr, HttpSession session) {
-		System.out.println(boardDto);
-		String loginId = (String)session.getAttribute(SessionConstant.ID);
-		replyDto.setReplyWriter(loginId);
-		replyDto.setReplyOrigin(boardDto.getBoardNo());
+		String memberId = (String)session.getAttribute(SessionConstant.ID);
+		replyDto.setReplyWriter(memberId);
 		replyDao.insert(replyDto);
-		return "redirect:detail";
+		attr.addAttribute("boardNo", replyDto.getReplyOrigin());
+//		return "redirect:../detail"; 상대
+		return "redirect:/board/detail"; //절대
 	}
+	
 	@GetMapping("/delete")
 	public String delete(@RequestParam int boardNo) {
 		boolean result = boardDao.delete(boardNo);

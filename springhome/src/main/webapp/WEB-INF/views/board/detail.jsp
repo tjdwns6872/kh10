@@ -102,8 +102,26 @@
 			</tr>
 		</c:forEach>
 	</tbody>	
-	<!-- 댓글 작성란 -->
 </table>
+<br>
+<!-- 댓글 작성란 -->
+<form action="reply/write" method="post">
+<input type="hidden" name="replyOrigin" value="${boardDto.boardNo }">
+<table width="500">
+	<tbody>
+		<tr>
+			<th>
+				<textarea name="replyContent" rows="5" cols="55"
+					placeholder="댓글 작성.." required>
+				</textarea>
+			</th>
+			<th>
+				<button type="submit">전송</button>
+			</th>
+		</tr>
+	</tbody>
+</table>
+</form>
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
