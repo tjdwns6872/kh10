@@ -88,39 +88,75 @@
 		<c:forEach var="replyDto" items="${replyList }">
 			<tr>
 				<td width="90%">
-					${replyDto.replyWriter} (등급) <br> 
+				<!-- 작성자 -->
+					${replyDto.replyWriter}
+					<c:if test="${boardDto.boardWriter == replyDto.replyWriter}">
+					(작성자)
+					</c:if>
+					 (등급) 
+					 <br> 
 				<pre>${replyDto.replyContent}</pre>
 				 <br><br>
 				 <fmt:formatDate value="${replyDto.replyWritetime}" 
 				 						pattern="yyyy-MM-dd HH:mm"/> 
 				</td>
 				<th>
+					<!-- 수정과 삭제는 현재 사용자가 남긴 댓글에만 표시 -->
+					<c:if test="${loginId == replyDto.replyWriter }">
 					수정
 					<br>
-					삭제
+					<a href="reply/delete?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}">삭제</a>
+					</c:if>
+					
+					<c:if test="${admin }">
+						<a href="#">블라인드</a>
+					</c:if>
 				</th>
 			</tr>
 		</c:forEach>
 	</tbody>	
 </table>
 <br>
-<!-- 댓글 작성란 -->
-<form action="reply/write" method="post">
-<input type="hidden" name="replyOrigin" value="${boardDto.boardNo }">
-<table width="500">
-	<tbody>
-		<tr>
-			<th>
-				<textarea name="replyContent" rows="5" cols="55"
-					placeholder="댓글 작성.." required></textarea>
-			</th>
-			<th>
-				<button type="submit">전송</button>
-			</th>
-		</tr>
-	</tbody>
-</table>
-</form>
+
+<%-- 회원일 경우와 아닐 경우 댓글 작성창이 다르게 보이도록 처리 --%>
+
+<c:choose>
+	<c:when test="${loginId != null }">
+		<!-- 댓글 작성란 -->
+		<form action="reply/write" method="post">
+		<input type="hidden" name="replyOrigin" value="${boardDto.boardNo }">
+		<table width="500">
+			<tbody>
+				<tr>
+					<th>
+						<textarea name="replyContent" rows="5" cols="55"
+							placeholder="댓글 작성.." required></textarea>
+					</th>
+					<th>
+						<button type="submit">전송</button>
+					</th>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</c:when>
+	<c:otherwise>
+	<input type="hidden" name="replyOrigin" value="${boardDto.boardNo }">
+	<table width="500">
+		<tbody>
+			<tr>
+				<th>
+					<textarea name="replyContent" rows="5" cols="55"
+						placeholder="로그인 후 사용이 가능합니다." disabled></textarea>
+				</th>
+				<th>
+					<button type="submit" disabled>전송</button>
+				</th>
+			</tr>
+		</tbody>
+	</table>
+	</c:otherwise>
+</c:choose>
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

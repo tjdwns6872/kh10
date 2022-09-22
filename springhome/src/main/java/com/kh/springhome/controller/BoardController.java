@@ -132,6 +132,14 @@ public class BoardController {
 //		return "redirect:../detail"; 상대
 		return "redirect:/board/detail"; //절대
 	}
+	@GetMapping("/reply/delete")
+	public String replyDelete(@RequestParam int replyNo, 
+			@RequestParam int replyOrigin,
+			RedirectAttributes attr) {
+		replyDao.delete(replyNo);
+		attr.addAttribute("boardNo", replyOrigin);
+		return "redirect:/board/detail";
+	}
 	
 	@GetMapping("/delete")
 	public String delete(@RequestParam int boardNo) {
