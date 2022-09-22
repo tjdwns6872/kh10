@@ -122,7 +122,7 @@
 						<form action="reply/edit" method="post">
 							<input type="hidden" name="replyNo" value="${replyDto.replyNo }">
 							<input type="hidden" name="replyOrigin" value="${replyDto.replyOrigin }">
-							<textarea name="replyContent" rows="5" cols="55"
+							<textarea name="replyContent" rows="5" cols="50"
 								required>${replyDto.replyContent}</textarea>
 							<button type="submit">변경</button>
 							<a href="#">취소</a>
