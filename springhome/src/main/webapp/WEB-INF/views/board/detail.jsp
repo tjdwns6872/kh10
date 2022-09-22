@@ -87,6 +87,7 @@
 	<tbody>
 		<c:forEach var="replyDto" items="${replyList }">
 			<tr>
+				<!-- 사용자에게 보여지는 화면 -->
 				<td width="90%">
 				<!-- 작성자 -->
 					${replyDto.replyWriter}
@@ -113,6 +114,22 @@
 					</c:if>
 				</th>
 			</tr>
+			
+			<!-- 수정하기 위한 화면 -->
+			<c:if test="${loginId == replyDto.replyWriter}">
+				<tr>
+					<th colspan="2">
+						<form action="reply/edit" method="post">
+							<input type="hidden" name="replyNo" value="${replyDto.replyNo }">
+							<input type="hidden" name="replyOrigin" value="${replyDto.replyOrigin }">
+							<textarea name="replyContent" rows="5" cols="55"
+								required>${replyDto.replyContent}</textarea>
+							<button type="submit">변경</button>
+							<a href="#">취소</a>
+						</form>
+					</th>
+				</tr>
+			</c:if>
 		</c:forEach>
 	</tbody>	
 </table>
@@ -129,7 +146,7 @@
 			<tbody>
 				<tr>
 					<th>
-						<textarea name="replyContent" rows="5" cols="55"
+						<textarea name="replyContent" rows="5" cols="50"
 							placeholder="댓글 작성.." required></textarea>
 					</th>
 					<th>
@@ -146,7 +163,7 @@
 		<tbody>
 			<tr>
 				<th>
-					<textarea name="replyContent" rows="5" cols="55"
+					<textarea name="replyContent" rows="5" cols="50"
 						placeholder="로그인 후 사용이 가능합니다." disabled></textarea>
 				</th>
 				<th>

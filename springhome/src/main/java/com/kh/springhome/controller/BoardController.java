@@ -1,5 +1,6 @@
 package com.kh.springhome.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -138,6 +139,12 @@ public class BoardController {
 			RedirectAttributes attr) {
 		replyDao.delete(replyNo);
 		attr.addAttribute("boardNo", replyOrigin);
+		return "redirect:/board/detail";
+	}
+	@PostMapping("/reply/edit")
+	public String replyEdit(@ModelAttribute ReplyDto replyDto, RedirectAttributes attr) {
+		replyDao.update(replyDto);
+		attr.addAttribute("boardNo", replyDto.getReplyOrigin());
 		return "redirect:/board/detail";
 	}
 	
