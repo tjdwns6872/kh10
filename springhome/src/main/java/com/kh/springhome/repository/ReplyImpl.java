@@ -28,6 +28,7 @@ public class ReplyImpl implements ReplyDao{
 					.replyContent(rs.getString("reply_content"))
 					.replyOrigin(rs.getInt("reply_origin"))
 					.replyWritetime(rs.getDate("reply_writetime"))
+					.replyBlind(rs.getString("reply_blind") != null)
 					.build();	
 		}
 	};
@@ -75,6 +76,7 @@ public class ReplyImpl implements ReplyDao{
 						.replyContent(rs.getString("reply_content"))
 						.replyOrigin(rs.getInt("reply_origin"))
 						.replyWritetime(rs.getDate("reply_writetime"))
+						.replyBlind(rs.getString("reply_blind") != null)
 					.build();
 			}
 			else {
@@ -88,6 +90,14 @@ public class ReplyImpl implements ReplyDao{
 		String sql = "select * from reply where reply_no = ?";
 		Object[] param = {replyNo};
 		return jdbcTemplate.query(sql, extractor, param);
+	}
+
+	@Override
+	public boolean updateBlind(int replyNo, boolean blind) {
+		String sql = "update reply set reply_blind = ? where reply_no=?";
+		String replyBlind = blind ? "Y" : null; //삼항연산
+		Object[] param = {replyBlind, replyNo};
+		return jdbcTemplate.update(sql, param) > 0;
 	}
 	
 }

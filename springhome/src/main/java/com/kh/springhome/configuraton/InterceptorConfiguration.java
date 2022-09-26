@@ -43,8 +43,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		//(참고) 등록 코드 작성 순으로 실행됨
 		
 		//테스트 확인용 인터셉터
-		registry.addInterceptor(testInterceptor)
-					.addPathPatterns("/**");
+//		registry.addInterceptor(testInterceptor)
+//					.addPathPatterns("/**");
 		
 		//회원용 인터셉터
 		registry.addInterceptor(memberInterceptor)
@@ -71,7 +71,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 						"/member/list",//회원목록
 						"/member/detail",//회원상세
 						"/member/change*",//회원수정
-						"/member/exit"//회원삭제
+						"/member/exit",//회원삭제
+						"/admin/**",//관리자 기능
+						"/board/reply/blind"//블라인드 기능
 					)
 					.excludePathPatterns(//위의 주소에서 제외할 주소
 						"/music/list",//음원 목록

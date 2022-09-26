@@ -55,7 +55,7 @@
 				
 				<!-- 제목을 누르면 상세 페이지로 이동하도록 처리 -->
 				<a href="detail?boardNo=${boardDto.boardNo}">
-					${boardDto.boardTitle}
+					${boardDto.boardTitle} <!-- 댓글 개수 추가 -->
 				</a>
 				
 			</td>
