@@ -1,6 +1,7 @@
 package com.kh.springhome.controller;
 
-import java.lang.ProcessBuilder.Redirect;
+import java.io.File;
+import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.springhome.constant.SessionConstant;
@@ -30,9 +32,21 @@ public class MemberControlloer {
 		return "member/insert";
 	}
 	
+//	(+추가) 첨부파일을 받아서 저장
 	@PostMapping("/insert")
-	public String insert(@ModelAttribute MemberDto memberDto) {
+	public String insert(
+			@ModelAttribute MemberDto memberDto,
+			@RequestParam MultipartFile memberProfile) throws IllegalStateException, IOException {
+		//데이터베이스 등록
 		memberDao.insert(memberDto);
+		
+		if(!memberProfile.isEmpty()) {//첨부파일이 있다면	
+			//프로필 저장
+			File directory = new File("C:/Users/tjdwn/upload");
+			directory.mkdirs();
+			File target = new File(directory, memberDto.getMemberId());
+			memberProfile.transferTo(target);
+		}
 		return "redirect:insert_success";
 	}
 	
