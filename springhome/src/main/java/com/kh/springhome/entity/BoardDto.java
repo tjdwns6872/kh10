@@ -13,16 +13,15 @@ public class BoardDto {
 	private String boardHead, boardWriter, boardTitle, boardContent;
 	private Date boardWritetime, boardUpdatetime;
 	private int boardRead, boardLike;
-	// 계층형 게시판 데이터
-	// (참고) boardParent는 null일 수 있지만 JDBC에서 0으로 변환(Integer로 생성해야 됨)
+	//계층형 게시판 데이터
+	//(참고) boardParent는 null일 수 있지만 JDBC에서 0으로 변환
 	private int boardGroup, boardParent, boardDepth;
 	
-	//DB에 insert할 때 0 대신 null이 등록되도록 값을 변환해서 반환하는 메소드
+	//DB에 INSERT 할 때 0 대신 null이 등록되도록 값을 변환해서 반환하는 메소드
 	public Integer getBoardParentInteger() {
-		if(boardParent == 0) {
-			return null;			
-		}else {
-			return boardParent;			
-		}
+		if(boardParent == 0) 
+			return null;
+		else 
+			return boardParent;
 	}
 }

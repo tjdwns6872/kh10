@@ -34,7 +34,7 @@
 			<th>작성일</th>
 			<th>조회수</th>
 			<th>그룹</th>
-			<th>부모글</th>
+			<th>부모</th>
 			<th>차수</th>
 		</tr>
 	</thead>
@@ -44,10 +44,10 @@
 			<td>${boardDto.boardNo}</td>
 			<td align="left">
 				<!-- 차수만큼 띄어쓰기를 반복 -->
-				<c:forEach var="i"  begin="1" end="${boardDto.boardDepth}" step="1">
+				<c:forEach var="i" begin="1" end="${boardDto.boardDepth}" step="1">
 					&nbsp;&nbsp;
 				</c:forEach>
-			
+				
 				<!-- 말머리 출력(있을 경우에만) -->
 				<c:if test="${boardDto.boardHead != null}">
 					[${boardDto.boardHead}]
@@ -55,8 +55,18 @@
 				
 				<!-- 제목을 누르면 상세 페이지로 이동하도록 처리 -->
 				<a href="detail?boardNo=${boardDto.boardNo}">
-					${boardDto.boardTitle} <!-- 댓글 개수 추가 -->
+					${boardDto.boardTitle}
 				</a>
+				
+				<!-- 댓글 개수 출력 -->
+				<c:if test="${boardDto.replyCount > 0}">
+					[${boardDto.replyCount}]
+				</c:if>
+				
+				<!-- 좋아요 개수 출력 -->
+				<c:if test="${boardDto.boardLike > 0}">
+					♥ ${boardDto.boardLike}
+				</c:if>
 				
 			</td>
 			<td>${boardDto.boardWriter}</td>
@@ -76,8 +86,8 @@
 				</c:choose>
 			</td>
 			<td>${boardDto.boardRead}</td>
-			<td>${boardDto.boardGroup }</td>
-			<td>${boardDto.boardParent }</td>
+			<td>${boardDto.boardGroup}</td>
+			<td>${boardDto.boardParent}</td>
 			<td>${boardDto.boardDepth}</td>
 		</tr>
 		</c:forEach>
@@ -142,6 +152,7 @@
 
 <!-- 검색창 -->
 <form action="list" method="get">
+	<input type="hidden" name="size" value="${vo.size}">
 	<select name="type" required>
 		<option value="board_title" <c:if test="${vo.type == 'board_title'}">selected</c:if>>제목</option>
 		<option value="board_writer" <c:if test="${vo.type == 'board_writer'}">selected</c:if>>작성자</option>

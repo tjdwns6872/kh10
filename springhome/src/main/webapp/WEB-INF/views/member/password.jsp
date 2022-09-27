@@ -9,8 +9,9 @@
 <h1>비밀번호 변경</h1>
 
 <form action="password" method="post">
-	<input type="password" name="beforePw" placeholder="기존 비밀번호" required><br><br>
-	<input type="password" name="pw" placeholder="변경할 비밀번호" required>
+	<input type="password" name="beforePw" placeholder="기존 비밀번호" required>
+	<br><br>
+	<input type="password" name="afterPw" placeholder="바꿀 비밀번호" required>
 	<br><br>
 	<button type="submit">변경하기</button>
 </form>

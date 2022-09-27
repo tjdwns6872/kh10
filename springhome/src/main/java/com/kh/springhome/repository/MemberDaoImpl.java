@@ -5,12 +5,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.springhome.entity.MemberDto;
+import com.kh.springhome.vo.MemberListForMainVO;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
@@ -71,31 +73,9 @@ public class MemberDaoImpl implements MemberDao{
 		}
 	};
 	
-	private ResultSetExtractor<MemberDto> extractor = rs -> {
-		if(rs.next()) {
-			MemberDto dto = new MemberDto();
-			dto.setMemberId(rs.getString("member_id"));
-			dto.setMemberPw(rs.getString("member_pw"));
-			dto.setMemberNick(rs.getString("member_nick"));
-			dto.setMemberBirth(rs.getDate("member_birth"));
-			dto.setMemberTel(rs.getString("member_tel"));
-			dto.setMemberEmail(rs.getString("member_email"));
-			dto.setMemberPost(rs.getString("member_post"));
-			dto.setMemberBaseAddress(rs.getString("member_base_address"));
-			dto.setMemberDetailAddress(rs.getString("member_detail_address"));
-			dto.setMemberPoint(rs.getInt("member_point"));
-			dto.setMemberJoin(rs.getDate("member_join"));
-			dto.setMemberLogin(rs.getDate("member_login"));
-			dto.setMemberGrade(rs.getString("member_grade"));
-			return dto;
-		}else {
-			return null;
-		}
-	};
-	
 	@Override
 	public List<MemberDto> selectList() {
-		String sql = "select * from member order by member_id";
+		String sql = "select * from member";
 		return jdbcTemplate.query(sql, mapper);
 	}
 	
@@ -106,61 +86,138 @@ public class MemberDaoImpl implements MemberDao{
 		Object[] param = {keyword};
 		return jdbcTemplate.query(sql, mapper, param);
 	}
+	
+	private ResultSetExtractor<MemberDto> extractor = new ResultSetExtractor<MemberDto>() {
+		@Override
+		public MemberDto extractData(ResultSet rs) throws SQLException, DataAccessException {
+			if(rs.next()) {
+				MemberDto dto = new MemberDto();
+				dto.setMemberId(rs.getString("member_id"));
+				dto.setMemberPw(rs.getString("member_pw"));
+				dto.setMemberNick(rs.getString("member_nick"));
+				dto.setMemberBirth(rs.getDate("member_birth"));
+				dto.setMemberTel(rs.getString("member_tel"));
+				dto.setMemberEmail(rs.getString("member_email"));
+				dto.setMemberPost(rs.getString("member_post"));
+				dto.setMemberBaseAddress(rs.getString("member_base_address"));
+				dto.setMemberDetailAddress(rs.getString("member_detail_address"));
+				dto.setMemberPoint(rs.getInt("member_point"));
+				dto.setMemberJoin(rs.getDate("member_join"));
+				dto.setMemberLogin(rs.getDate("member_login"));
+				dto.setMemberGrade(rs.getString("member_grade"));
+				return dto;
+			}
+			else {
+				return null;
+			}
+		}
+	};
 
 	@Override
-	public MemberDto selectOne(String id) {
-		String sql = "select * from member where member_id=?";
-		Object[] param= {id};
+	public MemberDto selectOne(String memberId) {
+		String sql = "select * from member where member_id = ?";
+		Object[] param = {memberId};
 		return jdbcTemplate.query(sql, extractor, param);
 	}
 
 	@Override
-	public boolean update(MemberDto dto) {
-		String sql = "update member set "
-				+ "member_nick=?, member_tel=?, member_email=?, "
-				+ "member_post=?, member_base_address=?, member_detail_address=?, "
-				+ "member_grade=? where member_id=?";
-		Object[] param = {dto.getMemberNick(), dto.getMemberTel(),
-				dto.getMemberEmail(), dto.getMemberPost(), dto.getMemberBaseAddress(),
-				dto.getMemberDetailAddress(), dto.getMemberGrade(), dto.getMemberId()};
-		int result = jdbcTemplate.update(sql, param);
-		return result > 0;
-	}
-
-	@Override
-	public boolean delete(String id) {
-		String sql = "delete member where member_id=?";
-		Object[] param = {id};
+	public boolean update(MemberDto memberDto) {
+		String sql = "update member "
+						+ "set "
+							+ "member_nick = ?,"
+							+ "member_birth = ?,"
+							+ "member_tel = ?,"
+							+ "member_email = ?,"
+							+ "member_post = ?,"
+							+ "member_base_address = ?,"
+							+ "member_detail_address = ?,"
+							+ "member_grade = ?,"
+							+ "member_point = ? "
+						+ "where "
+							+ "member_id = ?";
+		Object[] param = {
+			memberDto.getMemberNick(), memberDto.getMemberBirth(),
+			memberDto.getMemberTel(), memberDto.getMemberEmail(),
+			memberDto.getMemberPost(), memberDto.getMemberBaseAddress(),
+			memberDto.getMemberDetailAddress(), memberDto.getMemberGrade(),
+			memberDto.getMemberPoint(), memberDto.getMemberId()
+		};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
-
+	
+	@Override
+	public boolean delete(String memberId) {
+		String sql = "delete member where member_id = ?";
+		Object[] param = {memberId};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
 	@Override
 	public boolean changePassword(String memberId, String memberPw) {
-		String sql ="update member set member_pw=? where member_id=?";
+		String sql = "update member "
+							+ "set member_pw = ? "
+							+ "where member_id = ?";
 		Object[] param = {memberPw, memberId};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
-
+	
 	@Override
 	public boolean changeInformation(MemberDto memberDto) {
-		String sql = "update member set "
-				+ "member_Nick=?, member_Birth=?, member_Tel=?, "
-				+ "member_Email=?, member_Post, member_Base_Address=?, "
-				+ "member_Detail_Address=? where member_Id=?";
-		Object[] param = {memberDto.getMemberNick(), memberDto.getMemberBirth(), memberDto.getMemberTel(),
-				memberDto.getMemberEmail(), memberDto.getMemberPost(), memberDto.getMemberBaseAddress(),
-				memberDto.getMemberDetailAddress(), memberDto.getMemberId()};
-		return jdbcTemplate.update(sql, param)>0;
-	}
-
-	@Override
-	public boolean updateLoginTime(String memberId) {
-		String sql = "update member set "
-				+ "member_Login=sysdate "
-				+ "where member_id=?";
-		Object[] param= {memberId};
+		String sql = "update member "
+						+ "set "
+							+ "member_nick = ?,"
+							+ "member_birth = ?,"
+							+ "member_tel = ?,"
+							+ "member_email = ?,"
+							+ "member_post = ?,"
+							+ "member_base_address = ?,"
+							+ "member_detail_address = ? "
+						+ "where member_id = ?";
+		Object[] param = {
+			memberDto.getMemberNick(), memberDto.getMemberBirth(),
+			memberDto.getMemberTel(), memberDto.getMemberEmail(),
+			memberDto.getMemberPost(), memberDto.getMemberBaseAddress(),
+			memberDto.getMemberDetailAddress(), memberDto.getMemberId()
+		};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
-
 	
+	@Override
+	public boolean updateLoginTime(String memberId) {
+		String sql = "update member "
+						+ "set member_login=sysdate "
+						+ "where member_id=?";
+		Object[] param = {memberId};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
+	private RowMapper<MemberListForMainVO> mainMapper = new RowMapper<MemberListForMainVO>() {
+		@Override
+		public MemberListForMainVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return MemberListForMainVO.builder()
+									.memberId(rs.getString("member_id"))
+									.memberNick(rs.getString("member_nick"))
+									.memberGrade(rs.getString("member_grade"))
+									.cnt(rs.getInt("cnt"))
+									.rank(rs.getInt("rank"))
+								.build();
+		}
+	};
+	
+	@Override
+	public List<MemberListForMainVO> selectListForMain() {
+		String sql = "select * from ("
+							+ "select TMP.*, rank() over(order by cnt desc) rank from ("
+								+ "select distinct "
+								+ "M.member_id, "
+								+ "M.member_nick, "
+								+ "M.member_grade, "
+								+ "count(B.board_no) over(partition by M.member_id) cnt "
+								+ "from "
+								+ "member M inner join board B "
+								+ "on M.member_id = B.board_writer"
+							+ ")TMP"
+						+ ") where rank between 1 and 3";
+		return jdbcTemplate.query(sql, mainMapper);
+	}
 }
