@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.kh.springhome.entity.ReplyDto;
 import com.kh.springhome.repository.ReplyDao;
+import com.kh.springhome.vo.ReplyListVO;
 
 @SpringBootTest
 public class ReplyTest {
@@ -18,25 +19,26 @@ public class ReplyTest {
 	
 	@BeforeEach
 	public void before() {
-		//intsert
-		for(int i = 1; i <= 100; i++) {
+		//insert
+		for(int i=1; i <= 100; i++) {
 			replyDao.insert(ReplyDto.builder()
-					.replyWriter("admin1")
-					.replyContent("댓글테스트"+i)
-					.replyOrigin(1)
-					.build());
+										.replyWriter("hello1234")
+										.replyContent("댓글테스트"+i)
+										.replyOrigin(1)
+									.build());
 		}
 	}
+	
 	@Test
 	public void test() {
 		//select
-		List<ReplyDto> list = replyDao.selectList(1);
-		for(ReplyDto replyDto : list) {
+		List<ReplyListVO> list = replyDao.selectList(1);
+		for(ReplyListVO replyDto : list) {
 			System.out.println(replyDto);
 		}
 	}
+	
 }
-
 
 
 
