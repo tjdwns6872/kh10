@@ -6,7 +6,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp">
 	<jsp:param value="자유 게시판" name="title"/>
 </jsp:include>
-<c:set var="isReply" value="${param.boardParent != null }"></c:set>
+<c:set var="isReply" value="${param.boardParent != null}"></c:set>
 <c:choose>
 	<c:when test="${isReply}">
 		<h1>답글 작성</h1>
@@ -16,11 +16,15 @@
 	</c:otherwise>
 </c:choose>
 
-<form action="write" method="post">
-<%-- 답글이라면 부모글 번호를 추가로 전송하도록 처리 --%>
-<c:if test="${isReply }">
-	<input type="hidden" name="boardParent" value="${param.boardParent }">
+
+
+<form action="write" method="post" enctype="multipart/form-data">
+<%-- 답글이라면 부모글번호를 추가로 전송하도록 처리 --%>
+<c:if test="${isReply}">
+	<input type="hidden" name="boardParent" 
+									value="${param.boardParent}">
 </c:if>
+
 <table border="1" width="500">
 	<tbody>
 		<tr>
@@ -30,7 +34,8 @@
 					<option value="">선택</option>
 					<option>정보</option>
 					<option>유머</option>
-					<c:if test="${mg == '관리자' }">
+					
+					<c:if test="${mg == '관리자'}">
 					<option>공지</option>
 					</c:if>
 				</select>
@@ -53,6 +58,15 @@
 				<textarea name="boardContent" rows="10" cols="50" required></textarea>
 			</td>
 		</tr>
+		
+		<!-- 첨부파일 -->
+		<tr>
+			<th>첨부파일</th>
+			<td>
+				<input type="file" name="attachment" multiple>
+			</td>
+		</tr>
+		
 	</tbody>
 	<tfoot>
 		<tr>
