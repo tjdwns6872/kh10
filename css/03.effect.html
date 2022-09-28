@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 속성과 효과</title>
+    <style>
+        input[name=keyword]{
+
+        }
+        /* 
+            color : 글자 색상
+            background-* : 배경 속성
+            font-* : 글꼴 속성
+            margin : 바깥쪽 여백(전체/상하-좌우/12-3-6-9)
+            padding : 안쪽 여백(전체/상하-좌우/12-3-6-9)
+
+            box-sizing : 크기 설정 기준
+        */
+        .user-input{
+            color: #0984e3;
+            background-color: yellow;
+            font-family: 궁서;
+            font-size: 20px;
+
+            /* padding: 10px; */
+            /* padding: 10px 20px; */
+            padding: 10px 20px 30px 40px;
+            margin: 10px 0px;
+
+            box-sizing: border-box;
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <input name="keyword" class="user-input">
+</body>
+</html>
