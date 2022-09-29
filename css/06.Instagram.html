@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <style>
+        #btn{
+            background-color: #B2DFFC;
+            color: white;
+            border: 0px;
+            padding: 10px;
+        }
+        .row-wi{
+            padding: 5px;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form action="join" method="post">
+        <div class="container-300">
+            <div class="row center">
+                <h1 style="font-family: 'Lobster', cursive;">Instagram</h1>
+            </div>
+            <div class="row">
+                <input class="w-100 row-wi" type="text" name="memberId" 
+                placeholder="전화번호, 사용자 이름 또는 이메일">
+            </div>
+            <div class="row">
+                <input class="w-100 row-wi" type="password" name="memberPw" 
+                placeholder="비밀번호">
+            </div>
+            <div class="row">
+                <button id="btn" class="w-100" type="submit">로그인</button>
+            </div>
+            <div class="row center">
+                <a href="#">비밀번호를 잊으셨나요?</a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

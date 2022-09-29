@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupang</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <style>
+        .user-input{
+            padding: 5px;
+            margin: 5px;
+        }
+        #login{
+            background-color: blue;
+            color: white;
+            border: 1px solid blue;
+        }
+        #join{
+            background-color: white;
+            color: blue;
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-400 center">
+        <div>
+            <h1>Coupang</h1>
+        </div>
+        <div>
+            <input class="w-100 user-input" type="text" name="memberId" placeholder="아이디(이메일)">
+        </div>
+        <div>
+            <input class="w-100 user-input" type="password" name="memberPw" placeholder="비밀번호">
+        </div>
+        <div class="left">
+            <input type="checkbox">자동로그인
+        </div>
+        <div>
+            <button id=login class="user-input w-100" type="submit">로그인</button>
+        </div>
+        <div>
+            <hr>
+        </div>
+        <div>
+            <button id=join class="user-input w-100" type="submit">회원가입</button>
+        </div>
+    </div>
+</body>
+</html>
