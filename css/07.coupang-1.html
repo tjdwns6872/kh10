@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupang</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <style>
+        div{
+            border: 1px dotted black;
+        }
+
+        .form-control{
+            font-size: 20px;
+            /* padding: 15px; *//*고정 크기*/
+            padding: 0.75em; /*글자 크기의 0.75배*/
+            
+        }
+        /* 
+            버튼은 3가지 역할이 있다고 보고 디자인한다.
+                -긍정버튼 : 현재의 작업을 완성시키는 버튼
+                -중립버튼 : 현재의 작업과 상관없는 다른 작업과 연결된 버튼
+                -부정버튼 : 현재의 작업이 위험함을 알리거나 부정적인 효과를 처리하는 버튼
+        */
+        .btn{
+            border: none;
+            font-size: 20px;
+            padding: 0.75em; /*글자 크기의 0.75배*/
+            cursor: pointer;
+            
+        }
+        .btn-positive{
+            background-color: #0984e3;
+            color: white;
+        }
+        .btn-positive:hover{
+            background-color: #0876cc;
+        }
+        .btn-neutral{
+            border: 1px solid gray;
+            background-color: white;
+            color: gray;
+        }
+        .btn-neutral:hover{
+            border: 1px solid black;
+            color: black;
+        }
+        .btn-negative{
+            background-color: #d63031;
+            color: white;
+        }
+        .btn-negative:hover{
+            background-color: #c42627;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-500">
+        <div class="row center">
+            <img src="./image/Coupang_logo.png" width="45%">
+        </div>
+        <form action="" method="post">
+        <div class="row mt-20">
+            <input class="form-control form-input w-100" type="text" name="???" placeholder="아이디(이메일)" autocomplete="off">
+        </div>
+        <div class="row mt-20">
+            <input class="form-control form-input w-100" type="password" name="???" placeholder="비밀번호">
+        </div>
+        <div class="row mt-20">
+            <button class="btn form-control btn-positive w-100" type="submit">로그인</button>
+        </div>
+        <div class="row mt-20">
+            <!-- (참고) label의 for 속성으로 입력창의 ID를 지정하면 클릭이 전파된다. -->
+            <input class="form-control form-checkbox" id="auto-login" type="checkbox">
+            <label for="auto-login">자동로그인</label>
+        </div>
+        </form>
+        <hr>
+        <div class="row mt-20">
+            <button class="btn form-control btn-neutral w-100" type="button">회원가입</button>
+        </div>
+        <div class="row center">
+            &copy; Coupang Corp. All rights reseved.
+        </div>
+
+    </div>
+</body>
+</html>

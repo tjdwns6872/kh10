@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <style>
+        .logo{
+            width: 250px;
+        }
+        /* 
+            margin은 간격을 벌리기 위해서 사용한다
+            어떨때는 12px, 어떨때는 17px과 같이 부여하면 일관성이 떨어진다.
+            표준화된 margin부여가 가능하도록 스타일을 설정
+                -mt(margin-top), mb(margin-bottom), ms(margin-start), me(margin-end)
+        */
+        .mt-10{margin-top: 10px;}
+        .mt-20{margin-top: 20px;}
+        .mt-30{margin-top: 30px;}
+        .mt-40{margin-top: 40px;}
+        .mt-50{margin-top: 50px;}
+
+        .mb-10{margin-bottom: 10px;}
+        .mb-20{margin-bottom: 20px;}
+        .mb-30{margin-bottom: 30px;}
+        .mb-40{margin-bottom: 40px;}
+        .mb-50{margin-bottom: 50px;}
+
+        .ms-10{margin-left: 10px;}
+        .ms-10{margin-left: 20px;}
+        .ms-10{margin-left: 30px;}
+        .ms-10{margin-left: 40px;}
+        .ms-10{margin-left: 50px;}
+        
+        .me-10{margin-right: 10px;}
+        .me-20{margin-right: 20px;}
+        .me-30{margin-right: 30px;}
+        .me-40{margin-right: 40px;}
+        .me-50{margin-right: 50px;}
+
+        .form-control{
+            font-size: 20px;
+            width: 100%;
+            padding: 15px;
+        }
+        .form-input{
+            outline: none;
+            border: 2px solid black;
+        }
+        .form-input:focus{
+            border: 2px solid red;
+        }
+        .form-btn{
+            background-color: rgb(177,222,252);
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        /* 
+            .form-btn에 마우스가 hover 된 상황일 경우에 적용될 조건부 스타일
+            =상태 선택자
+        */
+        .form-btn:hover{
+            background-color: rgb(0,148,245);
+        }
+        .form-link{
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container-450 mt-50">
+        <div class="row center">
+            <img src="./image/Instagram_logo.png" class="logo">
+        </div>
+        <form action="" method="post">
+            <div class="row">
+                <input class="form-control form-input" type="text" name="memberId" placeholder="전화번호, 사용자 이름 또는 이메일" required autocomplete="off">
+            </div>
+            <div class="row">
+                <input class="form-control form-input" type="password" name="memberPw" placeholder="비밀번호">
+            </div>
+            <div class="row mt-20">
+                <button class="form-control form-btn" type="submit">로그인</button>
+            </div>
+            <div class="row center mt-50">
+                <a href="#" class="form-link">비밀번호를 잊으셨나요?</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
