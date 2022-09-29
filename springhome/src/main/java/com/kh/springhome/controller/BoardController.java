@@ -48,7 +48,7 @@ public class BoardController {
 	@Autowired
 	private AttachmentDao attachmentDao;
 	
-	private final File directory = new File("D:/upload");
+	private final File directory = new File("C:/Users/tjdwn/upload");
 
 	@PostConstruct//최초 실행시 딱 한 번만 실행되는 메소드
 	public void prepare() {
