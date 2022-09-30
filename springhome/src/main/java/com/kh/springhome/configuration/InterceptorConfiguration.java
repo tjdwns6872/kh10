@@ -1,4 +1,4 @@
-package com.kh.springhome.configuraton;
+package com.kh.springhome.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -43,8 +43,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		//(참고) 등록 코드 작성 순으로 실행됨
 		
 		//테스트 확인용 인터셉터
-//		registry.addInterceptor(testInterceptor)
-//					.addPathPatterns("/**");
+		registry.addInterceptor(testInterceptor)
+					.addPathPatterns("/**");
 		
 		//회원용 인터셉터
 		registry.addInterceptor(memberInterceptor)
@@ -55,7 +55,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 							"/board/**"//게시판 전체
 					)
 					.excludePathPatterns(//위의 주소에서 제외할 주소
-							"/member/insert*",//회원가입
+							"/member/join*",//회원가입
 							"/member/login",//로그인
 							"/member/goodbye_result",//탈퇴완료
 							"/board/list",//게시판 목록
@@ -72,8 +72,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 						"/member/detail",//회원상세
 						"/member/change*",//회원수정
 						"/member/exit",//회원삭제
-						"/admin/**",//관리자 기능
-						"/board/reply/blind"//블라인드 기능
+						"/admin/**",//관리자기능
+						"/board/reply/blind"//블라인드기능
 					)
 					.excludePathPatterns(//위의 주소에서 제외할 주소
 						"/music/list",//음원 목록

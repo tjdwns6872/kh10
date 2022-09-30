@@ -36,7 +36,7 @@
 					</c:if>
 				</c:when>
 				<c:otherwise>
-					<a href="/member/insert">회원가입</a>
+					<a href="/member/join">회원가입</a>
 					<a href="/member/login">로그인</a>
 				</c:otherwise>
 			</c:choose>
