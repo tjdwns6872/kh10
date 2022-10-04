@@ -4,11 +4,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp">
 	<jsp:param value="방명록 작성" name="title"/>
 </jsp:include>
-<style>
-	div{
-		border: 1px dotted gray; 
-	}
-</style>
+
 <form action="insert" method="post">
 <div class="container-500 mt-40">
 	<div class="row center">
@@ -27,4 +23,9 @@
 </div>
 </form>
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>    
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>  
+
+
+
+
+  
