@@ -27,6 +27,15 @@
             (6) lis태그에 마우스가 올라가면(hover) 바로 아래에 있는 ul을 표시
             (7) 메뉴 항목(li)에 여백 설정 및 폭 맞춤
             (8) 메뉴에 마우스가 올라가면 강조 효과를 부여
+
+            (+추가)
+            (9) 우측에 붙는 메뉴를 구현
+
+            (+추가)
+            (10) 3차 메뉴부터는 하단이 아닌 옆에 나오도록 처리
+
+            (+추가)
+            (11) 확장 스타일을 부여하면 메뉴를 상단에 고정하도록 변경
         */
 
         /* (2) */
@@ -89,15 +98,54 @@
         .dropdown-menu{
             background-color: #636e72;
         }
+        /* (9) */
+        .dropdown-menu{
+            position: relative;
+        }
+        .dropdown-menu>.right-menu{
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        /* (10) */
+        .dropdown-menu li{
+            position: relative;
+        }
+        .dropdown-menu>li>ul ul{
+            position: absolute;
+            top: 0;
+            left: 100%;
+        }
+        .dropdown-menu>li.right-menu>ul ul{
+            position: absolute;
+            top: 0;
+            left: auto;
+            right: 100%;
+        }
+        /* (11) */
+        .dropdown-menu.dropdown-menu-fixed{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
     </style>
 </head>
 <body>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu dropdown-menu-fixed">
         <li>
             <a href="#">메뉴1</a>
             <ul>
                 <li><a href="#">항목1</a></li>
-                <li><a href="#">항목2</a></li>
+                <li>
+                    <a href="#">항목2</a>
+                    <ul>
+                        <li><a href="#">상세1</a></li>
+                        <li><a href="#">상세2</a></li>
+                        <li><a href="#">상세3</a></li>
+                        <li><a href="#">상세4</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">항목3</a></li>
                 <li><a href="#">항목4</a></li>
             </ul>
@@ -120,10 +168,18 @@
                 <li><a href="#">항목4</a></li>
             </ul>
         </li>
-        <li>
+        <li class="right-menu">
             <a href="#">메뉴4</a>
             <ul>
-                <li><a href="#">항목1</a></li>
+                <li>
+                    <a href="#">항목1</a>
+                    <ul>
+                        <li><a href="#">상세1</a></li>
+                        <li><a href="#">상세2</a></li>
+                        <li><a href="#">상세3</a></li>
+                        <li><a href="#">상세4</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">항목2</a></li>
                 <li><a href="#">항목3</a></li>
                 <li><a href="#">항목4</a></li>
