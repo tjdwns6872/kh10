@@ -56,6 +56,18 @@
 .w-100 {
     width:100%;
 }
+.w-50{
+    width: 50%;
+}
+.w-33{
+    width: 33.3333%;
+}
+.w-25{
+    width: 25%;
+}
+.w20{
+    width: 20%;
+}
 
 /*
     어짜피 정렬은 left, center, right밖에 없다
@@ -496,4 +508,31 @@ ul.pagination.pagination-small {
     top:0;
     left:0;
     right:0;
+}
+
+/* 
+    float 설정
+        - float를 설정하면 현재 영역에서 left 혹은 right 방향에 붙는다.(cf:자석)
+        - (문제점) float와 float가 아닌 요소들을 섞어서 배치할 때 문제가 발생
+            - float가 float 아닌 영역에 포함되지 않는다.
+        - (해결책) float를 제거하는 속성인 clear를 float가 끝나는 시점에 사용한다.
+            - clear 등장 이후부터는 float의 영향을 받지 않는다.
+
+        - (최종 형태)
+            - float는 필요하고, 다른 요소랑 어울리긴 힘드니 별도의 영역을 준비
+            - 해당 영역(.float-container) 종료 시 자동으로 clear 되도록 처리
+            - 가상 선택자(virtual selector)가 필요하다.
+*/
+.float-container{}
+.float-container::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.float-left{
+    float: left;
+}
+.float-right{
+    float: right;
 }
