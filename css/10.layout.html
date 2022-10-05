@@ -5,34 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="stylesheet" type="text/css" href="commons.css">
-    <style>
-        main, header, section, footer, nav, div{
-            border: 1px dotted gray;
-        }
-        main{
-            width: 1000px;
-            margin: 0 auto;
-        }
-        header{
-            padding: 20px;
-        }
-        nav{
 
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="layout.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
         }
-        aside{
+
+        main, header, aside, section, footer, nav, div {
+            border:1px dotted black;
+        }
+        main {
+            width: 1000px;
+            margin:0 auto;
+        }
+        header {
             padding: 20px;
-            float: left;
-            width: 25%;
+        }
+        nav {
+            
+        }
+        aside {
+            padding: 20px;
+            float:left;
+            width:25%;
             min-height: 400px;
         }
-        section{
+        section {
             padding: 20px;
-            float: left;
-            width: 75%;
+            float:left;
+            width:75%;
             min-height: 400px;
         }
-        footer{
+        footer {
             padding: 20px;
         }
     </style>
@@ -48,6 +56,7 @@
 
         <!-- 사이드바 + 컨텐츠 -->
         <div class="float-container">
+            
             <aside>사이드바</aside>
 
             <section>컨텐츠</section>
