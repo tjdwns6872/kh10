@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <title>클래스에 따른 태그 표시</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <style>
+        .two, .three{
+            display: none;
+        }
+        .one.test1{
+            color: green;
+        }
+        .one.test1 ~ .two{
+            display: block;
+        }
+        .one.test2{
+            color: red;
+        }
+        .one.test2 ~ .three{
+            display: block;
+        }
+    </style>
+    <script type="text/javascript">
+        // 자바스크립트 코드
+        
+    </script>
+</head>
+<body>
+
+    <!--
+         목표
+         - one에 test1 클래스가 부여되면 two를 표시
+         - one에 test2 클래스가 부여되면 three를 표시
+     -->
+    <h1 class="one">입력창</h1>
+    <h1 class="two">성공메세지</h1>
+    <h1 class="three">실패메세지</h1>
+
+</body>
+</html>
