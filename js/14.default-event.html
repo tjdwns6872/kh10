@@ -13,8 +13,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     
     <script type="text/javascript">
-        // 자바스크립트 코드
+        // a와 form 태그처럼 "목적이 분명"한 태그들은 기본이벤트가 존재
+        // -onclick과 같은 이벤트 발생 시 returnn값의 여부에 따라 실행/차단이 결정
+        //  -return false : 차단
+        //  return true : 허용
         
+        function checkout(){
+            var choice = confirm("정말 이동하시겠습니까?")
+            console.log(choice);
+            
+            return choice;
+        }
+
+        function formCheck(){
+            // 전송을 하고 싶은데 유효하지 않은 입력이 있으면 차단
+
+            var keyword = document.querySelector("input[name=keyword]");
+            if(!keyword.value){//keyword 미입력
+                alert("키워드를 작성하세요"); //고전 방법
+                keyword.focus();//입력창 선택
+                return false;
+            }
+            return true;
+        }
+
     </script>
 </head>
 <body>
@@ -25,7 +47,17 @@
             <h1>기본 이벤트 방지</h1>
         </div>
         <div class="row">
-            <a href="https://www.google.com">구글로 이동</a>
+            <a href="https://www.google.com" onclick="return checkout();">구글로 이동</a>
+        </div>
+
+        <div class="row center">
+            <h1>form 이벤트 방지</h1>
+        </div>
+        <div class="row">
+            <form action="https://naver.com" method="get" onsubmit="return formCheck();">
+                <input type="text" name="keyword">
+                <button type="submit">전송</button>
+            </form>
         </div>
     </div>
 </body>
