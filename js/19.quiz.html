@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <title>과제</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript">
+        // 자바스크립트 코드
+        function checkAll(){
+            var checkboxes = document.querySelectorAll("input[name=item]");
+            var checkbox = document.querySelector("input[name=checkAll]");
+            var checkbox1 = document.querySelector("input[name=checkAll-1]");
+            if(checkbox.checked){
+                for(var i = 0; i < checkboxes.length; i++){
+                    checkboxes[i].checked=true;
+                }
+                checkbox1.checked=true;
+            }else{
+                for(var i = 0; i < checkboxes.length; i++){
+                    checkboxes[i].checked=false;
+                }
+                checkbox1.checked=false;
+            }
+        }
+        function checkAll1(){
+            var checkboxes = document.querySelectorAll("input[name=item]");
+            var checkbox = document.querySelector("input[name=checkAll]");
+            var checkbox1 = document.querySelector("input[name=checkAll-1]");
+            if(checkbox1.checked){
+                for(var i = 0; i < checkboxes.length; i++){
+                    checkboxes[i].checked=true;
+                }
+                checkbox.checked=true;
+            }else{
+                for(var i = 0; i < checkboxes.length; i++){
+                    checkboxes[i].checked=false;
+                }
+                checkbox.checked=false;
+            }
+            
+        }
+        function printAll(){
+            var checkboxItems = document.querySelectorAll("input[name=item]");
+            for(var i = 0; i <checkboxItems.length; i++){
+                if(checkboxItems[i].checked){
+                    console.log(checkboxItems[i].value);
+                }
+            }
+        }
+    </script>
+    <style>
+        .textbox{
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-400">
+        <div class="row center">
+            <h1>약관 안내</h1>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="checkAll" onclick="checkAll();">
+                전체선택
+            </label>
+        </div>
+        <hr>
+        <div class="row textbox">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor augue ligula, ut euismod enim laoreet vel. Nam eu sodales dolor. Sed rutrum laoreet finibus. Vivamus faucibus pretium pretium. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut bibendum, dui non rutrum molestie, sapien odio imperdiet est, ac pretium urna risus et lectus. Suspendisse porttitor viverra sapien. Sed mi nisl, tincidunt vel neque ac, porta sodales ex. Donec lobortis molestie nunc, at condimentum mi facilisis a.</p>
+        </div>
+        <label>
+            <input type="checkbox" name="item" value="monitor">
+            동의합니다.
+        </label>
+        <div class="row textbox">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor augue ligula, ut euismod enim laoreet vel. Nam eu sodales dolor. Sed rutrum laoreet finibus. Vivamus faucibus pretium pretium. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut bibendum, dui non rutrum molestie, sapien odio imperdiet est, ac pretium urna risus et lectus. Suspendisse porttitor viverra sapien. Sed mi nisl, tincidunt vel neque ac, porta sodales ex. Donec lobortis molestie nunc, at condimentum mi facilisis a.</p>
+        </div>
+        <label>
+            <input type="checkbox" name="item" value="monitor">
+            동의합니다.
+        </label>
+        <div class="row textbox">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor augue ligula, ut euismod enim laoreet vel. Nam eu sodales dolor. Sed rutrum laoreet finibus. Vivamus faucibus pretium pretium. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut bibendum, dui non rutrum molestie, sapien odio imperdiet est, ac pretium urna risus et lectus. Suspendisse porttitor viverra sapien. Sed mi nisl, tincidunt vel neque ac, porta sodales ex. Donec lobortis molestie nunc, at condimentum mi facilisis a.</p>
+        </div>
+        <label>
+            <input type="checkbox" name="item" value="monitor">
+            동의합니다.
+        </label>
+        <hr>
+        <div>
+            <label>
+                <input type="checkbox" name="checkAll-1" onclick="checkAll1();">
+                전체선택
+            </label>
+        </div>
+        <div class="row right">
+            <button class="btn btn-positive" onclick="printAll();">동의</button>
+        </div>
+    </div>
+</body>
+</html>
