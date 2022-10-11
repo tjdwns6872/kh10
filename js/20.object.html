@@ -70,6 +70,24 @@
                 targetList[i].style.color="blue";
             }
         }
+
+        function document3(){
+            var target = document.getElementById("tmp-2");
+            target.style.color="green";
+            console.log(target);
+        }
+        function document4(){
+            var targetList = document.getElementsByClassName("test");
+            for(var i=0; i<targetList; i++){
+                targetList[i].style.color="gray";
+            }
+        }
+        function document5(){
+            var targetList = document.getElementsByTagName("h2");
+            for(var i=0; i<targetList; i++){
+                targetList[i].style.color="purple";
+            }
+        }
         
     </script>
 </head>
@@ -111,9 +129,9 @@
         <div class="row">
             <button onclick="document1();" type="submit">querySelector()</button>
             <button onclick="document2();" type="submit">querySelectorAll()</button>
-            <button type="submit"></button>
-            <button type="submit"></button>
-            <button type="submit"></button>
+            <button onclick="document3();" type="submit">getElementById()</button>
+            <button onclick="document4();" type="submit">getElementsByClassName()</button>
+            <button onclick="document5();" type="submit">getElementTagName()</button>
         </div>
         
         <div class="row">
