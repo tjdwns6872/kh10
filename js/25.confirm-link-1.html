@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <title>확인창이 추가된 링크</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript">
+        // 목표 : .confirm-link라는 클래스를 가진 a태그를 누르면 확인창을 출력
+        window.addEventListener("load", function(){
+
+            // 모듈을 만들 때에는 개수를 알 수 없다고 생각하고 구현해야 한다.
+            var linkList = document.querySelectorAll(".confirm-link");
+            if(linkList.length == 0) return;
+
+            for(var i=0; i<linkList.length; i++){
+                linkList[i].addEventListener("click", function(e){
+                    var choice = confirm("정말 이동하시겠습니까?");
+                    if(choice == false){
+                        e.preventDefault();
+                    }
+                })
+            }
+
+            // linkList.addEventListener("click", function(e){
+            //     var choice = confirm("정말 이동하시겠습니까?");
+            //     if(choice == false){
+            //         // return false;
+            //         e.preventDefault();
+            //     }
+            // });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <a class="btn btn-neutral" href="https://www.google.com">구글로 이동</a>
+    <a class="btn btn-neutral confirm-link" href="https://www.google.com">구글로 이동</a>
+    <a class="btn btn-neutral confirm-link" href="https://www.naver.com">네이버로 이동</a>
+    <a class="btn btn-neutral" href="https://www.naver.com">네이버로 이동</a>
+</body>
+</html>
