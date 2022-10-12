@@ -16,13 +16,31 @@
     <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <script type="text/javascript">
-        // 자바스크립트 코드
         
+        $(function(){
+            $(".btn-small").click(function(){
+                // $(".display").css("width", "100px");
+                // $(".display").css("height", "100px");
+                $(".display").css("width", "100px").css("height", "100px");
+            });
+            $(".btn-normal").click(function(){
+                $(".display").css("width", "200px").css("height", "200px");
+            });
+            $(".btn-big").click(function(){
+                $(".display").css("width", "300px").css("height", "300px");
+            });
+        });
+
     </script>
 </head>
 <body>
 
     <!-- HTML 화면 -->
+    <button class="btn-small" type="submit">작게</button>
+    <button class="btn-normal" type="submit">보통</button>
+    <button class="btn-big" type="submit">크게</button>
+    <hr>
+    <img class="display" src="./image/dg.png" style="width:200px; height:200px;">
 
 </body>
 </html>
