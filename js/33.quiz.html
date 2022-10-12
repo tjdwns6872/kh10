@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글자크기 조절 문제</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <style>
+        .text{
+            line-height: 1.5;
+        }        
+    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        // (+주의) 가급적 전역(global) 공간에 변수나 함수 생성X
+        $(function(){
+            // "size"+"px"
+            var size = 16;
+            $(".font-size").text(size);
+            $(".font-minus").click(function(){
+                if(size <= 10) return;
+                size--;
+                $(".font-size").text(size);
+                $(".text").css("font-size", size+"px");
+            });
+            $(".font-plus").click(function(){
+                if(size >= 50) return;
+                size++;
+                $(".font-size").text(size);
+                $(".text").css("font-size", size+"px");
+            });
+        });
+        
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-800">
+        <div class="row">
+            <h1>글자 크기 조절 문제</h1>
+        </div>
+        <div class="row">
+            <button class="font-minus" type="submit">-</button>
+            <span class="font-size"></span>
+            <button class="font-plus" type="submit">+</button>
+        </div>
+        <hr>
+        <div class="row">
+            <span class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor pellentesque tristique. In posuere laoreet metus in condimentum. Sed et orci in turpis placerat placerat. Pellentesque eu ligula mi. Morbi sit amet metus accumsan, fringilla sapien ac, laoreet ligula. Donec at risus eu nunc consectetur pharetra eget dignissim odio. Duis facilisis euismod augue id fermentum. Vestibulum turpis risus, euismod vel ante vestibulum, blandit consequat urna. Nullam fermentum volutpat augue facilisis pellentesque. Pellentesque iaculis tellus vestibulum ex accumsan, eu congue quam tempus. Aliquam ut neque at nisi vestibulum convallis. Phasellus id ligula at nisi hendrerit vehicula sed et arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vel lectus libero. Nullam condimentum, nisl a pretium laoreet, turpis nunc pellentesque sem, a sodales dui velit eu ex.</span>
+        </div>
+    </div>
+
+</body>
+</html>
