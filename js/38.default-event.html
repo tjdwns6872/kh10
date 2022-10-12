@@ -17,12 +17,49 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <script type="text/javascript">
         
-        
+        $(function(){
+            // jquery 기본 이벤트 제어
+            // -jquery는 다음 두 가지 방식으로 기본 이벤트 차단이 가능하다
+            // - (1) 이벤트 객체를 사용한 e.preventDefault()
+            // - (2) return false를 사용한 차단
+            $(".confirm-link").click(function(e){
+                // return false;
+                // e.preventDefault();
+                var choice = confirm("정말 이동하시겠습니까?");
+                if(choice){
+                    return true; // 통과
+                }else{
+                    return false; // 차단
+                }
+            });
+
+            $(".confirm-form").submit(function(e){
+                var choice = confirm("정말 이동하시겠습니까?");
+                if(!choice){
+                    return false; // 차단
+                }
+            });
+        });
+
     </script>
 </head>
 <body>
 
     <!-- HTML 화면 -->
+    <div class="container-400">
+        <div class="row">
+            <h1>기본 이벤트 제어</h1>
+        </div>
+        <div class="row">
+            <a href="https://google.com" class="confirm-link">구글로 이동</a>
+        </div>
 
+        <div class="row">
+            <form class="confirm-form" action="https://search.naver.com/search.naver" method="get">
+                <input type="text" name="query">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
