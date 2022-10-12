@@ -32,7 +32,12 @@
                     }
                 });
             }
+            
+        });
+        window.addEventListener("load", function(){
             var checkboxItems = document.querySelectorAll("input[name=item]");
+            if(checkboxItems == 0)return;
+            var checkList = document.querySelectorAll(".selectAll");
             var count=0;
             for(var i=0; i<checkboxItems.length; i++){
                 checkboxItems[i].addEventListener("input", function(){
@@ -52,8 +57,7 @@
                     }
                 });
             }
-            
-        });
+        })
     </script>
 </head>
 <body>
