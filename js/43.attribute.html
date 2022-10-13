@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            // (+주의) 임의로 속성을 생성해야 하는 경우 앞에 data- 접두사를 추가
+
+            $("select[name=item]").on("input", function(){
+                var name = $(this).val();
+                // var price = $(this).find("option:selected").attr("data-price");// 가능
+                var price = $(this).find("option:selected").data("price");//가능
+                // var price = $(this).find("option:selected").prop("data-price") // 불가능
+                $(".name").text(name);
+                $(".price").text(price);
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-500">
+        <div class="row">
+            <h1>attr()의 활용</h1>
+        </div>
+        <div class="row">
+            <select name="item">
+                <option value="">선택</option>
+                <option value="노트북" data-price="1000000">노트북(100만원)</option>
+                <option value="노트북+가방" data-price="1050000">노트북+가방(105만원)</option>
+                <option value="노트북+가방+마우스" data-price="1080000">노트북+가방+마우스(108만원)</option>
+            </select>
+        </div>
+        <div class="row">
+            상품 : <span class="name"></span>,
+            가격 : <span class="price"></span> 
+        </div>
+    </div>
+</body>
+</html>
