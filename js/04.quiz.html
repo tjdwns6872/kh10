@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04.Quiz</title>
+    
+    <script type="text/javascript">
+        // 자바스크립트 코드
+        function small(){
+            var small = document.querySelector(".display");
+            small.style.width = "100px";
+            small.style.height = "100px";
+        }
+        function basic(){
+            var basic = document.querySelector(".display");
+            basic.style.width = "200px";
+            basic.style.height = "200px";
+        }
+        function big(){
+            var big = document.querySelector(".display");
+            big.style.width = "300px";
+            big.style.height = "300px";
+        }
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <button onclick="small();" type="submit">작게</button>
+    <button onclick="basic();" type="submit">기본</button>
+    <button onclick="big();" type="submit">크게</button>
+    <hr>
+    <img class="display" src="./image/dg.png" width="200" height="200">
+</body>
+</html>

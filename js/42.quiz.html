@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            $(".ck-all").on("input", checkAll);
+            $(".ck-required").on("change", ckRequired);
+
+            function checkAll(){
+                $(".ck").prop("checked", $(this).prop("checked"));
+                ckRequired();
+            }
+            
+            // 필수 선텍 이벤트
+            function ckRequired(){
+                var count = 0;
+                $(".ck-required").each(function(){
+                    if($(this).prop("checked")){
+                        count++;
+                    }
+                });
+                var judge = $(".ck-required").length == count;
+                if(judge){ //모두 체크 - 버튼 비활성화 해제
+                    $("btn").prop("disabled", false);
+                }else{ // 버튼 비활성화 설정
+                    $("btn").prop("disabled", true);
+                }
+            }
+        });
+        
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-500">
+        <div class="row center">
+            <h1>이용약관</h1>            
+        </div>        
+
+        <div class="row mt-30">
+            <label>
+                <input type="checkbox" class="ck-all ck">
+                <span>전체 선택</span>
+            </label>
+        </div>
+
+        <div class="row mt-30">
+            <h2>제목 자리</h2>
+        </div>
+        <div class="row">
+            <textarea class="input w-100 fix-size" rows="6" readonly>어쩌구저쩌구</textarea>
+        </div>
+        <div class="row float-container">
+
+            <label class="float-left w-50">
+                <input class="ck ck-required" type="checkbox" name="agree" value="type1">
+                <span>동의합니다</span>
+                <span>*</span>
+            </label>
+
+            <div class="float-left w-50 right">
+                <a href="#">전문 보기</a>
+            </div>
+
+        </div>
+
+        <div class="row mt-30">
+            <h2>제목 자리</h2>
+        </div>
+        <div class="row">
+            <textarea class="input w-100 fix-size" rows="6" readonly>어쩌구저쩌구</textarea>
+        </div>
+        <div class="row float-container">
+
+            <label class="float-left w-50">
+                <input class="ck ck-required" type="checkbox" name="agree" value="type2">
+                <span>동의합니다</span>
+                <span>*</span>
+            </label>
+
+            <div class="float-left w-50 right">
+                <a href="#">전문 보기</a>
+            </div>
+
+        </div>
+
+        <div class="row mt-30">
+            <h2>제목 자리</h2>
+        </div>
+        <div class="row">
+            <textarea class="input w-100 fix-size textarea3" rows="6" readonly>어쩌구저쩌구</textarea>
+        </div>
+        <div class="row float-container">
+
+            <label class="float-left w-50">
+                <input class="ck" type="checkbox" name="agree" value="type3">
+                <span>동의합니다</span>
+            </label>
+
+            <div class="float-left w-50 right">
+                <a href="#">전문 보기</a>
+            </div>
+
+        </div>
+
+        <div class="row mt-50 mb-50">
+            <button disabled>다음 단계로 이동</button>
+        </div>
+    </div>
+
+</body>
+</html>

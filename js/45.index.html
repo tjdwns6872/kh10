@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            $("li.menu-1").click(function(){
+                $("ul.submenu-1").toggle();
+            });
+            $("li.menu-2").click(function(){
+                $("ul.submenu-2").toggle();
+            });
+            $("li.menu-3").click(function(){
+                $("ul.submenu-3").toggle();
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-600">
+        <div class="row center">
+            <h1>목차</h1>
+        </div>
+        <div class="row">
+            <ul>
+                <li class="menu-1">
+                    <a href="#">Spring</a>
+                </li>
+                <ul class="submenu-1">
+                    <li><a href="#">Controller</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">Component</a></li>
+                    <li><a href="#">Repository</a></li>
+                    <li><a href="#">DTO</a></li>
+                </ul>
+                <li class="menu-2">
+                    <a href="#">Javascript</a>
+                </li>
+                <ul class="submenu-2">
+                    <li><a href="#">Event 처리</a></li>
+                    <li><a href="#">정규표현식 검사</a></li>
+                </ul>
+                <li class="menu-3">
+                    <a href="#">jQuery</a>
+                </li>
+                <ul class="submenu-3">
+                    <li><a href="#">선택자</a></li>
+                    <li><a href="#">css 제어</a></li>
+                    <li><a href="#">클래스 제어</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

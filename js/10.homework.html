@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <title>회원가입</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript">
+        // 자바스크립트 코드
+
+        function inputIdBlur(){
+            var inputid = document.querySelector(".input-id");
+            var idtext = inputid.value;
+            // console.log(idtext);
+            var regex=/^[a-z][a-z0-9]{8,20}$/
+
+            var idConfirm = document.querySelector(".id-confirm");
+            if(regex.test(idtext)){
+                idConfirm.style.color="blue";
+                idConfirm.textContent="사용할 수 있는 아이디 입니다."
+            }else if(idtext==false){
+                idConfirm.textContent=""
+            }else{
+                idConfirm.style.color="red";
+                idConfirm.textContent="아이디는 영문소문자+숫자 8~20자만 사용할 수 있습니다.";
+            }
+        }
+        function inputPwBlur(){
+            var inputPw = document.querySelector(".input-pw");
+            var inputPw1 = document.querySelector(".input-pw-1");
+            var pwtext = inputPw.value;
+            var pwtext1 = inputPw1.value;
+            console.log(pwtext1);
+            var regex = /^[a-zA-Z0-9!@#$]{8,16}$/;
+
+            var pwConfirm = document.querySelector(".pw-confirm");
+            var pwConfirm1 = document.querySelector(".pw-1-confirm");
+            if(regex.test(pwtext)){
+                if(pwtext == pwtext1){
+                    pwConfirm1.style.color="blue";
+                    pwConfirm1.textContent="비밀번호가 일치합니다."
+                }else if(pwtext1.length >= 0){
+                    pwConfirm1.textContent="";
+                }else if(pwtext != pwtext1){
+                    pwConfirm1.style.color="red";
+                    pwConfirm1.textContent="비밀번호가 불일치합니다."
+                }
+            }else if(pwtext==false){
+                pwConfirm.textContent=""
+            }else{
+                pwConfirm.style.color="red";
+                pwConfirm.textContent="비밀번호는 영문 대,소문자+숫자+특수문자가 포함하면서 8~16글자여야 합니다.";
+            }
+        }
+        
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-400">
+        <div class="row center">
+            <h1>회원가입</h1>
+        </div>
+        <div class="row">
+            <label>아이디</label>
+            <input type="text" name="mamberId" class="input w-100 input-id" onblur="inputIdBlur();">
+            <span class="id-confirm"></span>
+        </div>
+        <div class="row">
+            <label>비밀번호</label>
+            <input type="password" name="memberPw" class="input w-100 input-pw" onblur="inputPwBlur();">
+            <span class="pw-confirm"></span>
+        </div>
+        <div class="row">
+            <label>비밀번호 확인</label>
+            <input type="password" class="input w-100 input-pw-1" onblur="inputPwBlur();">
+            <span class="pw-1-confirm"></span>
+        </div>
+        <div class="row right">
+            <button class="btn btn-positive" type="submit">가입</button>
+        </div>
+    </div>
+</body>
+</html>

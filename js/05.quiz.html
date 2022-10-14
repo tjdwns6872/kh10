@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05.Quiz</title>
+    
+    <script type="text/javascript">
+        // 자바스크립트 코드
+        function small(){
+            var small = document.querySelector(".text-view");
+            small.style.fontSize="12px";
+        }
+        function basic(){
+            var basic = document.querySelector(".text-view");
+            basic.style.fontSize="16px";
+        }
+        function big(){
+            var big = document.querySelector(".text-view");
+            big.style.fontSize="20px";
+        }
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <button onclick="small();" type="submit">작게</button>
+    <button onclick="basic();" type="submit">기본</button>
+    <button onclick="big();" type="submit">크게</button>
+    <hr>
+    <p class="text-view">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla suscipit massa quis enim lobortis porta. Maecenas finibus sollicitudin dolor, vel elementum lorem maximus quis. Aenean dignissim, felis a ornare molestie, ligula tellus mollis dolor, sit amet porta lectus odio vitae mi. Nunc sem elit, facilisis sit amet molestie vitae, ultrices blandit ipsum. Nunc eu erat neque. Nulla sit amet urna ac turpis tristique eleifend. Vivamus lorem neque, rutrum ut pellentesque id, tempus a mauris. Cras at ligula at felis maximus tristique sit amet eu tortor. Nullam auctor elementum tortor, nec elementum tellus molestie vitae. Aenean et elit quis metus pharetra suscipit. Nullam vel odio nulla.</p>
+</body>
+</html>

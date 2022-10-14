@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <title>체크박스 문제</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript">
+        // 자바스크립트 코드
+        function checkAll(){
+            var checkboxes = document.querySelectorAll("input[name=item]");
+            var checkbox = document.querySelector("input[name=checkAll]");
+            var checkbox1 = document.querySelector("input[name=checkAll-1]");
+            if(checkbox.checked){
+                for(var i = 0; i < checkboxes.length; i++){
+                    checkboxes[i].checked=true;
+                }
+                checkbox1.checked=true;
+            }else{
+                for(var i = 0; i < checkboxes.length; i++){
+                    checkboxes[i].checked=false;
+                }
+                checkbox1.checked=false;
+            }
+        }
+        function checkAll1(){
+            var checkboxes = document.querySelectorAll("input[name=item]");
+            var checkbox = document.querySelector("input[name=checkAll]");
+            var checkbox1 = document.querySelector("input[name=checkAll-1]");
+            if(checkbox1.checked){
+                for(var i = 0; i < checkboxes.length; i++){
+                    checkboxes[i].checked=true;
+                }
+                checkbox.checked=true;
+            }else{
+                for(var i = 0; i < checkboxes.length; i++){
+                    checkboxes[i].checked=false;
+                }
+                checkbox.checked=false;
+            }
+            
+        }
+        function printAll(){
+            var checkboxItems = document.querySelectorAll("input[name=item]");
+            for(var i = 0; i <checkboxItems.length; i++){
+                if(checkboxItems[i].checked){
+                    console.log(checkboxItems[i].value);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-400">
+        <div class="row center">
+            <h1>상품 구매</h1>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="checkAll" onclick="checkAll();">
+                전체선택
+            </label>
+        </div>
+        <hr>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="computer">
+                컴퓨터
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="monitor">
+                모니터
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="keyboard">
+                키보드
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="mouse">
+                마우스
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="speaker">
+                스피커
+            </label>
+        </div>
+        <hr>
+        <div>
+            <label>
+                <input type="checkbox" name="checkAll-1" onclick="checkAll1();">
+                전체선택
+            </label>
+        </div>
+        <div class="row right">
+            <button class="btn btn-positive" onclick="printAll();">구매</button>
+        </div>
+    </div>
+</body>
+</html>

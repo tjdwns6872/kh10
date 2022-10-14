@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <title>09.Quiz</title>
+    
+    <script type="text/javascript">
+        // 자바스크립트 코드
+        function checkText(){
+            var target = document.querySelector(".text-input");
+            var regex=/^[가-힣0-9]{2,10}$/;
+            var nick = target.value;
+            // console.log("닉네임 > "+regex.test(nick));
+
+            var confirm = document.querySelector(".confirm");
+            if(regex.test(nick)){
+                confirm.textContent="멋진 닉네임이네요!";
+                confirm.style.color="blue";
+            // }else if(nick.length<=0){
+            }else if(nick == false){
+                confirm.textContent="";
+            }else{
+                confirm.textContent="닉네임은 한글과 숫자 2~10글자로 작성해주세요";
+                confirm.style.color="red";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-400">
+        <div class="row center">
+            <div>
+                <h1>닉네임 설정</h1>
+            </div>
+        </div>
+        <div class="row">
+            <label>닉네임</label>
+            <input type="text" class="text-input input w-100" oninput="checkText();">
+        </div>
+        <div class="row">
+            <span class="confirm"></span>
+        </div>
+    </div>
+</body>
+</html>

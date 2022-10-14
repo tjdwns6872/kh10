@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인창</title>
+    <style>
+        /* 
+            display 속성
+            - 배치되는 방식을 결정
+            - inline : 오른쪽으로 이동하며 배치(폭 지정 불가)
+            - block : 아래로 이동하며 배치(폭 지정 가능)
+            - inline-block : 오른쪽으로 이동하며 배치(폭 지정 가능)
+            - none : 숨김
+
+            (참고) margin-top과 margin-bottom은 서로 상쇄된다.
+        */
+        /* .user,btn{
+            box-sizing: border-box;
+            width: 220px;
+            margin: 10px 0px;
+            padding: 10px;
+            border: 5px solid black;
+            font-family: sans-serif;
+            font-size: 15px;
+            display: block;
+        } */
+        .user{
+            box-sizing: border-box;
+            width: 220px;
+            margin: 10px 0px;
+            padding: 10px;
+            border: 5px solid black;
+            font-family: sans-serif;
+            font-size: 15px;
+            display: block;
+        }
+        #btn{
+            color: white;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <form action="login" method="post">
+        <div align="center">
+            <h1>Login</h1>
+            <input type="text" class="user" required placeholder="ID">
+            <input type="password" class="user" required placeholder="Password">
+            <button id="btn" class="user" type="submit">로그인</button>
+        </div>
+    </form>
+</body>
+</html>

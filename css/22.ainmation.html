@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 애니메이션</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="layout.css">
+    <script src="https://kit.fontawesome.com/435ae7cb6c.js" crossorigin="anonymous"></script>
+    <style>
+        /* 애니메이션 생성 */
+        @keyframes blingbling{
+            from{
+                color: red;
+            }
+            to{
+                color: blue;
+            }
+        }
+        @keyframes pulse{
+            from{
+                opacity:1;
+            }
+            to{
+                opacity: 0;
+            }
+        }
+        @keyframes rotate{
+            from{
+                transform: rotate(0deg);
+            }
+            to{
+                transform: rotate(360deg);
+            }
+        }
+
+        .rotate-text{
+            display: inline-block;
+            animation: rotate 2s linear infinite;
+        }
+        .glow-text{
+            /* animation: blingbling 1s linear 0s 1; */
+            animation-name: blingbling;
+            animation-delay: 0s;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        .pulse-text:hover{
+            animation: pulse 1s ease-in-out infinite alternate;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-800">
+        <div class="row mt-40">
+            <h1>CSS 애니메이션</h1>
+        </div>
+        <div class="row">
+            <h2 class="glow-text">Hello CSS Animation</h2>
+        </div>
+
+        <div class="row">
+            <h2 class="pulse-text">Hello CSS Animation</h2>
+        </div>
+
+        <div class="row">
+            <h2 class="rotate-text">Hello CSS Animation</h2>
+        </div>
+
+        <div class="row">
+            <h2 class="bounce-text">Hello CSS Animation</h2>
+        </div>
+    </div>
+</body>
+</html>

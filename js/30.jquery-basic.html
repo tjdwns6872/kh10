@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        // jquery는 무언가를 "선택"하면서 시작한다.
+        // ->$(대상).명령1().명령2().명령3()...
+
+        // $(window).on("load", function(){}); //Javascript 시작점
+        // $(document).on("ready", function(){}); //jQuery 시작점
+        // $(document).ready(function(){});
+        // $().ready(function(){}) //대상을 선택하지 않으면 자동으로 document 선택
+        
+        //최종 형태
+        $(function(){
+            $("h1").click(function(){
+                $(this).css("color", "red");
+            });
+        }); 
+        
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <h1>Hello jQuery</h1>
+    <h1>Hello jQuery</h1>
+    <h1>Hello jQuery</h1>
+    <h1>Hello jQuery</h1>
+    <h1>Hello jQuery</h1>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스크롤제어</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <style>
+        body{
+            height: 5000px;
+        }
+    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script type="text/javascript">
+        
+        $(window).resize(function(){
+            // console.log("크기변경");
+        });
+
+        // $(window).scroll(_.throttle(function(){}, 실행주기));
+        // $(window).scroll(_.dedounce(function(){}, 휴식주기));
+
+        $(window).scroll(_.throttle(function(){
+            var percent = $(window).scrollTop() / ($(document).height()-$(window).height()) * 100;
+            console.log(percent);
+        }, 250));
+
+        // $(window).scroll(function(){
+        //     // console.log("스크롤");
+        //     // console.log($(window).scrollTop());
+        //     // console.log($(window).height());
+        //     // console.log($(document).height());
+        //     // console.log($(document).height()-$(window).height());
+
+        //     // 퍼센트 = (현재스크롤위치) / (문서높이-창 높이) * 100
+        //     var percent = $(window).scrollTop() / ($(document).height()-$(window).height()) * 100;
+
+        //     console.log(percent);
+        // });
+
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            // 1. 첫 번째 이전버튼과 마지막 다음버튼을 삭제
+            $(".prev").first().remove();
+            $(".next").last().remove();
+
+            // 2. 1페이지만 남기고 다 숨김 처리
+            $(".page").hide();
+            $(".page").first().show();
+
+            // 3. 남은 버튼에 클릭 이벤트를 설정
+            // - 다음 버튼을 누르면 해당 페이지의 뒷 페이지 표시 및 나머지 숨김
+            // - 이전 버튼을 누르면 해당 페이지의 앞 페이지 표시 및 나머지 숨김
+
+            $(".next").click(function(){
+                var target = $(this).parents(".page").next();
+                // console.log(target);
+
+                // 모든 페이지 숨기거 target만 표시
+                $(".page").hide();
+                target.show();
+            });
+
+            $(".prev").click(function(){
+                var target = $(this).parents(".page").prev();
+
+                $(".page").hide();
+                target.show();
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="page">
+        <div class="container-600">
+            <div class="row">
+                <h1>1페이지</h1>
+            </div>
+            <div class="row">
+                <button type="submit" class="prev">이전</button>
+                <button type="submit" class="next">다음</button>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <div class="container-600">
+            <div class="row">
+                <h1>2페이지</h1>
+            </div>
+            <div class="row">
+                <button type="submit" class="prev">이전</button>
+                <button type="submit" class="next">다음</button>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <div class="container-600">
+            <div class="row">
+                <h1>3페이지</h1>
+            </div>
+            <div class="row">
+                <button type="submit" class="prev">이전</button>
+                <button type="submit" class="next">다음</button>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <div class="container-600">
+            <div class="row">
+                <h1>4페이지</h1>
+            </div>
+            <div class="row">
+                <button type="submit" class="prev">이전</button>
+                <button type="submit" class="next">다음</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

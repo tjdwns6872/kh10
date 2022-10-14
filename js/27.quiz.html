@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <title>체크박스 문제</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <script src="./confirm-link.js"></script>
+    <script type="text/javascript">
+        // 자바스크립트 코드
+
+        window.addEventListener("load", function(){
+            var checkList = document.querySelectorAll(".selectAll");
+            // console.log(checkList);
+            if(checkList == 0)return;
+
+            var checkboxItems = document.querySelectorAll("input[name=item]");
+            for(var i=0; i<checkList.length; i++){
+                checkList[i].addEventListener("input", function(){
+                    for(var j=0; j<checkboxItems.length; j++){
+                        checkboxItems[j].checked = this.checked;
+                    }
+                    for(var j=0; j<checkList.length; j++){
+                        checkList[j].checked = this.checked;
+                    }
+                });
+            }
+            
+        });
+        window.addEventListener("load", function(){
+            var checkboxItems = document.querySelectorAll("input[name=item]");
+            if(checkboxItems == 0)return;
+            var checkList = document.querySelectorAll(".selectAll");
+            var count=0;
+            for(var i=0; i<checkboxItems.length; i++){
+                checkboxItems[i].addEventListener("input", function(){
+                    for(var j=0; j<checkList.length; j++){
+                        checkList[j].checked = this.checkboxItems;
+                    }
+                    if(this.checked){
+                        count++;
+                    }else{
+                        count--;
+                    }
+                    if(count == checkboxItems.length){
+                        console.log(count, checkboxItems.length);
+                        for(var j=0; j<checkList.length; j++){
+                        checkList[j].checked = true;
+                        }
+                    }
+                });
+            }
+        })
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-400">
+        <div class="row center">
+            <h1>상품 구매</h1>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="checkAll" class="selectAll">
+                전체선택
+            </label>
+        </div>
+        <hr>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="computer">
+                컴퓨터
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="monitor">
+                모니터
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="keyboard">
+                키보드
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="mouse">
+                마우스
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <input type="checkbox" name="item" value="speaker">
+                스피커
+            </label>
+        </div>
+        <hr>
+        <div>
+            <label>
+                <input type="checkbox" name="checkAll" class="selectAll">
+                전체선택
+            </label>
+        </div>
+        <div class="row right">
+            <button class="btn btn-positive confirm-link">구매</button>
+        </div>
+    </div>
+</body>
+</html>
