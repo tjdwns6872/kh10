@@ -19,7 +19,7 @@
 	}
 </style>
 
-<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
 	$(function(){
 		//목표 : 
@@ -40,42 +40,131 @@
 		$(".editor").hide();
 	});
 	
+	
+	//댓글 등록 처리
 	$(function(){
 		$(".reply-insert-form").submit(function(e){
-			// 기본 이벤트를 차단한다(form을 사용하지 않을 예저)
+			//기본 이벤트를 차단한다(form을 사용하지 않을 예정)
 			e.preventDefault();
 			
-			// 댓글 입력값을 가져와서 검사 후 전송
+			//댓글 입력값을 가져와서 검사 후 전송
 			var text = $(this).find("[name=replyContent]").val();
 			if(!text){
 				alert("내용을 작성해주세요");
 				return;
 			}
-			// 정상적으로 입력되었다면 비동기 통신으로 등록 요청
+			
+			var form = this;
+			
+			//정상적으로 입력되었다면 비동기 통신으로 등록 요청
 			$.ajax({
 				url:"http://localhost:8888/rest/reply/insert",
 				method:"post",
-				date:{
-					replyOrigin:$(this).find("[name=replyOrigin]").val(),
-					replyContent:text
-				},
+				//data:{
+				//	replyOrigin:$(this).find("[name=replyOrigin]").val(),
+				//	replyContent:text
+				//},
+				data:$(form).serialize(),//form을 전송 가능한 형태의 문자로 변환한다
 				success:function(resp){
-					console.log(resp);
+					listHandler(resp);
+					
+					//입력창 초기화(= 폼 초기화) - 자바스크립트로 처리
+					form.reset();
 				}
 			});
 		});
+		
+		//댓글 삭제버튼을 누르면 삭제 후 목록 갱신
+		$(".delete-btn").click(deleteHandler);
+		
+		function deleteHandler(e){
+			e.preventDefault();
+			
+			console.log(this);
+			
+			$.ajax({
+				url:"/rest/reply/delete",
+				method:"post",
+				data:{
+					replyOrigin:$(this).data("reply-origin"),
+					replyNo:$(this).data("reply-no")
+				},
+				success:function(resp){
+					listHandler(resp);
+				}
+// 				success:listHandler
+			});
+		}
+		function listHandler(resp){
+			//원래 있던 댓글 삭제
+			$(".table-reply-list").empty();//태그는 유지하고 내부를 삭제
+			
+			//헤더 생성
+			var header = $("#reply-list-header").text();
+			header = header.replace("{{size}}", resp.length);
+			$(".table-reply-list").append(header);
+			
+			//바디 생성
+			$(".table-reply-list").append("<tbody>");
+			
+			//현재 resp는 배열이다.
+			//미리 댓글 형식을 만들어두고 값만 바꿔치기해서 댓글 목록에 추가하도록 구현
+			for(var i=0; i < resp.length; i++){
+				//console.log(resp[i]);
+				var item = $("#reply-list-item").text();
+				item = item.replace("{{memberNick}}", resp[i].memberNick);
+				item = item.replace("{{replyWriter}}", resp[i].replyWriter);
+				item = item.replace("{{memberGrade}}", resp[i].memberGrade);
+				item = item.replace("{{replyContent}}", resp[i].replyContent);
+				item = item.replace("{{replyWritetime}}", resp[i].replyWritetime);
+				item = item.replace("{{replyNo}}", resp[i].replyNo);
+				item = item.replace("{{replyOrigin}}", resp[i].replyOrigin);
+				var result  = $(item);
+				result.find(".delete-btn").click(deleteHandler);//개별 추가
+				console.log("result", result.find(".delete-btn"));
+				$(".table-reply-list").children("tbody").append(result);
+			}
+			
+		}
 	});
 </script>
-<!-- 자바 스크립트 템플릿 생성 -->
+
+<!-- 자바스크립트 템플릿 생성 -->
 <script type="text/template" id="reply-list-header">
 	<thead>
 		<tr>
 			<td colspan="2">
-				총 #1개의 댓글이 있습니다.
+				총 {{size}}개의 댓글이 있습니다.
 			</td>
 		</tr>
 	</thead>
 </script>
+
+<script type="text/template" id="reply-list-item">
+				<tr class="view">
+					<td width="90%">
+						<!-- 작성자 -->
+						{{memberNick}}
+						({{replyWriter}})
+						(작성자)
+						
+						({{memberGrade}}) 
+						<br>
+						
+						<pre>{{replyContent}}</pre>
+						
+						<br><br>
+						{{replyWritetime}}
+
+					</td>
+					<th>
+						<!-- 수정과 삭제는 현재 사용자가 남긴 댓글에만 표시 -->
+						<a style="display:block; margin:10px 0px;" class="edit-btn"><img src="/image/edit.png" width="20" height="20"></a>
+						<a style="display:block; margin:10px 0px;" class="delete-btn" data-reply-origin="{{replyOrigin}}" data-reply-no="{{replyNo}}"><img src="/image/delete.png" width="20" height="20"></a>
+					</th>
+				</tr>	
+</script>
+
 
 <div class="container-800 mt-40 mb-40">
 	<div class="row center">
@@ -156,7 +245,7 @@
 								(${attachmentDto.attachmentSize} bytes) 
 								- 
 								[${attachmentDto.attachmentType}]
-								<a href="/attachment/download/${attachmentDto.attachmentNo}">ㅁ</a>
+								<a href="/attachment/download/${attachmentDto.attachmentNo}"><img src="/image/download.png" width="15" height="15"></a>
 							</li>
 							</c:forEach>
 						</ul>
@@ -196,7 +285,7 @@
 	</div>
 	
 	<div class="row center">
-		<table class="table table-slit table-hover">
+		<table class="table table-slit table-hover table-reply-list">
 			<!-- 댓글 목록 -->
 			<thead>
 				<tr>
@@ -238,18 +327,18 @@
 					<th>
 						<!-- 수정과 삭제는 현재 사용자가 남긴 댓글에만 표시 -->
 						<c:if test="${loginId == replyDto.replyWriter}">
-							<a style="display:block; margin:10px 0px;" class="edit-btn">수정</a>
-							<a style="display:block; margin:10px 0px;" href="reply/delete?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}">삭제</a>
+							<a style="display:block; margin:10px 0px;" class="edit-btn"><img src="/image/edit.png" width="20" height="20"></a>
+							<a style="display:block; margin:10px 0px;" class="delete-btn" data-reply-origin="${replyDto.replyOrigin}" data-reply-no="${replyDto.replyNo}"><img src="/image/delete.png" width="20" height="20"></a>
 						</c:if>
 						
 						<c:if test="${admin}">
 							<!-- 블라인드 여부에 따라 다르게 표시 -->
 							<c:choose>
 								<c:when test="${replyDto.replyBlind}">
-									<a style="display:block; margin:10px 0px;" href="reply/blind?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}">블라인드</a>
+									<a style="display:block; margin:10px 0px;" href="reply/blind?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}"><img src="/image/blind2.png" width="20" height="20"></a>
 								</c:when>
 								<c:otherwise>
-									<a style="display:block; margin:10px 0px;" href="reply/blind?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}">블라인드</a>
+									<a style="display:block; margin:10px 0px;" href="reply/blind?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}"><img src="/image/blind.png" width="20" height="20"></a>
 								</c:otherwise>
 							</c:choose>
 							
@@ -261,7 +350,7 @@
 				<!-- 수정하기 위한 화면 : 댓글 작성자 본인에게만 출력 -->
 				<tr class="editor">
 					<th colspan="2">
-  						<form action="reply/edit" method="post">	
+						<form action="reply/edit" method="post">
 							<input type="hidden" name="replyNo" 
 														value="${replyDto.replyNo}">
 							<input type="hidden" name="replyOrigin"
@@ -285,7 +374,7 @@
 		<c:choose>
 			<c:when test="${loginId != null}">
 				<!-- 댓글 작성 -->
-				<!--<form action="reply/write" method="post">-->
+<!-- 			<form action="reply/write" method="post"> -->
 				<form class="reply-insert-form">
 				<input type="hidden" name="replyOrigin" value="${boardDto.boardNo}">
 				<table class="table">
