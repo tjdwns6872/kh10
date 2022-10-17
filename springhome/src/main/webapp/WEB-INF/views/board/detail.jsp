@@ -19,7 +19,7 @@
 	}
 </style>
 
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script>
 	$(function(){
 		//목표 : 
@@ -38,6 +38,32 @@
 		});
 		//3
 		$(".editor").hide();
+	});
+	
+	$(function(){
+		$(".reply-insert-form").submit(function(e){
+			// 기본 이벤트를 차단한다(form을 사용하지 않을 예저)
+			e.preventDefault();
+			
+			// 댓글 입력값을 가져와서 검사 후 전송
+			var text = $(this).find("[name=replyContent]").val();
+			if(!text){
+				alert("내용을 작성해주세요");
+				return;
+			}
+			// 정상적으로 입력되었다면 비동기 통신으로 등록 요청
+			$.ajax({
+				url:"http://localhost:8888/rest/reply/insert",
+				method:"post",
+				date:{
+					replyOrigin:$(this).find("[name=replyOrigin]").val(),
+					replyContent:text
+				},
+				success:function(resp){
+					console.log(resp);
+				}
+			});
+		});
 	});
 </script>
 
@@ -120,7 +146,7 @@
 								(${attachmentDto.attachmentSize} bytes) 
 								- 
 								[${attachmentDto.attachmentType}]
-								<a href="/attachment/download/${attachmentDto.attachmentNo}"><img src="/image/download.png" width="15" height="15"></a>
+								<a href="/attachment/download/${attachmentDto.attachmentNo}">ㅁ</a>
 							</li>
 							</c:forEach>
 						</ul>
@@ -202,18 +228,18 @@
 					<th>
 						<!-- 수정과 삭제는 현재 사용자가 남긴 댓글에만 표시 -->
 						<c:if test="${loginId == replyDto.replyWriter}">
-							<a style="display:block; margin:10px 0px;" class="edit-btn"><img src="/image/edit.png" width="20" height="20"></a>
-							<a style="display:block; margin:10px 0px;" href="reply/delete?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}"><img src="/image/delete.png" width="20" height="20"></a>
+							<a style="display:block; margin:10px 0px;" class="edit-btn">수정</a>
+							<a style="display:block; margin:10px 0px;" href="reply/delete?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}">삭제</a>
 						</c:if>
 						
 						<c:if test="${admin}">
 							<!-- 블라인드 여부에 따라 다르게 표시 -->
 							<c:choose>
 								<c:when test="${replyDto.replyBlind}">
-									<a style="display:block; margin:10px 0px;" href="reply/blind?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}"><img src="/image/blind2.png" width="20" height="20"></a>
+									<a style="display:block; margin:10px 0px;" href="reply/blind?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}">블라인드</a>
 								</c:when>
 								<c:otherwise>
-									<a style="display:block; margin:10px 0px;" href="reply/blind?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}"><img src="/image/blind.png" width="20" height="20"></a>
+									<a style="display:block; margin:10px 0px;" href="reply/blind?replyNo=${replyDto.replyNo}&replyOrigin=${replyDto.replyOrigin}">블라인드</a>
 								</c:otherwise>
 							</c:choose>
 							
@@ -225,7 +251,7 @@
 				<!-- 수정하기 위한 화면 : 댓글 작성자 본인에게만 출력 -->
 				<tr class="editor">
 					<th colspan="2">
-						<form action="reply/edit" method="post">
+  						<form action="reply/edit" method="post">	
 							<input type="hidden" name="replyNo" 
 														value="${replyDto.replyNo}">
 							<input type="hidden" name="replyOrigin"
@@ -249,7 +275,8 @@
 		<c:choose>
 			<c:when test="${loginId != null}">
 				<!-- 댓글 작성 -->
-				<form action="reply/write" method="post">
+				<!--<form action="reply/write" method="post">-->
+				<form class="reply-insert-form">
 				<input type="hidden" name="replyOrigin" value="${boardDto.boardNo}">
 				<table class="table">
 					<tbody>

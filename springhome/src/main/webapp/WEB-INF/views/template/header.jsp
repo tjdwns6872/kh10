@@ -5,6 +5,13 @@
 
 <html>
 	<head>
+		    <link rel="preconnect" href="https://fonts.googleapis.com">
+    		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" href="/css/reset.css">
+    		<link rel="stylesheet" type="text/css" href="/css/commons.css">
+			<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+			
 		<title>
 			<c:choose>
 				<c:when test="${param.title != null}">
@@ -15,7 +22,6 @@
 				</c:otherwise>
 			</c:choose>
 		</title>
-		<link rel="stylesheet" type="text/css" href="/css/commons.css">
 	</head>
 	<body>
 		<!-- 메뉴 : 반드시 절대 경로로 작성-->

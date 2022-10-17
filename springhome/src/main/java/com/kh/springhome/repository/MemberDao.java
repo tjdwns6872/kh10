@@ -16,8 +16,10 @@ public interface MemberDao {
 	boolean changePassword(String memberId, String memberPw);
 	boolean changeInformation(MemberDto memberDto);
 	boolean updateLoginTime(String memberId);
+	MemberDto findByNickname(String memberNick);
 	
 	boolean delete(String memberId);
 
 	List<MemberListForMainVO> selectListForMain();
+
 }
