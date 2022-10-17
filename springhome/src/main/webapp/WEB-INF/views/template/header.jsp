@@ -15,6 +15,7 @@
 				</c:otherwise>
 			</c:choose>
 		</title>
+		<link rel="stylesheet" type="text/css" href="/css/commons.css">
 	</head>
 	<body>
 		<!-- 메뉴 : 반드시 절대 경로로 작성-->
@@ -35,7 +36,7 @@
 					</c:if>
 				</c:when>
 				<c:otherwise>
-					<a href="/member/insert">회원가입</a>
+					<a href="/member/join">회원가입</a>
 					<a href="/member/login">로그인</a>
 				</c:otherwise>
 			</c:choose>

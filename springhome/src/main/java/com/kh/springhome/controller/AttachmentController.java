@@ -27,7 +27,7 @@ public class AttachmentController {
 	@Autowired
 	private AttachmentDao attachmentDao;
 	
-	private final File dir = new File("D:/upload");
+	private final File dir = new File("C:/Users/tjdwn/upload");
 	
 	@GetMapping("/download/{attachmentNo}")
 	public ResponseEntity<ByteArrayResource> download(

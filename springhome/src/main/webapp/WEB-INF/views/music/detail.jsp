@@ -3,16 +3,16 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>음원 상세정보</title>
-</head>
-<body>
-	<div align="center">
+<jsp:include page="/WEB-INF/views/template/header.jsp">
+	<jsp:param value="음원 상세정보" name="title"/>
+</jsp:include>
+
+<div class="container-500 mt-40 mb-40">
+	<div class="row center">
 		<h1>음원 상세정보</h1>
-		<table border="1" width="400">
+	</div>
+	<div class="row">
+		<table class="table table-border">
 			<tbody>
 				<tr>
 					<th width="25%">번호</th>
@@ -36,18 +36,20 @@
 				</tr>
 				<tr>
 					<th width="25%">발매일</th>
-<%-- 			<td>${musicDto.releaseTime}</td> --%>
+		<%-- 			<td>${musicDto.releaseTime}</td> --%>
 					<td>
 						<fmt:formatDate value="${musicDto.releaseTime}" pattern="y년 M월 d일 E요일"/>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		
-		<h2><a href="list">목록보기</a></h2>
-		<h2><a href="edit?musicNo=${musicDto.musicNo}">수정하기</a></h2>
-		<h2><a href="delete?musicNo=${musicDto.musicNo}">삭제하기</a></h2>
-		
 	</div>
-</body>
-</html>
+	
+	<div class="row center">
+		<a class="btn btn-neutral" href="list">목록보기</a>
+		<a class="btn btn-negative" href="edit?musicNo=${musicDto.musicNo}">수정하기</a>
+		<a class="btn btn-negative" href="delete?musicNo=${musicDto.musicNo}">삭제하기</a>	
+	</div>
+</div>
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
