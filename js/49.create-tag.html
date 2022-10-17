@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태그 생성</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+
+    <style>
+        .btn-color{
+            color: red;
+            padding: 1em;
+        }
+    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script src="https://kit.fontawesome.com/435ae7cb6c.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            // 목표 : 추가버튼을 누르면 값을 불러와 태그를 만들고 설정한 뒤 리스트에 추가
+            $("#btn-add").click(function(){
+                var item = $("#user-input").val();
+
+                if(!item.trim()){ return; }
+            
+                // $("li") 라고 작성하면 li를 선택하는 의미
+                // $("<li>")라고 작성하면 li를 생성하라는 의미
+                
+                // li 태그를 생성하고 item을 글자로 설정한 뒤 #to-do-list에 추가하세요
+                // $("<li>"+item+"</li>").appendTo("#to-do-list");
+                
+                // $("<li>").text(item).appendTo("#to-do-list");
+
+                // li와 버튼을 생성하고 버튼 -> li -> #to-do-list 형태로 추가
+                var button = $("<i>").addClass("fa-solid fa-x btn-color");
+                var li = $("<li>").text(item);
+
+                button.click(function(){
+                    $(this).parent().remove();
+                });
+
+                button.appendTo(li);
+                li.appendTo("#to-do-list");
+
+                $("#user-input").val("");
+
+            });
+            $(".btn-pass").click(function(){
+                $(window).off("beforeunload");
+            });
+        });
+
+        // (+추가) 이탈 방지 처리 - beforeunload 이벤트
+        $(window).on("beforeunload", function(){
+            return false;
+        });
+
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-500">
+        <div class="row center">
+            <h1>오늘의 할일</h1>
+        </div>
+        <div class="row">
+            <input type="text" id="user-input" class="input w-100">
+        </div>
+        <div class="row right">
+            <button id="btn-add" type="submit" class="btn btn-positive">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+        
+        <hr>
+
+        <div class="row">
+            <ul id="to-do-list"></ul>
+        </div>
+
+        <div>
+            <a href="https://www.google.com" class="btn btn-neutral btn-pass">구글로 이동</a>
+        </div>
+    </div>
+
+</body>
+</html>
