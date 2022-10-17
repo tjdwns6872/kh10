@@ -66,6 +66,16 @@
 		});
 	});
 </script>
+<!-- 자바 스크립트 템플릿 생성 -->
+<script type="text/template" id="reply-list-header">
+	<thead>
+		<tr>
+			<td colspan="2">
+				총 #1개의 댓글이 있습니다.
+			</td>
+		</tr>
+	</thead>
+</script>
 
 <div class="container-800 mt-40 mb-40">
 	<div class="row center">
