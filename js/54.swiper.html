@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>swiper</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <style>
+        .swiper {
+            width: 600px;
+            height: 300px;
+        }
+    </style>
+
+    <!-- swiper 의존성 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal', //슬라이드 방향
+            loop: true, //반복여부
+    
+            // 페이징
+            pagination: { // 페이징 옵션
+                el: '.swiper-pagination', //페이징 적용 대상
+                type: 'bullets', //페이징 도구 모양
+                clickable:true, //클릭 가능 여부
+            },
+    
+            // 좌우 이동버튼
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // 자동재생 옵셥
+            autoplay:{
+                delay:1000, //자동재생 간격(ms)
+            },
+            // 페이지 전환 효과
+            // effect:"slide", 슬라이드 기본 효과
+            // effect:"fade", //페이드인-아웃 효과
+            // effect:"cube", //큐브 회전 효과
+            // effect:"coverflow", //3D 회전 효과
+            // effect:"flip", //플립 효과
+            // effect:"creative",
+            effect:"cards",//카드 전환 효과
+    
+            // And if we need scrollbar
+            // scrollbar: {
+            //     el: '.swiper-scrollbar',
+            // },
+        });
+    });  
+        
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="container-600">
+        <div class="row center">
+            <h1>이미지 슬라이더</h1>
+        </div>
+        <div class="row">
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide"><img src="https://placeimg.com/600/300/any"></div>
+                    <div class="swiper-slide"><img src="https://placeimg.com/600/300/people"></div>
+                    <div class="swiper-slide"><img src="https://placeimg.com/600/300/tech"></div>
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+  
+                 <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+  
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
