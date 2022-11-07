@@ -15,7 +15,6 @@ public class MyBatisInsertTest {
 	@Test
 	public void test() {
 		GuestBookDto dto = GuestBookDto.builder()
-				.no(14)
 				.name("mybatis 테스트")
 				.memo("mybatis 테스트")
 			.build();
