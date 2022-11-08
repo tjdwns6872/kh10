@@ -60,25 +60,50 @@
 			return true; //전송
 		});
 	});
+	// 체크박스나 select처럼 백엔드에서 값을 주기 어려운 요소들을 프론트에서 처리
+	$(function () {
+	})
+	
 </script>
 
 <h1>복합 검색 예제</h1>
 
 <!-- 검색창 -->
 <form action="./" method="get" autocomplete="off" class="search-form">
-	번호 : <input type="text" name="no"><br><br>
-	이름 : <input type="text" name="name"><br><br>
+	번호 : <input type="text" name="no" value="${param.no}"><br><br>
+	이름 : <input type="text" name="name" value="${param.name}"><br><br>
 	분류 : 
 		<label><input type="checkbox" name="type" value="과자">과자</label>
 		<label><input type="checkbox" name="type" value="사탕">사탕</label>
 		<label><input type="checkbox" name="type" value="주류">주류</label>
 		<label><input type="checkbox" name="type" value="아이스크림">아이스크림</label>
 		<br><br>
-	가격 : <input type="text" name="minPrice"> ~ <input type="text" name="maxPrice">
+	가격 : <input type="text" name="minPrice" value="${param.minPrice}"> ~ <input type="text" name="maxPrice" value="${param.maxPrice}">
 	<br><br>
-	제조일 : <input type="text" name="beginMade"> ~ <input type="text" name="endMade">
+	제조일 : <input type="text" name="beginMade" value="${param.beginMade}"> ~ <input type="text" name="endMade" value="${param.endMade}">
 	<br><br>
 	<button type="submit">검색</button>
+	<br><br>
+	<!-- 정렬 -->
+	1차 정렬 : 
+	<select name="sort">
+		<option value="">선택하세요</option>
+		<option value="price desc">가격 비싼 순</option>
+		<option value="price asc">가격 저렴한 순</option>
+		<option value="no asc">번호 순</option>
+		<option value="made desc">최근 제조 순</option>
+	</select>
+	<br><br>
+	2차 정렬 : 
+	<select name="sort">
+		<option value="">선택하세요</option>
+		<option value="price desc">가격 비싼 순</option>
+		<option value="price asc">가격 저렴한 순</option>
+		<option value="no asc">번호 순</option>
+		<option value="made desc">최근 제조 순</option>
+	</select>
+	<br><br>
+	
 </form>
 <!-- 결과화면 -->
 <table width="600" align="center" border="1px sold gray">

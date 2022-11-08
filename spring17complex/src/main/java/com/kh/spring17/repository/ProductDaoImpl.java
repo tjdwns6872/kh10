@@ -18,7 +18,7 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public List<ProductDto> complexSearch(ProductSearchVO vo) {
 
-		return sqlSession.selectList("product.complex5", vo);
+		return sqlSession.selectList("product.complex7", vo);
 	}
 
 

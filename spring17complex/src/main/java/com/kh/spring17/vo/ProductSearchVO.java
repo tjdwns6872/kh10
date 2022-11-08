@@ -12,4 +12,6 @@ public class ProductSearchVO {
 	private List<String> type;
 	private Integer minPrice, maxPrice;
 	private String beginMade, endMade;
+	
+	private List<String> sort;
 }
