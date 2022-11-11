@@ -5,6 +5,17 @@
 	$(function() {
 		loadList();
 		
+		$(".edit-btn").click(function(){
+			var no = $("[name=no]").val();
+			var name = $("[name=name]").val();
+			var type = $("[name=type]").val();
+			
+			editData(no, name, type);
+			$("[name=no]").val("");
+			$("[name=name]").val("");
+			$("[name=type]").val("");
+		});
+		
 		// form에 submit 이벤트를 설정해서 등록 처리
 		$(".detail-view").submit(function(e){
 			e.preventDefault();
@@ -19,6 +30,17 @@
 			$("[name=type]").val("");
 		});
 	});
+	
+	//삭제 함수
+	function deleteData(no) {
+		$.ajax({
+			url:"http://localhost:8888/rest/pocketmon/"+no,
+			method:"delete",
+			success:function(resp){
+				loadList();
+			}
+		});
+	}
 	
 	//수정 함수
 	function editData(no, name, type){
@@ -72,7 +94,24 @@
 							.attr("data-no", resp[i].no)
 							.attr("data-name", resp[i].name)
 							.attr("data-type", resp[i].type)
+							
+							h3.click(function(){
+								$("[name=no]").val($(this).data("no"));
+								$("[name=name]").val($(this).data("name"));
+								$("[name=type]").val($(this).data("type"));
+							});
+					// 삭제 버튼
+					var span = $("<span>").text(" x ").attr("data-no", resp[i].no);
+					span.click(function(e){
+						e.stopPropagation(); // 전파 중지
+						
+						if(confirm("정말 삭제하십니까?")){
+							var no = $(this).data("no");
+							deleteData(no);							
+						}
+					});
 					
+					h3.append(span);
 					$(".list-view").append(h3);
 				}
 			}
@@ -86,6 +125,7 @@
 	<input type="text" name="name" placeholder="이름">
 	<input type="text" name="type" placeholder="속성">
 	<button type="submit">등록</button>
+	<button class="edit-btn" type="button">수정</button>
 </form>
 
 <hr>
