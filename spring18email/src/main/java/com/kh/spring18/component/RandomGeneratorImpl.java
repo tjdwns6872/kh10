@@ -4,6 +4,9 @@ import java.text.DecimalFormat;
 import java.text.Format;
 import java.util.Random;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class RandomGeneratorImpl implements RandomGenerator{
 
 	private Random rand = new Random();
@@ -11,7 +14,6 @@ public class RandomGeneratorImpl implements RandomGenerator{
 	@Override
 	public String generateSerial(int size) {
 		int range = (int)Math.pow(10, size);
-		Random rand = new Random();
 		int number = rand.nextInt(range);
 		
 		StringBuffer buffer = new StringBuffer();
