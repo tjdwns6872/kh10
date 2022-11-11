@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pocketmon">
    <select id="list" resultType="PocketMonsterDto">
-      select * from pocket_monster
+      select * from pocket_monster order by no asc
    </select>
    
 	<insert id="insert" parameterType="PocketMonsterDto">
