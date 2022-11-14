@@ -10,6 +10,7 @@ import com.kh.spring23.websocket.BasicWebsocketServer;
 import com.kh.spring23.websocket.JsonWebsocketServer;
 import com.kh.spring23.websocket.MessageWebsocketServer;
 import com.kh.spring23.websocket.MultipleUserWebsocketServer;
+import com.kh.spring23.websocket.SockJSWebsocketServer;
 
 @Configuration
 @EnableWebSocket // 웹소켓 활성화
@@ -23,6 +24,8 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer{
 	private MessageWebsocketServer messageWebsocketServer;
 	@Autowired
 	private JsonWebsocketServer jsonWebsocketServer;
+	@Autowired
+	private SockJSWebsocketServer sockJSWebsocketServer;
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
@@ -34,6 +37,9 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer{
 					.addHandler(multipleUserWebsocketServer, "/ws/multiple")
 					.addHandler(messageWebsocketServer, "/ws/message")
 					.addHandler(jsonWebsocketServer, "ws/json");
+		
+		registry.addHandler(sockJSWebsocketServer, "/ws/sockjs")
+					.withSockJS();
 	}
 }
 

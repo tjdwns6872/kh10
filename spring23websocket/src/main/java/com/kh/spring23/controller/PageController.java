@@ -28,6 +28,10 @@ public class PageController {
 	public String json() {
 		return "json";
 	}
+	@GetMapping("/sockjs")
+	public String sockjs() {
+		return "sockjs";
+	}
 }
 
 
