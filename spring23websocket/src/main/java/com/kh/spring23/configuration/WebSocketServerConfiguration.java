@@ -1,7 +1,5 @@
 package com.kh.spring23.configuration;
 
-import javax.mail.Message;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -9,6 +7,7 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import com.kh.spring23.websocket.BasicWebsocketServer;
+import com.kh.spring23.websocket.JsonWebsocketServer;
 import com.kh.spring23.websocket.MessageWebsocketServer;
 import com.kh.spring23.websocket.MultipleUserWebsocketServer;
 
@@ -22,6 +21,8 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer{
 	private MultipleUserWebsocketServer multipleUserWebsocketServer;
 	@Autowired
 	private MessageWebsocketServer messageWebsocketServer;
+	@Autowired
+	private JsonWebsocketServer jsonWebsocketServer;
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
@@ -31,7 +32,8 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer{
 //		- HTTP가 사용중이면 웹소켓 서버는 정상 작동하지 않는다.
 		registry.addHandler(basicWebsocketServer, "/ws/basic")
 					.addHandler(multipleUserWebsocketServer, "/ws/multiple")
-					.addHandler(messageWebsocketServer, "/ws/message");
+					.addHandler(messageWebsocketServer, "/ws/message")
+					.addHandler(jsonWebsocketServer, "ws/json");
 	}
 }
 
