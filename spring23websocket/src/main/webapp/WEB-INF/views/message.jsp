@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<h1>메세지 접속 예제</h1>
+<h1>메세지 전송 예제</h1>
 <button class="btn-connect">연결</button>
 <button class="btn-disconnect">종료</button>
+<hr>
+<input type="text" id="message-input">
+<button type="button" id="message-send">전송</button>
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
@@ -11,6 +14,7 @@
 		// 목표
 		// 1. 연결버튼을 누르면 웹소켓 연결을 생성
 		// 2. 종료버튼을 누르면 웹소켓 연결을 제거
+		// 3. 전송버튼을 누르면 웹소켓으로 입력된 메세지를 전송
 		
 		disconnectState();
 		
@@ -46,6 +50,17 @@
 			//window.socket.close();
 			socket.close();
 		});
+		
+		// 3.
+		$("#message-send").click(function(){
+			var text = $("#message-input").val();
+			if(text.length == 0) return;
+			
+			socket.send(text);
+			$("#message-input").val(" ");
+		});
+		
+		
 		function connectState(){ // 연결상태일 때 보여줘야 할 화면 처리
 			$(".btn-connect").prop("disabled", true) // 연결버튼 잠금
 			$(".btn-disconnect").prop("disabled", false) // 종료버튼 해제
@@ -54,6 +69,8 @@
 			$(".btn-connect").prop("disabled", false) // 연결버튼 해제
 			$(".btn-disconnect").prop("disabled", true) // 종료버튼 잠금
 		}
+		
+		
 	})
 </script>
 
