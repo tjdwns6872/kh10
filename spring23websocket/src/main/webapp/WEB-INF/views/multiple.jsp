@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<h1>웹소켓 연결 예제</h1>
+<h1>다중 사용자 접속 예제</h1>
 <button class="btn-connect">연결</button>
 <button class="btn-disconnect">종료</button>
 

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/page")
 public class PageController {
 	
+	
+	
 	@GetMapping("/basic")
 	public String basic() {
 		return "basic";
@@ -18,4 +20,13 @@ public class PageController {
 	public String multiple() {
 		return "multiple";
 	}
+	@GetMapping("/message")
+	public String message() {
+		return "message";
+	}
 }
+
+
+
+
+
