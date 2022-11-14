@@ -14,4 +14,8 @@ public class PageController {
 	public String basic() {
 		return "basic";
 	}
+	@GetMapping("/multiple")
+	public String multiple() {
+		return "multiple";
+	}
 }
