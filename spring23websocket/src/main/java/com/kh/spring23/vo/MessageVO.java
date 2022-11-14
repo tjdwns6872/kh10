@@ -1,4 +1,4 @@
-package com.kh.spring23.websocket.vo;
+package com.kh.spring23.vo;
 
 import java.util.Date;
 

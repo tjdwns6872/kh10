@@ -11,7 +11,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kh.spring23.websocket.vo.MessageVO;
+import com.kh.spring23.vo.MessageVO;
 
 import lombok.extern.slf4j.Slf4j;
 
