@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<h1>SockJS 예제</h1>
+<h1>회원 채팅 예제</h1>
 <button class="btn-connect">연결</button>
 <button class="btn-disconnect">종료</button>
 <hr>
@@ -26,7 +26,7 @@
 			//웹소켓 연결 생성
 			// - sockjs를 사용하면 주소를 http로 설정할 수 있다.
 			// - 절대경로 표시를 추가할 수 있다.
-			var uri = "${pageContext.request.contextPath}/ws/sockjs";
+			var uri = "${pageContext.request.contextPath}/ws/member";
 			
 			// - 접속 시 생성하는 갹체가 WebSocket가 아니라 SockJS로 바뀐다
 			socket = new SockJS(uri);
@@ -51,11 +51,17 @@
 				var data = JSON.parse(e.data);
 				//console.log(data);
 				
-				var p = $("<p>").text(data.text);
+				var p = $("<p>");
 				var time = moment(data.time).format("YYYY-MM-DD hh:mm");
-				var span = $("<span>").text("("+time+")");
-				p.append(span);
+				var w = $("<p>").text(data.nickname+"["+data.auth+"]");
+				var t = $("<p>").text("("+time+")");
+				var c = $("<p>").text(data.text);
+				p.append(w).append(c).append(t);
 				$("#message-list").append(p);
+				
+				//스크롤 하단으로 이동
+				var height = $(document).height();
+				$(window).scrollTop(height);
 			};
 		});
 		
