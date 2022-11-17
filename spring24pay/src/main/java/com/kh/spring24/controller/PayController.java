@@ -21,6 +21,7 @@ import com.kh.spring24.repository.ProductDao;
 import com.kh.spring24.service.KakaoPayService;
 import com.kh.spring24.vo.KakaoPayApproveRequestVO;
 import com.kh.spring24.vo.KakaoPayApproveResponseVO;
+import com.kh.spring24.vo.KakaoPayOrderRequestVO;
 import com.kh.spring24.vo.KakaoPayReadyRequestVO;
 import com.kh.spring24.vo.KakaoPayReadyResponseVO;
 import com.kh.spring24.vo.PurchaseItemVO;
@@ -171,6 +172,15 @@ public class PayController {
 		session.setAttribute("partner_user_id", vo.getPartner_user_id());
 		
 		return "redirect:"+response.getNext_redirect_pc_url();
+	}
+	
+//	주문 조회 페이지
+	@GetMapping("/detail")
+	public String detail(@RequestParam String tid, Model model) throws URISyntaxException {
+		KakaoPayOrderRequestVO vo = KakaoPayOrderRequestVO
+				.builder().tid(tid).build();
+		model.addAttribute("info", kakaoPayService.order(vo));
+		return "detail";
 	}
 }
 

@@ -12,5 +12,5 @@ public class AmountVO {
 	private int vat;
 	private int point;
 	private int discount;
-	private int green_cup_deposit;
+	private int green_deposit;
 }

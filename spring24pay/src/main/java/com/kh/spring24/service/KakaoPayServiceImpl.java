@@ -14,9 +14,14 @@ import org.springframework.web.client.RestTemplate;
 import com.kh.spring24.configuration.KakaoPayProperties;
 import com.kh.spring24.vo.KakaoPayApproveRequestVO;
 import com.kh.spring24.vo.KakaoPayApproveResponseVO;
+import com.kh.spring24.vo.KakaoPayOrderRequestVO;
+import com.kh.spring24.vo.KakaoPayOrderResponseVO;
 import com.kh.spring24.vo.KakaoPayReadyRequestVO;
 import com.kh.spring24.vo.KakaoPayReadyResponseVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class KakaoPayServiceImpl implements KakaoPayService{
 	
@@ -76,6 +81,11 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 		body.add("partner_user_id", vo.getPartner_user_id());//고객번호
 		body.add("pg_token", vo.getPg_token());//인증용 토큰
 		
+		log.debug("partner_order_id={}", vo.getPartner_order_id());
+		log.debug("partner_user_id={}", vo.getPartner_user_id());
+		log.debug("tid={}", vo.getTid());
+		log.debug("pg_token={}", vo.getPg_token());
+		
 		//보낼 내용 합체
 		HttpEntity<MultiValueMap<String, String>> entity = 
 											new HttpEntity<>(body, headers);
@@ -83,6 +93,32 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 		//요청
 		KakaoPayApproveResponseVO response = 
 				template.postForObject(uri, entity, KakaoPayApproveResponseVO.class);
+		
+		
+		return response;
+	}
+	@Override
+	public KakaoPayOrderResponseVO order(KakaoPayOrderRequestVO vo) throws URISyntaxException {
+		//주소 설정
+		URI uri = new URI("https://kapi.kakao.com/v1/payment/order");
+		
+		//헤더 설정
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK "+kakaoPayProperties.getKey());
+		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		
+		//바디 설정
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+		body.add("cid", kakaoPayProperties.getCid());//가맹점번호(테스트용)
+		body.add("tid", vo.getTid());
+		
+		//보낼 내용 합체
+		HttpEntity<MultiValueMap<String, String>> entity = 
+											new HttpEntity<>(body, headers);
+		
+		//요청
+		KakaoPayOrderResponseVO response = 
+				template.postForObject(uri, entity, KakaoPayOrderResponseVO.class);
 		return response;
 	}
 	
