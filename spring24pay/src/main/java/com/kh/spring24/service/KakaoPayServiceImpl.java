@@ -12,6 +12,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.kh.spring24.configuration.KakaoPayProperties;
+import com.kh.spring24.vo.KakaoPayApproveRequestVO;
+import com.kh.spring24.vo.KakaoPayApproveResponseVO;
 import com.kh.spring24.vo.KakaoPayReadyRequestVO;
 import com.kh.spring24.vo.KakaoPayReadyResponseVO;
 
@@ -54,6 +56,33 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 		//요청
 		KakaoPayReadyResponseVO response = template.postForObject(
 				uri, entity, KakaoPayReadyResponseVO.class);
+		return response;
+	}
+	@Override
+	public KakaoPayApproveResponseVO approve(KakaoPayApproveRequestVO vo) throws URISyntaxException {
+		//주소 설정
+		URI uri = new URI("https://kapi.kakao.com/v1/payment/approve");
+		
+		//헤더 설정
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK "+kakaoPayProperties.getKey());
+		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		
+		//바디 설정
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+		body.add("cid", kakaoPayProperties.getCid());//가맹점번호(테스트용)
+		body.add("tid", vo.getTid());//거래번호
+		body.add("partner_order_id", vo.getPartner_order_id());//주문번호
+		body.add("partner_user_id", vo.getPartner_user_id());//고객번호
+		body.add("pg_token", vo.getPg_token());//인증용 토큰
+		
+		//보낼 내용 합체
+		HttpEntity<MultiValueMap<String, String>> entity = 
+											new HttpEntity<>(body, headers);
+		
+		//요청
+		KakaoPayApproveResponseVO response = 
+				template.postForObject(uri, entity, KakaoPayApproveResponseVO.class);
 		return response;
 	}
 	
