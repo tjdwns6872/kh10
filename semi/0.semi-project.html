@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- 글꼴 Noto Sans Korean -->
+    <!-- reset.css 파일에 아래 코드 추가해야 함-->
+    <!--
+    html {
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- css파일 -->
+    <link rel="stylesheet" type="text/css" href="./css/semi-commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/semi-layout.css">
+
+    <!-- jquery 사용 위한 라이브러리 파일 불러옴 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            $("nav").find("li").click(function(e){
+
+                e.stopPropagation();
+
+                $(this).children("ul").toggle();
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <!-- HTML 화면 -->
+    <main>
+        <header style="background-color: blue;">
+            <!-- 헤더 영역 -->
+            <div class="flex-container">
+                <div class="left">
+                    <a id="logo">로고</a>
+                </div>
+                <div class="right">
+                    <a>로그인</a>
+                    <a>회원가입</a>
+                    <a>마이페이지</a>
+                </div>
+            </div>
+        </header>
+        <nav style="background-color: red;">
+            <!-- 네이게이터 영역 -->
+            <div>
+                <ul class="flex-container nav-accordion">
+                    <li>
+                        <a href="#">영화</a>
+                        <ul>
+                            <li>무비차트</li>
+                            <li>상영중</li>
+                            <li>상영 예정</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">예매</a>
+                        <ul>
+                            <li>예매하기</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">극장</a>
+                        <ul>
+                            <li>상영관 종류</li>
+                            <li>지점 안내</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">커뮤니티</a>
+                        <ul>
+                            <li>공지사항</li>
+                            <li>자유게시판</li>
+                        </ul>
+                     </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="" style="background-color: green;">
+            <!-- 컨텐츠 영역 -->
+            <!-- 
+            <aside>
+                사이드바
+                <h1>사이드바</h1>
+            </aside>
+            -->
+            <section>
+                <!-- 컨텐츠 -->
+                <h1>컨텐츠</h1>
+            </section>
+        </div>
+        <footer class="" style="background-color: orange;">
+            <ul class="policy-list">
+                <li>
+                    <a href="#">링크</a>
+                </li>
+                <li>
+                    <a href="#">링크</a>
+                </li>
+                <li>
+                    <a href="#">링크</a>
+                </li>
+                <li>
+                    <a href="#">링크</a>
+                </li>
+                <li>
+                    <a href="#">링크</a>
+                </li>
+                <li>
+                    <a href="#">링크</a>
+                </li>
+                <li>
+                    <a href="#">링크</a>
+                </li>
+            </ul>
+            <!-- 풋터 영역 -->
+            <div class="info">
+                <p>정보2132143534534</p>
+                <p>정보21321312</p>
+                <p>정보85685635627695</p>
+                <p>정보454645132</p>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>
