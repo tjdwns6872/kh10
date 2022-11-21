@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="guestbook">
+	<!-- 
+		
+	 -->
+	<insert id="add" parameterType="GuestBookDto">
+		insert into guest_book(no, name, memo) values(guest_book_seq.nextval, #{name}, #{memo})
+	</insert>
+	
+	<!-- select는 단일조회와 목록조회가 있지만 크게 구분하지 않는다. -->
+	<select id="list" resultType="GuestBookDto">
+		select * from guest_book
+	</select>
+	
+	<!-- 단일 조회 구문 -->
+	<select id="one" resultType="int">
+		select * from guest_book where no = #{no}
+	</select>
+	
+	<!-- 수정 구문 -->
+	<update id="edit" parameterType="GuestBookDto">
+		update guest_book set name=#{name}, memo=#{memo} where no = #{no}
+	</update>	
+	
+	<delete id="delete" parameterType="int">
+		delete guest_book where no = #{no}
+	</delete>
+</mapper>
+
+
+
+
+
+
