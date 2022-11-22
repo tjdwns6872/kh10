@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/semi-commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <style>
+        /* 메세지는 숨김처리 */
+        .success-message,
+        .fail-message { 
+            display: none;
+        }
+
+        .success-message {
+            color:green;
+        }
+        .fail-message {
+            color:red;
+        }
+
+        /* 입력창의 상태에 따라 특정 메세지를 표시 */
+        .input.success {
+            border-color: green;
+        }
+        .input.success ~ .success-message {
+            display: block;
+        }
+        .input.fail {
+            border-color: red;
+        }
+        .input.fail ~ .fail-message {
+            display: block;
+        }
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- jquery를 사용하기 위하여 라이브러리 js 파일을 불러온다 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            // 1. 첫 번째 이전버튼과 마지막 다음버튼을 삭제
+            $(".prev").first().remove();
+            $(".next").last().remove();
+
+            // 2. 1페이지만 남기고 다 숨김 처리
+            $(".page").hide();
+            $(".page").first().show();
+
+            // 3. 남은 버튼에 클릭 이벤트를 설정
+            // - 다음 버튼을 누르면 해당 페이지의 뒷 페이지 표시 및 나머지 숨김
+            // - 이전 버튼을 누르면 해당 페이지의 앞 페이지 표시 및 나머지 숨김
+
+            $(".next").click(function(){
+                var target = $(this).parents(".page").next();
+                // console.log(target);
+
+                // 모든 페이지 숨기거 target만 표시
+                $(".page").hide();
+                target.show();
+            });
+
+            $(".prev").click(function(){
+                var target = $(this).parents(".page").prev();
+
+                $(".page").hide();
+                target.show();
+            });
+            $(".id-input").blur(function(){
+                var regex = /^[a-z0-9]{5,20}$/;
+                $(this).removeClass("success fail");
+                // console.log(regex.test($(this).val()));
+                if(regex.test($(this).val())){
+                    // console.log(true);
+                    $(this).addClass("success");
+                    return true;
+                }else{
+                    $(this).addClass("fail");
+                    return false;
+                }
+
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+    <!-- HTML 화면 -->
+    <div class="page">
+        <div class="container-600">
+            <div class="row">
+                <h1>1페이지</h1>
+            </div>
+            <div class="row">
+                <input placeholder="아이디" class="input id-input">
+                <span class="success-message">true</span>
+                <span class="fail-message">false</span>
+                <button type="submit" class="prev">이전</button>
+                <button type="submit" class="next">다음</button>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <div class="container-600">
+            <div class="row">
+                <h1>2페이지</h1>
+            </div>
+            <div class="row">
+                <button type="submit" class="prev">이전</button>
+                <button type="submit" class="next">다음</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

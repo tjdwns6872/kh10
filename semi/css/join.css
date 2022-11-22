@@ -1,0 +1,47 @@
+.login-input{
+    border: 2px solid gray;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    width: 30%;
+    height: 2.5em;
+}
+form > div{
+    text-align: center;
+    padding: 5px;
+}
+
+.btn.login-btn{
+	width: 20%;
+    height: 2.5em;
+}
+.btn.btn-positive:disabled{
+    cursor: not-allowed;
+    background-color: #6FB8FB;
+    color: white;
+}
+.success-message,
+.fail-message { 
+    display: none;
+}
+
+.success-message {
+    color:green;
+}
+.fail-message {
+    color:red;
+}
+
+/* 입력창의 상태에 따라 특정 메세지를 표시 */
+.login-input.success {
+    border-color: green;
+}
+.login-input.success ~ .success-message {
+    display: block;
+}
+.login-input.fail {
+    border-color: red;
+}
+.login-input.fail ~ .fail-message {
+    display: block;
+}
