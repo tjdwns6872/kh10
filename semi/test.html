@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>회원가입</title>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+	<script type="text/javascript">
+		$("input[name=userId]").blur(function () {
+			var inputStatus = {
+				userIdValid: false,
+			};
+
+			if (!userId) return;
+
+			$.ajax({
+				url: "http://localhost:8888/member/check?userId=" + userId,
+				method: "post",
+				success: function (resp) {
+					if (resp == "YYYYY") {
+						$("input[name=userId]").next("span").text("사용 가능한 아이디입니다");
+						inputStatus.memberIdValid = true;
+					}
+					else if (resp == "YYYYN") {
+						$("input[name=userId]").next("span").text("이미 사용중인 아이디입니다");
+						inputStatus.memberIdValid = false;
+					}
+				}
+			});
+
+		});
+	</script>
 </head>
 <body>
+	<form action="join" method="post">
+		<input type="text" name="userId" placeholder="아이디">
+		<span></span>
+		<input type="password" name="userPw" placeholder="비밀번호">
+		<span></span>
+		<input type="password" placeholder="비밀번호 확인">
+	</form>
 </body>
+
 </html>

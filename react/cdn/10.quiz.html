@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReactJS</title>
+</head>
+<body>
+    <!-- 제어 영역 설정 -->
+    <div id="app"></div>
+
+    <!-- react 라이브러리 -->
+    <!-- 개발용 CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- 배포용 CDN -->
+    <!--
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    -->
+
+    <!-- 바벨 CDN(using JSX) -->
+    <script src=" https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        //함수 형태로 컴포넌트를 구현한다(functional component)
+        const MainComponent = ()=> {
+            //state
+            const [money, setMoney] = React.useState(0);
+
+            //event
+            const plus = amount => setMoney(money + amount);
+            const clear = () => setMoney(0);
+
+            return (
+                <>
+                    <h1>송금할 금액 입력</h1>
+                    <input type="text" value={money == 0 ? "" : money} readOnly/>
+                    <br/>
+                    <button onClick={e=>plus(100)}>백원</button>
+                    <button onClick={e=>plus(1000)}>천원</button>
+                    <button onClick={e=>plus(10000)}>만원</button>
+                    <button onClick={e=>plus(100000)}>십만원</button>
+                    <button onClick={e=>plus(1000000)}>백만원</button>
+                    <button onClick={e=>plus(10000000)}>천만원</button>
+                    <button onClick={e=>clear()}>초기화</button>
+                </>
+            );
+        };
+
+        const app = ReactDOM.createRoot(document.querySelector("#app"));
+        app.render(<MainComponent/>);
+    </script>
+
+</body>
+</html>
