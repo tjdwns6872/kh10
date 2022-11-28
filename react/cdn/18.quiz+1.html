@@ -32,6 +32,17 @@
     <script src=" https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         //함수 형태로 컴포넌트를 구현한다(functional component)
+        const NextButton = (props) => {
+            if (props.ckAll) {
+                return (
+                    <button>다음 단계로 이동</button>
+                );
+            } else {
+                return (
+                    <button disabled>모두 동의해야 다음 단계로 이동할 수 있습니다.</button>
+                );
+            }
+        };
         const MainComponent = () => {
             // state
             const [ck1, setCk1] = React.useState(false);
@@ -42,9 +53,6 @@
             // 계산
             const ckAll = ck1 && ck2 && ck3 && ck4;
             
-            const html = ckAll ? 
-                        <button>다음 단계로 이동</button> : 
-                        <button disabled>모두 동의해야 다음 단계로 이동할 수 있습니다.</button>
 
             return (
                 <>
@@ -66,7 +74,7 @@
                         동의합니다.
                     </div>
                     <hr/>
-                    {html}
+                    <NextButton ckAll={ckAll}/>
                 </>
             );
         };
