@@ -64,13 +64,6 @@
             const [monsterList, setMonsterList] = React.useState([]);
             const [loading, setLoading] = React.useState(false);
 
-            // 등록 시 사용자가 입력하는 정보를 저장할 state
-            const [monster, setMonster] = React.useState({
-                no:0,
-                name:'',
-                type:''
-            });
-
             // effect
             const loadList = () => {
                 setLoading(true);
@@ -91,17 +84,50 @@
             React.useEffect(loadList, []);
             // React.useEffect(()=>loadList(),[]);
 
+            // 등록 시 사용자가 입력하는 정보를 저장할 state
+            const [monster, setMonster] = React.useState({
+                no:0,
+                name:'',
+                type:''
+            });
+
+            // 입력 이벤트 처리 함수
+            const monsterInputProcessor = e=>{
+                const name = e.target.name;
+                const value = e.target.value;
+                setMonster({
+                    ...monster,
+                    [name]:value // name 변수에 들어았는 값을 이름으로 설정하여 초기화
+                });
+            };
+
+            // 등록 버튼 처리 함수
+            const insertData = e=>{
+                // monster를 서버로 전송(+검사)
+                axios({
+                    url:"http://localhost:8888/rest/pocketmon",
+                    method:"post",
+                    // data:JSON.stringify(monster)
+                    data:monster
+                })
+                .then(respObject=>{
+                    setMonster({no:0, name:'', type:''});// 입력 데이터 초기화
+                    loadList();// 목록 불러오기
+                })
+                .catch(e=>{})
+                .finally(()=>{});
+            };
 
             return (
                 <>
                     <h1>포켓몬스터 목록</h1>
-                    번호 : <input type="number" name="no" onChange={e=>setMonster({...monster, no:e.target.value})}/>
+                    번호 : <input type="number" name="no" onChange={monsterInputProcessor} value={monster.no}/>
                     &nbsp;&nbsp;
-                    이름 : <input type="text" name="name" onChange={e=>setMonster({...monster, name:e.target.value})}/>
+                    이름 : <input type="text" name="name" onChange={monsterInputProcessor} value={monster.name}/>
                     &nbsp;&nbsp;
-                    속성 : <input type="text" name="type" onChange={e=>setMonster({...monster, type:e.target.value})}/>
+                    속성 : <input type="text" name="type" onChange={monsterInputProcessor} value={monster.type}/>
                     &nbsp;&nbsp;
-                    <button>등록</button>
+                    <button onClick={insertData}>등록</button>
 
                     <hr/>
 
