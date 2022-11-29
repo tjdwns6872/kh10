@@ -24,23 +24,30 @@
     <!-- 바벨 CDN(using JSX) -->
     <script src=" https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-        //함수 형태로 컴포넌트를 구현한다(functional component)
-        const MainComponent = ()=> {
-            // 배열형태의 state
-            // - 일반 배열과 객체 배열이 존재
-            // - React에서는 일반 배열을 권장하지 않는다(만약에 사용하더라도 값의 중복이 생기면 안된다.)
+        const ProductList = (props)=>{
+            const inner = props.products.map(product=>(
+                <li key={product.no}>
+                    {product.name}-{product.type}-{product.price}
+                </li>
+            ));
+            return <ul>{inner}</ul>
+        };
 
-            const [monsters, setMonsters] = React.useState(['피카츄','라이츄','파이리','꼬부기']);
+        const MainComponent = ()=> {
+            //배열 형태의 state
+            //- 일반 배열과 객체 배열이 존재
+            //- React에서는 일반 배열을 권장하지 않는다(만약에 사용하더라도 값의 중복이 생기면 안된다)
+
+            const [products, setProducts] = React.useState([
+                {no:1 , name:'스크류바', type:'아이스크림', price:'1200'},
+                {no:2 , name:'마이쮸', type:'사탕', price:'900'},
+                {no:3 , name:'초코파이', type:'과자', price:'3000'}
+            ]);
 
             return (
                 <>
-                    <h1>배열로 화면 만들기</h1>
-                    <ul>
-                        <li>{monsters[0]}</li>
-                        <li>{monsters[1]}</li>
-                        <li>{monsters[2]}</li>
-                        <li>{monsters[3]}</li>    
-                    </ul>
+                    <h1>상품 테이블</h1>
+                    <ProductList products={products}/>
                 </>
             );
         };
