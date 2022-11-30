@@ -40,7 +40,8 @@ const LoginPage = props=>{
     };
 
     return (<>
-        <div>
+        <div>                
+                                             
             <h1>로그인</h1>
             <input type="text" name="memberId" placeholder="아이디" onChange={changeMemberInfo}></input>
             <br></br><br></br>
