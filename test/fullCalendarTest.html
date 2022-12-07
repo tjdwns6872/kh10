@@ -19,7 +19,6 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
@@ -27,11 +26,41 @@
 
         $(function () {
             var calendarEl = $('#calendar')[0];
+            var staff;
+            $.ajax({
+                url: "http://localhost:8888/rest/staff",
+                method: "get",
+                success: function (resp) {
+                    if (resp != null) {
+                        staff = resp;
+                        for (var i = 0; i < staff.length; i++) {
+                            // console.log(staff[i].staffDepartmentNo);
+                            // console.log(staff[i].staffId);
+                            $(".reservation-select").append($("<option>").append(staff[i].staffId).addClass("reservation-option").val(staff[i].staffId));
+                            // if(staff[i].staffDepartmentNo == 1){
+                            // }else{
+                            //     console.log("의사가 아님");
+                            // }
+                        }
+                    } else {
+                        console.log("실패");
+                    }
+                }
+            });
+
+            
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth', //캘린더 화면
                 dateClick: function (info) { //날짜 클릭 시
-                    console.log('Date: ' + info.dateStr);
-                    $("#modal01").modal("show");
+                    // console.log('Date: ' + info.dateStr);
+                    var date = info.dateStr;
+                    $("#modal01").modal("show"); //모달 도출
+                    $(".modal-date").val(date); // 날짜 삽입
+                    $(".modal-text").val(""); // 텍스트창 초기화
+                    // console.log(staff);
+                    $(".reservation-select").val($(".select-option").val());
+                    $("[name=time]").prop('checked', false);
+                    
                 },
 
                 eventClick: function (event) { //이벤트 클릭 시
@@ -46,12 +75,12 @@
                 locale: 'ko', // 한국어 설정
                 // navLinks: true, // 날짜 선택하면 해당 날짜 화면
                 editable: true, // 수정 가능 여부
-                events: [
-                    {
-                        title: '테스트',
-                        start: '2022-12-05T12:55'
-                    }
-                ]
+                // events: [
+                //     {
+                //         title: '테스트',
+                //         start: '2022-12-05T12:55'
+                //     }
+                // ]
 
 
                 // events:function(info, successCallback, failureCallback){
@@ -66,6 +95,18 @@
             });
 
             calendar.render();
+
+            $(".reservation-select").change(function () {
+                console.log($(".reservation-select").val());
+            });
+
+            $(".btn-reservation").click(function () {
+                console.log("테스트");
+            });
+            $("[name=time]").change(function () {
+                console.log($(this).val());
+            });
+
         });
     </script>
 </head>
@@ -85,11 +126,53 @@
                     </div>
                     <!-- 모달 바디 : 사용자에게 알려줄 내용 영역 -->
                     <div class="modal-body">
-                        <input class="input" type="text" />
+                        <label>예약일</label>
+                        <input class="modal-date form-control" type="date">
+                        <label>주치의</label>
+                        <select class="form-control reservation-select">
+                            <option class="select-option">선택</option>
+                        </select>
+                        <label>시간 단위</label>
+                        <div class="row">
+                            <label class="col-3">
+                                <i class="bi bi-clock"></i>09:00
+                                <input class="opacity-0" name="time" type="radio" value="09:00">
+                            </label>
+                            <label class="col-3">
+                                <i class="bi bi-clock"></i>10:00
+                                <input class="opacity-0" name="time" type="radio" value="10:00">
+                            </label>
+                            <label class="col-3">
+                                <i class="bi bi-clock"></i>11:00
+                                <input class="opacity-0" name="time" type="radio" value="11:00">
+                            </label>
+                            <label class="col-3">
+                                <i class="bi bi-clock"></i>01:00
+                                <input class="opacity-0" name="time" type="radio" value="01:00">
+                            </label>
+                            <label class="col-3">
+                                <i class="bi bi-clock"></i>02:00
+                                <input class="opacity-0" name="time" type="radio" value="02:00">
+                            </label>
+                            <label class="col-3">
+                                <i class="bi bi-clock"></i>03:00
+                                <input class="opacity-0" name="time" type="radio" value="03:00">
+                            </label>
+                            <label class="col-3">
+                                <i class="bi bi-clock"></i>04:00
+                                <input class="opacity-0" name="time" type="radio" value="04:00">
+                            </label>
+                            <label class="col-3">
+                                <i class="bi bi-clock"></i>05:00
+                                <input class="opacity-0" name="time" type="radio" value="05:00">
+                            </label>
+                        </div>
+                        <label>증상</label>
+                        <textarea style="resize: none;" class="form-control modal-text" rows="5"></textarea>
                     </div>
                     <!-- 모달 푸터 : 버튼들이 위치한 영역 -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">예약</button>
+                        <button type="button" class="btn btn-primary btn-reservation">예약</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                     </div>
                 </div>
