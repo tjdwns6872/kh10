@@ -27,7 +27,8 @@
         $(function () {
             var calendarEl = $('#calendar')[0];
             var staff;
-            $.ajax({
+            var patient;
+            $.ajax({ // 의사 출력
                 url: "http://localhost:8888/rest/staff",
                 method: "get",
                 success: function (resp) {
@@ -48,7 +49,18 @@
                 }
             });
 
-            
+            $.ajax({ // 환자 출력
+                url: "http://localhost:8888/rest/patient",
+                method: "get",
+                success: function (resp) {
+                    if (resp != null) {
+                        patient = resp;
+                    } else {
+                        console.log("실패");
+                    }
+                }
+            });
+
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth', //캘린더 화면
                 dateClick: function (info) { //날짜 클릭 시
@@ -75,10 +87,11 @@
                 locale: 'ko', // 한국어 설정
                 // navLinks: true, // 날짜 선택하면 해당 날짜 화면
                 editable: true, // 수정 가능 여부
+
                 // events: [
                 //     {
                 //         title: '테스트',
-                //         start: '2022-12-05T12:55'
+                //         start: '2022-12-05'
                 //     }
                 // ]
 
@@ -98,6 +111,17 @@
 
             $(".reservation-select").change(function () {
                 console.log($(".reservation-select").val());
+            });
+            $(".modal-patient").blur(function () {
+                var patientJudg;
+                for(var i = 0; i < patient.length; i++){
+                    patientJudg = $(".modal-patient").val() == patient[i].patientName;
+                    if(patientJudg){
+                        console.log($(".modal-patient").val());
+                        break;
+                    }
+                }
+                console.log(patientJudg);
             });
 
             $(".btn-reservation").click(function () {
@@ -132,38 +156,40 @@
                         <select class="form-control reservation-select">
                             <option class="select-option">선택</option>
                         </select>
+                        <label>환자이름</label>
+                        <input class="form-control modal-patient">
                         <label>시간 단위</label>
                         <div class="row">
                             <label class="col-3">
-                                <i class="bi bi-clock"></i>09:00
+                                <i class="bi bi-clock"></i> 09:00
                                 <input class="opacity-0" name="time" type="radio" value="09:00">
                             </label>
                             <label class="col-3">
-                                <i class="bi bi-clock"></i>10:00
+                                <i class="bi bi-clock"></i> 10:00
                                 <input class="opacity-0" name="time" type="radio" value="10:00">
                             </label>
                             <label class="col-3">
-                                <i class="bi bi-clock"></i>11:00
+                                <i class="bi bi-clock"></i> 11:00
                                 <input class="opacity-0" name="time" type="radio" value="11:00">
                             </label>
                             <label class="col-3">
-                                <i class="bi bi-clock"></i>01:00
+                                <i class="bi bi-clock"></i> 01:00
                                 <input class="opacity-0" name="time" type="radio" value="01:00">
                             </label>
                             <label class="col-3">
-                                <i class="bi bi-clock"></i>02:00
+                                <i class="bi bi-clock"></i> 02:00
                                 <input class="opacity-0" name="time" type="radio" value="02:00">
                             </label>
                             <label class="col-3">
-                                <i class="bi bi-clock"></i>03:00
+                                <i class="bi bi-clock"></i> 03:00
                                 <input class="opacity-0" name="time" type="radio" value="03:00">
                             </label>
                             <label class="col-3">
-                                <i class="bi bi-clock"></i>04:00
+                                <i class="bi bi-clock"></i> 04:00
                                 <input class="opacity-0" name="time" type="radio" value="04:00">
                             </label>
                             <label class="col-3">
-                                <i class="bi bi-clock"></i>05:00
+                                <i class="bi bi-clock"></i> 05:00
                                 <input class="opacity-0" name="time" type="radio" value="05:00">
                             </label>
                         </div>
