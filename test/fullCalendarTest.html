@@ -5,7 +5,7 @@
 
     <style>
         #calendar {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
         }
         .radio-time-color{
@@ -36,19 +36,7 @@
             var patient; // 환자 객체를 저장할 변수
             var patientNo; // 환자 번호를 저장할 변수
             var reservation; // 예약 객체를 저장할 변수
-            $.ajax({
-                url: "http://localhost:8888/rest/reservation",
-                method: "get",
-                success: function (resp) {
-                    if(resp != null){
-                        console.log(resp);
-                        reservation = resp;
-                        // console.log(reservation[0].reservationTime);
-                    }else{
-                        console.log("실패");
-                    }
-                }
-            });
+
             $.ajax({ // 의사 출력
                 url: "http://localhost:8888/rest/staff",
                 method: "get",
@@ -88,20 +76,23 @@
                     var date = info.dateStr;
                     $("#modal01").modal("show"); //모달 도출
                     $(".modal-date").val(date); // 날짜 삽입
+                    // $.ajax({ // 해당 날짜의 예약 목록 불러오기
+
+                    // });
                     $(".symptom-modal-textarea").val(""); // 텍스트창 초기화
                     // console.log(staff);
-                    $(".doctor-reservation-select").val($(".select-option").val());
-                    $(".modal-patient").val("");
-                    for (var i = 0; i < $("[name=time]").length; i++) {
+                    $(".doctor-reservation-select").val($(".select-option").val()); // 의사 선택 초기화
+                    $(".modal-patient").val(""); // 환자 텍스트창 초기화
+                    for (var i = 0; i < $("[name=time]").length; i++) { // 시간 선택 아이콘 초기화
                         $("[name=time]").prev().removeClass("radio-time-color");
                         // console.log($(this).prev());
                     };
-                    $("[name=time]").prop('checked', false);
+                    $("[name=time]").prop('checked', false); // 시간 선택 라디오 버튼 체크 해제
                 },
 
                 eventClick: function (event) { //이벤트 클릭 시
-                    console.log(event);
-                    $("#modal01").modal("show");
+                    // console.log(event);
+                    $("#modal02").modal("show"); //모달 도출
                     console.log("제목 : " + event.event.title);
                     console.log("날짜 : " + event.event.startStr);
                     console.log("날짜(시간포함) : " + event.event.start);
@@ -112,21 +103,27 @@
                 // navLinks: true, // 날짜 선택하면 해당 날짜 화면
                 editable: true, // 수정 가능 여부
 
-                // events: [
-                //     {
-                //         title: '테스트',
-                //         start: '2022-12-05'
-                //     }
-                // ]
-
-
-                // events:function(info, successCallback, failureCallback){
-                //     $.ajax({
-                //         url:"",
-                //         dataType:"json",
-                //         method:"post",
-                //     });
-                // }
+                events: [
+                    // 하루에 예약이 3개 이상이면 예약 n건으로 출력
+                    $.ajax({
+                        url: "http://localhost:8888/rest/reservation",
+                        method: "get",
+                        success: function (resp) {
+                            if (resp != null) {
+                                console.log(resp);
+                                reservation = resp;
+                                for(var i = 0; i < reservation.length; i++){
+                                    calendar.addEvent({
+                                        title: reservation[i]['reservationStaffId'],
+                                        start: reservation[i]['reservationDate']+'T'+reservation[i]['reservationTime']
+                                    })
+                                }
+                            } else {
+                                console.log("실패");
+                            }
+                        }
+                    })
+                ]
 
 
             });
@@ -141,6 +138,10 @@
                     if($(".doctor-reservation-select").val() == reservation[i].reservationStaffId){
                         // console.log(reservation[i].reservationStaffId);
                         console.log(reservation[i].reservationTime); // 예약 시간 확인
+                        // console.log($("[name=time]:checked").val());
+                        if(reservation[i].reservationTime == $("[name=time]").val()){
+                            console.log("확인");
+                        }
                         
                     }
                 }
@@ -176,13 +177,30 @@
             });
 
             $(".btn-reservation").click(function () {
+                var data = {
+                    reservationStaffId:$(".doctor-reservation-select").val(),
+                    reservationPatientNo : patientNo,
+                    reservationDate : $(".modal-date").val(),
+                    reservationContent:$(".symptom-modal-textarea").val(),
+                    reservationTime:$("[name=time]:checked").val()
+                };
                 console.log($(".doctor-reservation-select").val());
                 console.log(patientNo);
                 console.log($(".modal-date").val());
                 console.log($(".symptom-modal-textarea").val());
                 console.log($("[name=time]:checked").val());
+                $.ajax({
+                    url:"http://localhost:8888/rest/reservation",
+                    method:"post",
+                    contentType:"application/json",
+                    data:JSON.stringify(data),
+                    success:function(){
+                        console.log("성공");
+                        $('#modal01').modal('hide');
+                        location.reload();
+                    }
+                });
             });
-
         });
     </script>
 </head>
@@ -251,6 +269,28 @@
                     <!-- 모달 푸터 : 버튼들이 위치한 영역 -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary btn-reservation">예약</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal02" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 모달 헤더 : 제목 영역 -->
+                    <div class="modal-header">
+                        <h5 class="modal-title">예약 확인</h5>
+
+                        <!-- x 버튼 -->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- 모달 바디 : 사용자에게 알려줄 내용 영역 -->
+                    <div class="modal-body">
+
+                    </div>
+                    <!-- 모달 푸터 : 버튼들이 위치한 영역 -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">확인</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                     </div>
                 </div>
