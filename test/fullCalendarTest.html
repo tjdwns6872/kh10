@@ -14,6 +14,12 @@
         .bi-clock{
             color: blue;
         }
+        .disabled-button{
+            display: none;
+        }
+        #time-reservation{
+            color: red;
+        }
     </style>
     <meta charset='utf-8' />
 
@@ -37,6 +43,8 @@
             var patientNo; // 환자 번호를 저장할 변수
             var reservation; // 전체 예약 객체를 저장할 변수
             var reservationDate; // 하루 예약 객체를 저장할 변수
+            var reservationNo; // 삭제를 위해 예약 번호 저장할 변수
+            var date;
 
             $.ajax({ // 의사 출력
                 url: "http://localhost:8888/rest/staff",
@@ -72,9 +80,14 @@
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth', //캘린더 화면
+                headerToolbar: {
+                    left: '',
+                    center: 'title',
+                    right: ''
+                },
                 dateClick: function (info) { //날짜 클릭 시
                     // console.log('Date: ' + info.dateStr);
-                    var date = info.dateStr;
+                    date = info.dateStr;
                     $("#modal01").modal("show"); //모달 도출
                     $(".modal-date").val(date); // 날짜 삽입
                     $.ajax({ // 해당 날짜의 예약 목록 불러오기
@@ -94,31 +107,28 @@
                         $("[name=time]").prev().removeClass("radio-time-color");
                         // console.log($(this).prev());
                     };
+                    $("[name=time]").each(function () {
+                        $(this).parent().removeClass("disabled-button");
+                    });
                     $("[name=time]").prop('checked', false); // 시간 선택 라디오 버튼 체크 해제
                 },
 
                 eventClick: function (event) { //이벤트 클릭 시
                     console.log(event);
                     $("#modal02").modal("show"); //모달 도출
-                    // $(".btn-test").click(function(){
-                    //     $.ajax({
-                    //         url:"http://localhost:8888/rest/reservation",
-                    //         method: "delete",
-                    //         success:function(resp){
-                    //             console.log(resp);
-                    //         }
-                    //     });
-                    // });
+                    // 의사 아이디를 통해 이름 출력 
                     console.log("제목 : " + event.event.title);
                     console.log("날짜 : " + event.event.startStr);
                     console.log("날짜(시간포함) : " + event.event.start);
+                    console.log("아이디 : " + event.event.id);
+                    reservationNo = event.event.id;
                 },
                 themeSystem: 'bootstrap5',
                 selectable: true, // 날짜 선택
                 locale: 'ko', // 한국어 설정
                 // navLinks: true, // 날짜 선택하면 해당 날짜 화면
                 editable: true, // 수정 가능 여부
-
+                
                 events: [
                     // 하루에 예약이 3개 이상이면 예약 n건으로 출력
                     $.ajax({
@@ -126,7 +136,7 @@
                         method: "get",
                         success: function (resp) {
                             if (resp != null) {
-                                console.log(resp);
+                                // console.log(resp);
                                 reservation = resp;
                                 for(var i = 0; i < reservation.length; i++){
                                     calendar.addEvent({
@@ -150,18 +160,38 @@
             $(".doctor-reservation-select").change(function () {
                 // 여기에 해당 의사가 예약이 몇개인지 그리고 시간때를 불러온다
                 // 3개 이하일 때 예약된 시간을 비활성화 시키고 출력
+                // 현재 날짜와 직원아이디로 리스트 뽑아서 시간 비교
+                // 시간과 라디오 버튼 벨류 값이랑 비교해서 같은 건 히든으로 숨기기
                 // console.log($(".doctor-reservation-select").val());
-                for(var i = 0; i < reservation.length; i++){ // 선택한 의사가 예약 테이블에 있을 때
-                    if($(".doctor-reservation-select").val() == reservation[i].reservationStaffId){
-                        // console.log(reservation[i].reservationStaffId);
-                        console.log(reservation[i].reservationTime); // 예약 시간 확인
-                        // console.log($("[name=time]:checked").val());
-                        if(reservation[i].reservationTime == $("[name=time]").val()){
-                            console.log("확인");
+                $("#time-reservation").text(" ");
+                $("[name=time]").prop('checked', false); // 시간 선택 라디오 버튼 체크 해제
+                $("[name=time]").each(function () {
+                    $(this).parent().removeClass("disabled-button");
+                });
+                $.ajax({
+                    url: "http://localhost:8888/rest/reservation/vo?reservationStaffId=" + $(".doctor-reservation-select").val() + "&reservationDate=" + date,
+                    method: "get",
+                    success: function (resp) {
+                        if (resp != 0) {
+                            if (resp.length < 3) {
+                                for (var i = 0; i < resp.length; i++) {
+                                    // console.log(resp[i].reservationTime);
+                                    $("[name=time]").each(function () {
+                                        // console.log($(this).val());
+                                        if ($(this).val() == resp[i].reservationTime) {
+                                            $(this).parent().addClass("disabled-button");
+                                        }
+                                    });
+                                }
+                            } else if (resp.length >= 3) {
+                                $("[name=time]").each(function () {
+                                    $(this).parent().addClass("disabled-button");
+                                    $("#time-reservation").text("예약이 다찼습니다.");
+                                });
+                            }
                         }
-                        
                     }
-                }
+                });
             });
             $(".modal-patient").blur(function () {
                 var patientJudg;
@@ -186,14 +216,20 @@
                     // console.log($(this).prev());
                 };
                 $(this).prev().addClass("radio-time-color");
-                // console.log($(this).val());
-                // console.log($(this).prev());
-                // if(reservation[0].reservationTime == $(this).val()){
-                //     console.log("확인");
-                // }
             });
 
-            
+            $(".btn-reservation-delete").click(function () {
+                console.log(reservationNo);
+                $.ajax({
+                    url: "http://localhost:8888/rest/reservation/" + reservationNo,
+                    method: "delete",
+                    success: function () {
+                        console.log("삭제완료");
+                        $('#modal01').modal('hide');
+                        location.reload();
+                    }
+                });
+            });
 
             $(".btn-reservation").click(function () {
                 var data = {
@@ -203,11 +239,11 @@
                     reservationContent:$(".symptom-modal-textarea").val(),
                     reservationTime:$("[name=time]:checked").val()
                 };
-                console.log($(".doctor-reservation-select").val());
-                console.log(patientNo);
-                console.log($(".modal-date").val());
-                console.log($(".symptom-modal-textarea").val());
-                console.log($("[name=time]:checked").val());
+                // console.log($(".doctor-reservation-select").val());
+                // console.log(patientNo);
+                // console.log($(".modal-date").val());
+                // console.log($(".symptom-modal-textarea").val());
+                // console.log($("[name=time]:checked").val());
                 $.ajax({
                     url:"http://localhost:8888/rest/reservation",
                     method:"post",
@@ -249,6 +285,7 @@
                         <input class="form-control modal-patient">
                         <label>시간 단위</label>
                         <div class="row">
+                            <span id="time-reservation"></span>
                             <label class="col-3">
                                 <i class="bi bi-clock"></i> 09:00
                                 <input class="opacity-0" name="time" type="radio" value="09:00">
@@ -305,11 +342,11 @@
                     </div>
                     <!-- 모달 바디 : 사용자에게 알려줄 내용 영역 -->
                     <div class="modal-body">
-
+                        <input id="doctor-name-confirm" class="form-control" type="text" readonly>
                     </div>
                     <!-- 모달 푸터 : 버튼들이 위치한 영역 -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-test">삭제</button>
+                        <button type="button" class="btn btn-danger btn-reservation-delete">삭제</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                     </div>
                 </div>
